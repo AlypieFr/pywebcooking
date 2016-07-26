@@ -1,5 +1,5 @@
 from .Recipe_model import Recipe
-from .Author_model import Author
+from .User_model import User
 from .Category_model import Category
 from .Ingredient_model import Ingredient
 from .IngredientGroup_model import IngredientGroup

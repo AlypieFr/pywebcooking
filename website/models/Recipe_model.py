@@ -1,5 +1,5 @@
 from django.db import models
-from .Author_model import Author
+from .User_model import User
 from .Category_model import Category
 from .Equipment_model import Equipment
 
@@ -14,6 +14,6 @@ class Recipe(models.Model):
     nb_poeple = models.IntegerField()  # Number of poeple for indicated quantities
     pub_date = models.DateTimeField('date published', auto_now=True)  # Date of recipe publishing
     last_modif = models.DateTimeField('lase modification', auto_now=True)
-    author = models.ForeignKey(Author)
+    author = models.ForeignKey(User)
     category = models.ManyToManyField(Category)  # Recipe category
     equipment = models.ManyToManyField(Equipment, through='EquipmentInRecipe')
