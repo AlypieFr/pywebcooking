@@ -9,5 +9,3 @@ from .Proposal import Proposal
 from .Comment_model import Comment
 from .Equipment_model import Equipment
 from .EquipmentInRecipe_model import EquipmentInRecipe
-
-
