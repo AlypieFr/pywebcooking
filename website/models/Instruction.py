@@ -1,5 +1,5 @@
 from django.db import models
-from .Recipe_model import Recipe
+from .Recipe import Recipe
 
 
 class Instruction(models.Model):

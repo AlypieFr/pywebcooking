@@ -1,28 +1,15 @@
-from django.db import models
-from .User_model import User
-from .Category_model import Category
-from .Equipment_model import Equipment
+from website.models import Recipe, User, Category
+
 from website.functions.exceptions import RequiredParameterException, BadParameterException
 import datetime
 
 
-class Recipe(models.Model):
-    title = models.CharField(max_length=255)
-    description = models.TextField()
-    tps_prep = models.IntegerField()  # Preparation time, in seconds
-    tps_rep = models.IntegerField(null=True, default=None)  # Break ("repos") time, in seconds
-    tps_cuis = models.IntegerField(null=True, default=None)  # Cooking ("cuisson") time
-    picture_file = models.CharField(max_length=255)  # Filename of the illustration of the recipe
-    nb_people = models.IntegerField()  # Number of people for indicated quantities
-    pub_date = models.DateTimeField('date published', auto_now=True)  # Date of recipe publishing
-    last_modif = models.DateTimeField('lase modification', auto_now=True)
-    author = models.ForeignKey(User)
-    category = models.ManyToManyField(Category)  # Recipe category
-    equipment = models.ManyToManyField(Equipment, through='EquipmentInRecipe')
+class CRecipe:
 
     @staticmethod
     def add_new(title: str, description: str, tps_prep: int, picture_file: str, nb_people: int, author: User,
-                categories: "list of Category", pub_date: datetime, tps_rep: int, tps_cuis: int) -> "Recipe":
+                categories: "list of Category" = None, pub_date: datetime = datetime.datetime.now(), tps_rep: int = None,
+                tps_cuis: int = None, nb_people_max: int = None) -> Recipe:
         """
         Add new recipe
         :param title: title of the recipe {string} [REQ]
@@ -35,6 +22,8 @@ class Recipe(models.Model):
         :param pub_date: the publication date - if not sent, use current date {datetime} [OPT]
         :param tps_rep: the break ("repos") time {int} [OPT]
         :param tps_cuis: the cooking ("cuisson") time {int} [OPT]
+        :param nb_people_max: the number of people for this recipe (max value, if filled, the min value is nb_people)
+        [OPT]
         :return: the recipe created {Recipe}
         """
 
@@ -71,6 +60,8 @@ class Recipe(models.Model):
             raise TypeError("author must be an instance of User object")
         if author is None:
             raise RequiredParameterException("author is required")
+        if nb_people_max is not None and (not isinstance(nb_people_max, int)):
+            raise TypeError("nb_people_max must be an integer")
         if categories is None:
             raise RequiredParameterException("categories is required")
         else:
@@ -80,19 +71,18 @@ class Recipe(models.Model):
                 if not isinstance(cat, Category):
                     raise TypeError("categories must be a list of Category object")
 
-        # Assign missing values (that are not required):
-        if pub_date is None:
-            pub_date = datetime.datetime.now()
-
         # Create recipe:
         r = Recipe(title=title, description=description, tps_prep=tps_prep, tps_rep=tps_rep, tps_cuis=tps_cuis,
                    picture_file=picture_file, nb_people=nb_people, author=author, pub_date=pub_date)
         r.save()
 
         # Add categories:
-        r.add_categories(categories)
+        CRecipe.add_categories(r, categories)
 
-    def add_categories(self, categories: "list of Categories"):
+        return r
+
+    @staticmethod
+    def add_categories(recipe: Recipe, categories: "list of Categories"):
         # Check parameters:
         if not isinstance(categories, list):
             raise TypeError("categories must be a list")
@@ -102,4 +92,4 @@ class Recipe(models.Model):
 
         # Do the staff:
         for cat in categories:
-            self.category.add(cat)
+            recipe.category.add(cat)

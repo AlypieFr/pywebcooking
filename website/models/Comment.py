@@ -1,6 +1,6 @@
 from django.db import models
-from .Recipe_model import Recipe
-from .User_model import User
+from .Recipe import Recipe
+from .User import User
 
 
 class Comment(models.Model):

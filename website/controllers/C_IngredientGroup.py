@@ -1,19 +1,21 @@
-from django.db import models
-from .Ingredient_model import Ingredient
-from .IngredientInGroup_model import IngredientInGroup
-from .Recipe_model import Recipe
+from website.models import IngredientGroup, IngredientInGroup, Ingredient, Recipe
+
 from website.functions.exceptions import RequiredParameterException, MissingKeyException
 
 
-class IngredientGroup(models.Model):
-    title = models.CharField(max_length=255, default="")
-    nb = models.IntegerField()
-    ingredients = models.ManyToManyField(Ingredient, through='IngredientInGroup')
-    parent = models.ForeignKey("self", default=None, null=True)
-    recipe = models.ForeignKey(Recipe)
-
+class CIngredientGroup:
     @staticmethod
-    def add_new(title: str, nb: int, ingredients: list, parent: "IngredientGroup", recipe: Recipe):
+    def add_new(title: str, nb: int, recipe: Recipe, ingredients: list = None, parent: "IngredientGroup" = None) \
+            -> IngredientGroup:
+        """
+        Add new ingredient group
+        :param title:
+        :param nb:
+        :param ingredients:
+        :param parent:
+        :param recipe:
+        :return:
+        """
         # Check parameters:
         if title is not None and (not isinstance(title, str)):
             raise TypeError("title must be a string")
@@ -25,6 +27,8 @@ class IngredientGroup(models.Model):
             raise RequiredParameterException("nb is required")
         if recipe is not None and (not isinstance(recipe, Recipe)):
             raise TypeError("recipe must be a Recipe")
+        if recipe is None:
+            raise RequiredParameterException("recipe is required")
         if ingredients is not None:
             if not isinstance(ingredients, list):
                 raise TypeError("ingredients must be a dict")
@@ -46,8 +50,9 @@ class IngredientGroup(models.Model):
         # Add ingredients:
         if ingredients is not None:
             for ingr in ingredients:
-                ingredient = Ingredient(name=ingr["name"])
-                ingredient.save()
+                ingredient = Ingredient.objects.get_or_create(name=ingr["name"])[0]
                 iig = IngredientInGroup(quantity=ingr["quantity"], unit=ingr["unit"], nb=ingr["nb"],
                                         ingredient=ingredient, ingredientGroup=ig)
                 iig.save()
+
+        return ig
