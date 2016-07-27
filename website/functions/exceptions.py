@@ -4,3 +4,7 @@ class RequiredParameterException(Exception):
 
 class BadParameterException(Exception):
     pass
+
+
+class MissingKeyException(Exception):
+    pass
