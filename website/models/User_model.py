@@ -1,4 +1,5 @@
 from django.db import models
+from .Group_model import Group
 
 
 class User(models.Model):
@@ -7,4 +8,4 @@ class User(models.Model):
     email = models.CharField(max_length=255)
     date_created = models.DateTimeField('date published', auto_now=True)
     date_last_connection = models.DateTimeField('date published', auto_now=True)
-    role = models.CharField(max_length=50)
+    group = models.ForeignKey(Group, null=True, default=None)

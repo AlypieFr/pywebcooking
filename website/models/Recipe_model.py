@@ -8,10 +8,10 @@ class Recipe(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     tps_prep = models.IntegerField()  # Preparation time, in seconds
-    tps_rep = models.IntegerField()  # Break ("repos") time, in seconds
-    tps_cuis = models.IntegerField()  # Cooking ("cuisson") time
+    tps_rep = models.IntegerField(null=True, default=None)  # Break ("repos") time, in seconds
+    tps_cuis = models.IntegerField(null=True, default=None)  # Cooking ("cuisson") time
     picture_file = models.CharField(max_length=255)  # Filename of the illustration of the recipe
-    nb_poeple = models.IntegerField()  # Number of poeple for indicated quantities
+    nb_people = models.IntegerField()  # Number of people for indicated quantities
     pub_date = models.DateTimeField('date published', auto_now=True)  # Date of recipe publishing
     last_modif = models.DateTimeField('lase modification', auto_now=True)
     author = models.ForeignKey(User)
