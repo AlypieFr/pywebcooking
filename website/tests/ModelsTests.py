@@ -1,8 +1,8 @@
 from django.test import TestCase
 
-from website.models import User, Category, Recipe, IngredientGroup, IngredientInGroup
+from website.models import User, Category, Recipe, IngredientGroup, IngredientInGroup, Instruction
 
-from website.controllers import CRecipe, CIngredientGroup
+from website.controllers import CRecipe, CIngredientGroup, CInstruction
 
 from datetime import datetime
 
@@ -59,3 +59,33 @@ class ModelsTests(TestCase):
             self.assertEqual(iigGet.quantity, ingr["quantity"])
             self.assertEqual(iigGet.nb, ingr["nb"])
             self.assertEqual(iigGet.unit, ingr["unit"])
+
+    def test_add_new_instruction(self):
+        r = self.add_new_recipe_minimalist()
+        inst = CInstruction.add_new("A new instruction", 0, r)
+        self.assertIs(inst.id is None, False)
+        inst_get = Instruction.objects.get(pk=inst.id)
+        vars_orig = vars(inst)
+        vars_get = vars(inst_get)
+        for key in vars_orig:
+            if not key.startswith("_"):
+                self.assertIs(key in vars_get, True)
+                self.assertEqual(vars_orig[key], vars_get[key])
+
+    def test_add_new_instruction_list(self):
+        inst_list = [{
+            "nb": 0,
+            "level": 2,
+            "text_inst": "My instruction 1"
+        }, {
+            "nb": 1,
+            "text_inst": "My instruction 2"
+        }]
+        r = self.add_new_recipe_minimalist()
+        CInstruction.add_new_list(inst_list, r)
+        instr1 = Instruction.objects.get(text_inst="My instruction 1")
+        self.assertEqual(instr1.nb, 0)
+        self.assertEqual(instr1.level, 2)
+        instr2 = Instruction.objects.get(text_inst="My instruction 2")
+        self.assertEqual(instr2.nb, 1)
+        self.assertEqual(instr2.level, 0)
