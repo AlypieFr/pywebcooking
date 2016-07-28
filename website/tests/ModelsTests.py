@@ -43,11 +43,14 @@ class ModelsTests(TestCase):
         ingr2 = {"nb": 2, "name": "Pommes de terre", "quantity": 400, "unit": "g"}
         ingrs = [ingr1, ingr2]
         r = self.add_new_recipe_minimalist()
-        ig = CIngredientGroup.add_new("Pour la pâte:", 1, r, ingrs)
+        ig = CIngredientGroup.add_new("Pour la pâte:", 1, r, 0, ingrs)
         self.assertIs(ig.id is None, False)
-        igGet = IngredientGroup.objects.get(pk=ig.pk)
-        iigGets = IngredientInGroup.objects.filter(ingredientGroup=igGet)
-        for iigGet in iigGets:
+        ig_get = IngredientGroup.objects.get(pk=ig.pk)
+        self.assertEqual(ig_get.title, ig.title)
+        self.assertEqual(ig_get.nb, ig.nb)
+        self.assertEqual(ig_get.level, ig.level)
+        iig_gets = IngredientInGroup.objects.filter(ingredientGroup=ig_get)
+        for iigGet in iig_gets:
             if iigGet.ingredient.name == ingr1["name"]:
                 ingr = ingr1
             else:
