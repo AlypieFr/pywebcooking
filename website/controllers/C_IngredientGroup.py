@@ -5,14 +5,14 @@ from website.functions.exceptions import RequiredParameterException, MissingKeyE
 
 class CIngredientGroup:
     @staticmethod
-    def add_new(title: str, nb: int, recipe: Recipe, ingredients: list = None, parent: "IngredientGroup" = None) \
+    def add_new(title: str, nb: int, recipe: Recipe, level: int = 0, ingredients: list = None) \
             -> IngredientGroup:
         """
         Add new ingredient group
         :param title:
         :param nb:
+        :param level:
         :param ingredients:
-        :param parent:
         :param recipe:
         :return:
         """
@@ -29,6 +29,8 @@ class CIngredientGroup:
             raise TypeError("recipe must be a Recipe")
         if recipe is None:
             raise RequiredParameterException("recipe is required")
+        if not isinstance(level, int):
+            raise TypeError("level must be an integer")
         if ingredients is not None:
             if not isinstance(ingredients, list):
                 raise TypeError("ingredients must be a dict")
@@ -37,13 +39,9 @@ class CIngredientGroup:
                 for req in required_keys:
                     if req not in ingr:
                         raise MissingKeyException("missing key for ingredient: " + req)
-        if parent is not None and (not isinstance(parent, IngredientGroup)):
-            raise TypeError("parent must be an IngredientGroup or None")
 
         # Add new IngredientGroup:
-        ig = IngredientGroup(title=title, nb=nb, recipe=recipe)
-        if parent is not None:
-            ig.parent = parent
+        ig = IngredientGroup(title=title, nb=nb, recipe=recipe, level=level)
 
         ig.save()
 
