@@ -3,7 +3,7 @@ import os
 import sys
 
 if __name__ == "__main__":
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "coolcooking.settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pywebcooking.settings")
 
     from django.core.management import execute_from_command_line
 
