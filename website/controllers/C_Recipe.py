@@ -8,8 +8,9 @@ class CRecipe:
 
     @staticmethod
     def add_new(title: str, description: str, tps_prep: int, picture_file: str, nb_people: int, author: User,
-                categories: "list of Category" = None, pub_date: datetime = datetime.datetime.now(), tps_rep: int = None,
-                tps_cuis: int = None, nb_people_max: int = None) -> Recipe:
+                categories: "list of Category" = None, pub_date: datetime = datetime.datetime.now(),
+                tps_rep: int = None, tps_cuis: int = None, nb_people_max: int = None, excerpt: str = None,
+                enable_comments: bool = True, published: bool = True) -> Recipe:
         """
         Add new recipe
         :param title: title of the recipe {string} [REQ]
@@ -23,6 +24,9 @@ class CRecipe:
         :param tps_rep: the break ("repos") time {int} [OPT]
         :param tps_cuis: the cooking ("cuisson") time {int} [OPT]
         :param nb_people_max: the number of people for this recipe (max value, if filled, the min value is nb_people)
+        :param excerpt: the excerpt of the recipe (shown in index pages)
+        :param enable_comments: enable comments for this recipe
+        :param published: is the recipe publicly published
         [OPT]
         :return: the recipe created {Recipe}
         """
@@ -71,9 +75,15 @@ class CRecipe:
                 if not isinstance(cat, Category):
                     raise TypeError("categories must be a list of Category object")
 
+        if excerpt == None:
+            desc_words = description.split(" ")
+            excerpt_words = desc_words[0:max(len(desc_words), 50)]  # TODO: set the true number of words
+            excerpt = " ".join(excerpt_words)
+
         # Create recipe:
         r = Recipe(title=title, description=description, tps_prep=tps_prep, tps_rep=tps_rep, tps_cuis=tps_cuis,
-                   picture_file=picture_file, nb_people=nb_people, author=author, pub_date=pub_date)
+                   picture_file=picture_file, nb_people=nb_people, author=author, pub_date=pub_date,
+                   enable_comments=enable_comments, excerpt=excerpt, published=published)
         r.save()
 
         # Add categories:

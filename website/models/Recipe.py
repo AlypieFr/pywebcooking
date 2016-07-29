@@ -19,3 +19,6 @@ class Recipe(models.Model):
     author = models.ForeignKey(User)
     category = models.ManyToManyField(Category)  # Recipe category
     equipment = models.ManyToManyField(Equipment, through='EquipmentInRecipe')
+    excerpt = models.TextField()
+    enable_comments = models.BooleanField(default=True)
+    published = models.BooleanField(default=True)
