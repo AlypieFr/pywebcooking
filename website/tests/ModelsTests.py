@@ -1,8 +1,9 @@
 from django.test import TestCase
 
-from website.models import User, Category, Recipe, IngredientGroup, IngredientInGroup, Instruction
+from website.models import User, Category, Recipe, IngredientGroup, IngredientInGroup, Instruction, Equipment, \
+    EquipmentInRecipe
 
-from website.controllers import CRecipe, CIngredientGroup, CInstruction
+from website.controllers import CRecipe, CIngredientGroup, CInstruction, CEquipment
 
 from datetime import datetime
 
@@ -89,3 +90,19 @@ class ModelsTests(TestCase):
         instr2 = Instruction.objects.get(text_inst="My instruction 2")
         self.assertEqual(instr2.nb, 1)
         self.assertEqual(instr2.level, 0)
+
+    def test_add_new_equipment_to_recipe(self):
+        equip_name = "My equipment 1"
+        r = self.add_new_recipe_minimalist()
+        eir = CEquipment.add_new_to_recipe(name=equip_name, quantity=1, nb=0, recipe=r)
+        self.assertIs(eir.id is None, False)
+        self.assertEqual(eir.equipment.name, equip_name)
+        self.assertEqual(eir.quantity, 1)
+        self.assertEqual(eir.nb, 0)
+        self.assertEqual(eir.recipe.id, r.id)
+        e_get = Equipment.objects.get(name="My equipment 1")
+        eir_get = EquipmentInRecipe.objects.get(equipment=e_get)
+        self.assertEqual(eir_get.equipment.name, equip_name)
+        self.assertEqual(eir_get.quantity, eir.quantity)
+        self.assertEqual(eir_get.nb, eir.nb)
+        self.assertEqual(eir_get.recipe.id, r.id)
