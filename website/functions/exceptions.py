@@ -8,3 +8,7 @@ class BadParameterException(Exception):
 
 class MissingKeyException(Exception):
     pass
+
+
+class UnknownKeyException(Exception):
+    pass
