@@ -1,9 +1,9 @@
 from django.test import TestCase
 
 from website.models import User, Category, Recipe, IngredientGroup, IngredientInGroup, Instruction, Equipment, \
-    EquipmentInRecipe
+    EquipmentInRecipe, Proposal
 
-from website.controllers import CRecipe, CIngredientGroup, CInstruction, CEquipment
+from website.controllers import CRecipe, CIngredientGroup, CInstruction, CEquipment, CProposal
 
 from datetime import datetime
 
@@ -127,3 +127,35 @@ class ModelsTests(TestCase):
             self.assertEqual(eir_get.quantity, eir.quantity)
             self.assertEqual(eir_get.nb, eir.nb)
             self.assertEqual(eir_get.recipe.id, r.id)
+
+    def test_add_new_proposal(self):
+        r = self.add_new_recipe_minimalist()
+        p = CProposal.add_new_to_recipe("My proposal 1", 0, r)
+        p_get = Proposal.objects.get(text_cons="My proposal 1")
+        self.assertIs(p_get.id is None, False)
+        vars_orig = vars(p)
+        vars_get = vars(p_get)
+        for key in vars_orig:
+            if not key.startswith("_"):
+                self.assertIs(key in vars_get, True)
+                self.assertEqual(vars_orig[key], vars_get[key])
+
+    def test_ann_new_proposal_list_to_recipe(self):
+        proposals = [{
+            "text_cons": "My proposal 2",
+            "nb": 1
+        }, {
+            "text_cons": "My proposal 3",
+            "nb": 2
+        }]
+        r = self.add_new_recipe_minimalist()
+        p_list = CProposal.add_new_list_to_recipe(proposals, r)
+        for p in p_list:
+            p_get = Proposal.objects.get(text_cons=p.text_cons)
+            self.assertIs(p_get.id is None, False)
+            vars_orig = vars(p)
+            vars_get = vars(p_get)
+            for key in vars_orig:
+                if not key.startswith("_"):
+                    self.assertIs(key in vars_get, True)
+                    self.assertEqual(vars_orig[key], vars_get[key])
