@@ -106,3 +106,24 @@ class ModelsTests(TestCase):
         self.assertEqual(eir_get.quantity, eir.quantity)
         self.assertEqual(eir_get.nb, eir.nb)
         self.assertEqual(eir_get.recipe.id, r.id)
+
+    def test_add_new_equipment_list_to_recipe(self):
+        equipments = [{
+            "name": "My equipment 2",
+            "quantity": 1,
+            "nb": 0
+        }, {
+            "name": "My equipment 3",
+            "quantity": 2,
+            "nb": 1
+        }]
+        r = self.add_new_recipe_minimalist()
+        eir_list = CEquipment.add_new_list_to_recipe(equipments, r)
+        for eir in eir_list:
+            equip_name = eir.equipment.name
+            e_get = Equipment.objects.get(name=equip_name)
+            eir_get = EquipmentInRecipe.objects.get(equipment=e_get)
+            self.assertEqual(eir_get.equipment.name, equip_name)
+            self.assertEqual(eir_get.quantity, eir.quantity)
+            self.assertEqual(eir_get.nb, eir.nb)
+            self.assertEqual(eir_get.recipe.id, r.id)
