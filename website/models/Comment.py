@@ -10,3 +10,4 @@ class Comment(models.Model):
     author = models.ForeignKey(User, null=True, default=None)
     content = models.TextField()
     recipe = models.ForeignKey(Recipe)
+    published = models.BooleanField(default=True)

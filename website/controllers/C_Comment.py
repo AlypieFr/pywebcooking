@@ -5,7 +5,7 @@ from website.functions.exceptions import RequiredParameterException
 class CComment:
     @staticmethod
     def add_new(content: str, recipe: Recipe, pseudo: str = None, mail: str = None, website: str = None,
-                author: User = None) -> Comment:
+                author: User = None, published: bool = True) -> Comment:
         # Check parameters:
         if content is not None and (not isinstance(content, str)):
             raise TypeError("content must be a string")
@@ -29,9 +29,11 @@ class CComment:
             raise RequiredParameterException("if you do not give an author, mail is required")
         if author is not None and (pseudo is not None or mail is not None or website is not None):
             raise RequiredParameterException("if you give author, you cannot give pseudo, mail or website")
+        if not isinstance(published, bool):
+            raise TypeError("published must be a boolean")
 
         # Do the add:
-        c = Comment(content=content, recipe=recipe, pseudo=pseudo, website=website, mail=mail, author=author)
+        c = Comment(content=content, recipe=recipe, pseudo=pseudo, website=website, mail=mail, author=author, published=published)
         c.save()
 
         return c
