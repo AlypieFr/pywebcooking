@@ -1,9 +1,11 @@
 from django.test import TestCase
 
 from website.models import User, Category, Recipe, IngredientGroup, IngredientInGroup, Instruction, Equipment, \
-    EquipmentInRecipe, Proposal
+    EquipmentInRecipe, Proposal, Comment
 
-from website.controllers import CRecipe, CIngredientGroup, CInstruction, CEquipment, CProposal
+from website.controllers import CRecipe, CIngredientGroup, CInstruction, CEquipment, CProposal, CComment
+
+from website.functions.exceptions import *
 
 from datetime import datetime
 
@@ -159,3 +161,58 @@ class ModelsTests(TestCase):
                 if not key.startswith("_"):
                     self.assertIs(key in vars_get, True)
                     self.assertEqual(vars_orig[key], vars_get[key])
+
+    def test_add_comment(self):
+        r = self.add_new_recipe_minimalist()
+
+        CComment.add_new(content="My comment 1", recipe=r, pseudo="Alyssia", mail="alyssia@gmail.com",
+                         website="http://www.alyssia.fr")
+        c_get = Comment.objects.get(content="My comment 1")
+        self.assertEqual(c_get.id is None, False)
+        self.assertEqual(c_get.recipe.id, r.id)
+        self.assertEqual(c_get.pseudo, "Alyssia")
+        self.assertEqual(c_get.mail, "alyssia@gmail.com")
+        self.assertEqual(c_get.website, "http://www.alyssia.fr")
+        self.assertIs(c_get.author, None)
+
+        CComment.add_new(content="My comment 2", recipe=r, pseudo="Elaura", mail="elaura@gmail.com")
+        c_get = Comment.objects.get(content="My comment 2")
+        self.assertEqual(c_get.id is None, False)
+        self.assertEqual(c_get.recipe.id, r.id)
+        self.assertEqual(c_get.pseudo, "Elaura")
+        self.assertEqual(c_get.mail, "elaura@gmail.com")
+        self.assertIs(c_get.website, None)
+        self.assertIs(c_get.author, None)
+        author = User(first_name="Alyssia", last_name="Frênaie", email="alyssia.frenaie@gmail.com")
+        author.save()
+
+        CComment.add_new(content="My comment 3", recipe=r, author=author)
+        c_get = Comment.objects.get(content="My comment 3")
+        self.assertEqual(c_get.id is None, False)
+        self.assertEqual(c_get.recipe.id, r.id)
+        self.assertIs(c_get.pseudo, None)
+        self.assertIs(c_get.mail, None)
+        self.assertEqual(c_get.author.first_name, "Alyssia")
+        self.assertEqual(c_get.author.last_name, "Frênaie")
+        self.assertEqual(c_get.author.email, "alyssia.frenaie@gmail.com")
+
+        try:
+            CComment.add_new(content="My comment 4", recipe=r, pseudo="Martin")
+            self.fail("This test is expected to fail")
+        except RequiredParameterException as e:
+            if str(e) != "if you do not give an author, mail is required":
+                self.fail("RequiredParameterException: " + e)
+
+        try:
+            CComment.add_new(content="My comment 5", recipe=r, mail="martin@gmail.com")
+            self.fail("This test is expected to fail")
+        except RequiredParameterException as e:
+            if str(e) != "if you do not give an author, pseudo is required":
+                self.fail("RequiredParameterException: " + e)
+
+        try:
+            CComment.add_new(content="My comment 6", recipe=r, author=author, pseudo="Houbi")
+            self.fail("This test is expected to fail")
+        except RequiredParameterException as e:
+            if str(e) != "if you give author, you cannot give pseudo, mail or website":
+                self.fail("RequiredParameterException: " + e)
