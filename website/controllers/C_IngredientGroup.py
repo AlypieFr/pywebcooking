@@ -5,7 +5,7 @@ from website.functions.exceptions import RequiredParameterException, MissingKeyE
 
 class CIngredientGroup:
     @staticmethod
-    def add_new(title: str, nb: int, recipe: Recipe, level: int = 0, ingredients: list = None) \
+    def add_new(title: str, nb: int, recipe: Recipe, level: int = 0, ingredients: "list of dict" = None) \
             -> IngredientGroup:
         """
         Add new ingredient group
