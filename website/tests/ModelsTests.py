@@ -201,18 +201,18 @@ class ModelsTests(TestCase):
             self.fail("This test is expected to fail")
         except RequiredParameterException as e:
             if str(e) != "if you do not give an author, mail is required":
-                self.fail("RequiredParameterException: " + e)
+                self.fail("RequiredParameterException: " + str(e))
 
         try:
             CComment.add_new(content="My comment 5", recipe=r, mail="martin@gmail.com")
             self.fail("This test is expected to fail")
         except RequiredParameterException as e:
             if str(e) != "if you do not give an author, pseudo is required":
-                self.fail("RequiredParameterException: " + e)
+                self.fail("RequiredParameterException: " + str(e))
 
         try:
             CComment.add_new(content="My comment 6", recipe=r, author=author, pseudo="Houbi")
             self.fail("This test is expected to fail")
         except RequiredParameterException as e:
             if str(e) != "if you give author, you cannot give pseudo, mail or website":
-                self.fail("RequiredParameterException: " + e)
+                self.fail("RequiredParameterException: " + str(e))
