@@ -216,3 +216,13 @@ class ModelsTests(TestCase):
         except RequiredParameterException as e:
             if str(e) != "if you give author, you cannot give pseudo, mail or website":
                 self.fail("RequiredParameterException: " + str(e))
+
+    def test_build_html_for_ig(self):
+        ingr1 = {"name": "Carottes", "quantity": 2, "nb": 1, "unit": ""}
+        ingr2 = {"nb": 2, "name": "Pommes de terre", "quantity": 400, "unit": "g de"}
+        ingrs = [ingr1, ingr2]
+        r = self.add_new_recipe_minimalist()
+        ig = CIngredientGroup.add_new("Pour la pâte à tarte:", 1, r, 1, ingrs)
+        html = CIngredientGroup.build_html_for_ig(ig)
+        html_expected = "<li>Pour la pâte à tarte:</li><ul><li>2 Carottes</li><li>400 g de Pommes de terre</li></ul>"
+        self.assertEqual(html_expected, html)

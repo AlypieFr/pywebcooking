@@ -54,3 +54,53 @@ class CIngredientGroup:
                 iig.save()
 
         return ig
+
+    @staticmethod
+    def __sort_by_nb__(a):
+        return a.nb
+
+    @staticmethod
+    def build_html_for_ig(ingredient_group: IngredientGroup) -> str:
+        html = ""
+        has_title = ingredient_group.title is not None and len(ingredient_group.title) > 0
+        level = ingredient_group.level
+
+        if has_title and level > 0:
+            html += "<li>" + ingredient_group.title + "</li>"
+        elif has_title:
+            html += ingredient_group.title
+
+        ingredients_query = IngredientInGroup.objects.filter(ingredientGroup=ingredient_group)
+        ingredients = []
+        for ingr in ingredients_query:
+            ingredients.append(ingr)
+        ingredients.sort(key=lambda i: i.nb)
+
+        quantity_transform = {
+            0.2: "1/5",
+            0.25: "1/4",
+            0.33: "1/3",
+            0.4: "2/5",
+            0.5: "1/2",
+            0.6: "3/5",
+            0.67: "2/3",
+            0.75: "3/4",
+            0.8: "4/5"
+        }
+
+        if len(ingredients) > 0:
+            html += "<ul>"
+            for ingr in ingredients:
+                qte = round(ingr.quantity, 2)
+                quantity = str(ingr.quantity)
+                if qte in quantity_transform:
+                    quantity = quantity_transform[qte]
+                elif quantity[-2:] == ".0":  # Remove .0 if any
+                    quantity = quantity[:-2]
+                unit = ""
+                if len(ingr.unit) > 0:
+                    unit = ingr.unit + " "
+                html += "<li>" + quantity + " " + unit + ingr.ingredient.name + "</li>"
+            html += "</ul>"
+
+        return html
