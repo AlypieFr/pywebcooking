@@ -67,3 +67,24 @@ class CProposal:
             p_list.append(CProposal.add_new_to_recipe(proposal["text_cons"], proposal["nb"], recipe))
 
         return p_list
+
+    @staticmethod
+    def build_html_for_proposals(recipe: Recipe) -> str:
+        # Check parameters:
+        if recipe is not None and (not isinstance(recipe, Recipe)):
+            raise TypeError("recipe must be an instance of the Recipe class")
+        if recipe is None:
+            raise RequiredParameterException("recipe is required")
+
+        proposals_query = recipe.proposal_set.iterator()
+        proposals = []
+        for p in proposals_query:
+            proposals.append(p)
+        proposals.sort(key=lambda k: k.nb)
+
+        html = "<ul>"
+        for p in proposals:
+            html += "<li>" + p.text_cons + "</li>"
+        html += "</ul>"
+
+        return html

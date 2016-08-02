@@ -282,3 +282,13 @@ class TModels(TestCase):
         html_expected = "<ol><li>instr 1</li><li>instr 2 :</li><ol><li>instr 3</li><li>instr 4 :</li><ol><li>instr 5" \
                         "</li><li>instr 6</li></ol><li>instr 7</li></ol><li>instr 8</li><li>instr 9</li></ol>"
         self.assertEqual(html_expected, html)
+
+    def test_build_recipe_proposals(self):
+        r = self.add_new_recipe_minimalist()
+        CProposal.add_new_to_recipe("cons 1", 0, r)
+        CProposal.add_new_to_recipe("cons 2", 1, r)
+        CProposal.add_new_to_recipe("cons 3", 2, r)
+
+        html = CProposal.build_html_for_proposals(r)
+        html_expected = "<ul><li>cons 1</li><li>cons 2</li><li>cons 3</li></ul>"
+        self.assertEqual(html_expected, html)
