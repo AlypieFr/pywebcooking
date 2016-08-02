@@ -286,9 +286,18 @@ class TModels(TestCase):
     def test_build_recipe_proposals(self):
         r = self.add_new_recipe_minimalist()
         CProposal.add_new_to_recipe("cons 1", 0, r)
-        CProposal.add_new_to_recipe("cons 2", 1, r)
         CProposal.add_new_to_recipe("cons 3", 2, r)
+        CProposal.add_new_to_recipe("cons 2", 1, r)
 
         html = CProposal.build_html_for_proposals(r)
         html_expected = "<ul><li>cons 1</li><li>cons 2</li><li>cons 3</li></ul>"
         self.assertEqual(html_expected, html)
+
+    def test_build_recipe_equipments(self):
+        r = self.add_new_recipe_minimalist()
+        CEquipment.add_new_to_recipe("equipment 3", 3, 2, r)
+        CEquipment.add_new_to_recipe("equipment 1", 1, 0, r)
+        CEquipment.add_new_to_recipe("equipment 2", 2, 1, r)
+
+        html = CEquipment.build_html_for_equipments(r)
+        html_expected = "<ul><li>equipment 1</li><li>equipment 2</li><li>equipment 3</li></ul>"

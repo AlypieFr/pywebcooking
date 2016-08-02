@@ -81,3 +81,23 @@ class CEquipment:
                                                          recipe))
 
         return eir_list
+
+    @staticmethod
+    def build_html_for_equipments(recipe: Recipe) -> str:
+        # Check parameters:
+        if recipe is not None and (not isinstance(recipe, Recipe)):
+            raise TypeError("recipe must be an instance of the Recipe class")
+        if recipe is None:
+            raise RequiredParameterException("recipe is required")
+
+        equipments_query = recipe.equipmentinrecipe_set.iterator()
+        equipments = []
+        for eq in equipments_query:
+            equipments.append(eq)
+        equipments.sort(key=lambda k: k.nb)
+
+        html = "<ul>"
+        for eq in equipments:
+            html += "<li>" + str(eq.quantity) + " " + eq.equipment.name + "</li>"
+
+        return html
