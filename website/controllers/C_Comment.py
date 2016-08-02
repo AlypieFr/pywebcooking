@@ -33,7 +33,8 @@ class CComment:
             raise TypeError("published must be a boolean")
 
         # Do the add:
-        c = Comment(content=content, recipe=recipe, pseudo=pseudo, website=website, mail=mail, author=author, published=published)
+        c = Comment(content=content, recipe=recipe, pseudo=pseudo, website=website, mail=mail, author=author,
+                    published=published)
         c.save()
 
         return c
