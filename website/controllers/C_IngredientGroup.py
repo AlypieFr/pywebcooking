@@ -136,7 +136,7 @@ class CIngredientGroup:
         ingredient_groups = []
         for ig in ingredient_groups_query:
             ingredient_groups.append(ig)
-        ingredient_groups.sort(key=lambda i: i.nb)
+        ingredient_groups.sort(key=lambda k: k.nb)
 
         html = ""
 
