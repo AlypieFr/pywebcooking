@@ -10,7 +10,7 @@ from website.functions.exceptions import *
 from datetime import datetime
 
 
-class ModelsTests(TestCase):
+class TModels(TestCase):
     def recipe_test(self, title: str, description: str, tps_prep: int, picture_file: str, nb_people: int, author: User,
                     categories: "list of Category" = None, pub_date: datetime = datetime.now(), tps_rep: int = None,
                     tps_cuis: int = None, nb_people_max: int = None):

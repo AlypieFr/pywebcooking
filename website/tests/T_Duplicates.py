@@ -2,14 +2,14 @@ from django.test import TestCase
 from django.db.utils import IntegrityError
 from django.db import transaction
 
-from website.tests import ModelsTests
+from website.tests import TModels
 
 from website.controllers import CIngredientGroup, CInstruction, CProposal, CEquipment
 
 
 class TDuplicates(TestCase):
     def test_duplicate_exceptions(self):
-        m = ModelsTests()
+        m = TModels()
         r = m.add_new_recipe_minimalist()
 
         # Test 1: for IngredientGroup in Recipe:
