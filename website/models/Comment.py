@@ -11,3 +11,4 @@ class Comment(models.Model):
     content = models.TextField()
     recipe = models.ForeignKey(Recipe)
     published = models.BooleanField(default=True)
+    pub_date = models.DateTimeField('date published', auto_now=True)

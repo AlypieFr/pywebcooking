@@ -7,3 +7,6 @@ class Instruction(models.Model):
     level = models.IntegerField(default=0)
     text_inst = models.TextField()
     recipe = models.ForeignKey(Recipe)
+
+    class Meta:
+        unique_together = ('nb', 'recipe')

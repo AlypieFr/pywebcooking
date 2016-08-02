@@ -8,3 +8,6 @@ class EquipmentInRecipe(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     quantity = models.FloatField()
     nb = models.IntegerField()
+
+    class Meta:
+        unique_together = ('nb', 'recipe')

@@ -9,3 +9,6 @@ class IngredientInGroup(models.Model):
     quantity = models.FloatField()
     unit = models.CharField(max_length=100)
     nb = models.IntegerField()
+
+    class Meta:
+        unique_together = ('ingredientGroup', 'nb')

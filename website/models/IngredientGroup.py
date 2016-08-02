@@ -9,3 +9,6 @@ class IngredientGroup(models.Model):
     level = models.IntegerField(default=0)
     ingredients = models.ManyToManyField(Ingredient, through='IngredientInGroup')
     recipe = models.ForeignKey(Recipe)
+
+    class Meta:
+        unique_together = ('nb', 'recipe')
