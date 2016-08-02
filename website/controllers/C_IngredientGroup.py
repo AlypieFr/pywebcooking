@@ -19,8 +19,8 @@ class CIngredientGroup:
         # Check parameters:
         if title is not None and (not isinstance(title, str)):
             raise TypeError("title must be a string")
-        if title is None or len(title) == 0:
-            raise RequiredParameterException("title is required and must be not empty")
+        if title is None:
+            raise RequiredParameterException("title is required (can be empty)")
         if nb is not None and (not isinstance(nb, int)):
             raise TypeError("nb must be an integer")
         if nb is None:
@@ -56,11 +56,19 @@ class CIngredientGroup:
         return ig
 
     @staticmethod
-    def __sort_by_nb__(a):
-        return a.nb
+    def build_html_for_ig(ingredient_group: IngredientGroup) -> "str, bool":
+        """
+        Build html for an ingredient group
+        :param ingredient_group: the ingredient group
+        :return: the html, has ingredients
+        """
+        # Check parameters:
+        if ingredient_group is not None and (not isinstance(ingredient_group, IngredientGroup)):
+            raise TypeError("ingredient_group must be an instance of the IngredientGroup class")
+        if ingredient_group is None:
+            raise RequiredParameterException("ingredient_group is required")
 
-    @staticmethod
-    def build_html_for_ig(ingredient_group: IngredientGroup) -> str:
+        # Do the staff:
         html = ""
         has_title = ingredient_group.title is not None and len(ingredient_group.title) > 0
         level = ingredient_group.level
@@ -88,8 +96,12 @@ class CIngredientGroup:
             0.8: "4/5"
         }
 
+        has_ingr = False
+
         if len(ingredients) > 0:
-            html += "<ul>"
+            has_ingr = True
+            if has_title:
+                html += "<ul>"
             for ingr in ingredients:
                 qte = round(ingr.quantity, 2)
                 quantity = str(ingr.quantity)
@@ -99,8 +111,56 @@ class CIngredientGroup:
                     quantity = quantity[:-2]
                 unit = ""
                 if len(ingr.unit) > 0:
-                    unit = ingr.unit + " "
+                    unit = ingr.unit
+                    if unit[-1] != "'":
+                        unit += " "
                 html += "<li>" + quantity + " " + unit + ingr.ingredient.name + "</li>"
-            html += "</ul>"
+
+        return html, has_ingr
+
+    @staticmethod
+    def build_html_for_ingredients(recipe: Recipe) -> str:
+        """
+        Build html of ingredients of a given recipe
+        :param recipe: the recipe to build the html of ingredients
+        :return: the html
+        """
+        # Check parameters:
+        if recipe is not None and (not isinstance(recipe, Recipe)):
+            raise TypeError("recipe must be an instance of the Recipe class")
+        if recipe is None:
+            raise RequiredParameterException("recipe is required")
+
+        # Do the staff:
+        ingredient_groups_query = IngredientGroup.objects.filter(recipe=recipe)
+        ingredient_groups = []
+        for ig in ingredient_groups_query:
+            ingredient_groups.append(ig)
+        ingredient_groups.sort(key=lambda i: i.nb)
+
+        html = ""
+
+        last_level = 0
+        for ig in ingredient_groups:
+            level = ig.level
+            if level > last_level:
+                for i in range(last_level, level):
+                    html += "<ul>"
+            elif level < last_level:
+                for i in range(level, last_level):
+                    html += "</ul>"
+
+            html_ig, has_ingr = CIngredientGroup.build_html_for_ig(ig)
+            html += html_ig
+
+            # Update last_level:
+            if ig.title is not None and len(ig.title) > 0 and has_ingr:  # If ingredient group has title and has
+                # ingredients (so contains a <ul> but not a </ul>
+                level += 1
+            last_level = level
+
+        if last_level > 0:
+            for i in range(0, last_level):
+                html += "</ul>"
 
         return html

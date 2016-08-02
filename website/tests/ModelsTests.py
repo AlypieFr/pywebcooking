@@ -223,6 +223,45 @@ class ModelsTests(TestCase):
         ingrs = [ingr2, ingr1]
         r = self.add_new_recipe_minimalist()
         ig = CIngredientGroup.add_new("Pour la pâte à tarte:", 1, r, 1, ingrs)
-        html = CIngredientGroup.build_html_for_ig(ig)
-        html_expected = "<li>Pour la pâte à tarte:</li><ul><li>2 Carottes</li><li>400 g de Pommes de terre</li></ul>"
+        html, has_ingr = CIngredientGroup.build_html_for_ig(ig)
+        html_expected = "<li>Pour la pâte à tarte:</li><ul><li>2 Carottes</li><li>400 g de Pommes de terre</li>"
+        self.assertEqual(html_expected, html)
+
+    def test_build_recipe_ingredients(self):
+        r = self.add_new_recipe_minimalist()
+        # Group 1
+        CIngredientGroup.add_new("group 1 :", 0, r, 1, [{"name": "carottes", "quantity": 2, "unit": "", "nb": 0}])
+        # Group 2
+        CIngredientGroup.add_new("Pour les oeufs :", 1, r, 2, [{"name": "chocolat", "quantity": 100, "unit":
+                                 "g de", "nb": 0}, {"name": "sucre", "quantity": 25, "unit": "g de", "nb": 1}])
+        # Group 3
+        CIngredientGroup.add_new("", 2, r, 2, [{"name": "poires", "quantity": 3, "unit": "", "nb": 0}, {"name": "eau",
+                                               "quantity": 5, "unit": "cl d'", "nb": 1}])
+        # Group 4
+        CIngredientGroup.add_new("", 3, r, 1, [{"name": "pommes", "quantity": 4, "unit": "kg de", "nb": 0}, {"name":
+                                               "sel", "quantity": 5, "unit": "g de", "nb": 1}])
+        html = CIngredientGroup.build_html_for_ingredients(r)
+        html_expected = "<ul><li>group 1 :</li><ul><li>2 carottes</li><li>Pour les oeufs :</li><ul><li>100 g de " \
+                        "chocolat</li><li>25 g de sucre</li></ul><li>3 poires</li><li>5 cl d'eau</li></ul><li>4 kg de" \
+                        " pommes</li><li>5 g de sel</li></ul>"
+        self.assertEqual(html_expected, html)
+
+    def test_build_recipe_ingredients_2(self):
+        r = self.add_new_recipe_minimalist()
+        # Group 1
+        CIngredientGroup.add_new("group 1 :", 0, r, 1, [{"name": "carottes", "quantity": 2, "unit": "", "nb": 0}])
+        # Group 2
+        CIngredientGroup.add_new("Pour les oeufs :", 1, r, 2, [{"name": "chocolat", "quantity": 100, "unit":
+            "g de", "nb": 0}, {"name": "sucre", "quantity": 25, "unit": "g de", "nb": 1}])
+        # Group 3
+        CIngredientGroup.add_new("", 2, r, 2, [{"name": "poires", "quantity": 3, "unit": "", "nb": 0}, {"name": "eau",
+                                                                                                        "quantity": 5,
+                                                                                                        "unit": "cl d'",
+                                                                                                        "nb": 1}])
+        # Group 4
+        CIngredientGroup.add_new("Un commentaire pour finir", 3, r, 0)
+        html = CIngredientGroup.build_html_for_ingredients(r)
+        html_expected = "<ul><li>group 1 :</li><ul><li>2 carottes</li><li>Pour les oeufs :</li><ul><li>100 g de " \
+                        "chocolat</li><li>25 g de sucre</li></ul><li>3 poires</li><li>5 cl d'eau</li></ul></ul>Un " \
+                        "commentaire pour finir"
         self.assertEqual(html_expected, html)
