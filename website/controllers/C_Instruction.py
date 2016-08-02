@@ -71,3 +71,39 @@ class CInstruction:
             instrs.append(instr)
 
         return instrs
+
+    @staticmethod
+    def build_html_for_instructions(recipe: Recipe) -> str:
+        # Check parameters:
+        if recipe is not None and (not isinstance(recipe, Recipe)):
+            raise TypeError("recipe must be an instance of the Recipe class")
+        if recipe is None:
+            raise RequiredParameterException("recipe is required")
+
+        instructions_query = recipe.instruction_set.iterator()
+        instructions = []
+        for instr in instructions_query:
+            instructions.append(instr)
+
+        instructions.sort(key=lambda k: k.nb)
+        html = ""
+        last_level = 0
+        for instr in instructions:
+            level = instr.level
+            if level > last_level:
+                for i in range(last_level, level):
+                    html += "<ol>"
+            elif level < last_level:
+                for i in range(level, last_level):
+                    html += "</ol>"
+            if level > 0:
+                html += "<li>" + instr.text_inst + "</li>"
+            else:
+                html += instr.text_inst
+            last_level = level
+
+        if last_level > 0:
+            for i in range(0, last_level):
+                html += "</ol>"
+
+        return html

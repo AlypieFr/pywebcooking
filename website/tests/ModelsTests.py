@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from website.models import User, Category, Recipe, IngredientGroup, IngredientInGroup, Instruction, Equipment, \
-    EquipmentInRecipe, Proposal, Comment
+    EquipmentInRecipe, Proposal, Comment, Ingredient
 
 from website.controllers import CRecipe, CIngredientGroup, CInstruction, CEquipment, CProposal, CComment
 
@@ -264,4 +264,21 @@ class ModelsTests(TestCase):
         html_expected = "<ul><li>group 1 :</li><ul><li>2 carottes</li><li>Pour les oeufs :</li><ul><li>100 g de " \
                         "chocolat</li><li>25 g de sucre</li></ul><li>3 poires</li><li>5 cl d'eau</li></ul></ul>Un " \
                         "commentaire pour finir"
+        self.assertEqual(html_expected, html)
+
+    def test_build_recipe_instructions(self):
+        r = self.add_new_recipe_minimalist()
+        CInstruction.add_new("instr 1", 0, r, 1)
+        CInstruction.add_new("instr 3", 2, r, 2)
+        CInstruction.add_new("instr 4 :", 3, r, 2)
+        CInstruction.add_new("instr 9", 8, r, 1)
+        CInstruction.add_new("instr 5", 4, r, 3)
+        CInstruction.add_new("instr 6", 5, r, 3)
+        CInstruction.add_new("instr 7", 6, r, 2)
+        CInstruction.add_new("instr 8", 7, r, 1)
+        CInstruction.add_new("instr 2 :", 1, r, 1)
+
+        html = CInstruction.build_html_for_instructions(r)
+        html_expected = "<ol><li>instr 1</li><li>instr 2 :</li><ol><li>instr 3</li><li>instr 4 :</li><ol><li>instr 5" \
+                        "</li><li>instr 6</li></ol><li>instr 7</li></ol><li>instr 8</li><li>instr 9</li></ol>"
         self.assertEqual(html_expected, html)
