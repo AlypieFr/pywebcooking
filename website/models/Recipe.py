@@ -23,3 +23,4 @@ class Recipe(models.Model):
     excerpt = models.TextField()
     enable_comments = models.BooleanField(default=True)
     published = models.BooleanField(default=True)
+    slug = models.CharField(max_length=255)

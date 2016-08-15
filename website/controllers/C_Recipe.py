@@ -9,7 +9,7 @@ from website.controllers.C_Proposal import CProposal
 
 from website.config import RecipeConfig
 
-import datetime
+import datetime, unicodedata, re
 
 
 class CRecipe:
@@ -91,11 +91,14 @@ class CRecipe:
             excerpt_words = desc_words[0:max(len(desc_words), 50)]  # TODO: set the true number of words
             excerpt = " ".join(excerpt_words)
 
+        # Make slug:
+        slug = CRecipe.build_recipe_slug(title)
+
         # Create recipe:
         r = Recipe(title=title, description=description, tps_prep=tps_prep, tps_rep=tps_rep, tps_cuis=tps_cuis,
                    picture_file=picture_file, nb_people=nb_people, nb_people_max=nb_people_max, precision=precision,
                    author=author, pub_date=pub_date, enable_comments=enable_comments, excerpt=excerpt,
-                   published=published)
+                   published=published, slug=slug)
         r.save()
 
         # Add categories:
@@ -115,6 +118,20 @@ class CRecipe:
         # Do the staff:
         for cat in categories:
             recipe.category.add(cat)
+
+    @staticmethod
+    def build_recipe_slug(title: str):
+        slug = title.lower()
+        slug = slug.replace(" ", "_")
+        slug = str(unicodedata.normalize('NFKD', slug).encode('ASCII', 'ignore'), 'utf-8')  # Remove accents
+        slug = re.sub(r'\W', "", slug)
+        slug = re.compile(r'[a-z].*[a-z]').search(slug).group(0)
+        slug_orig = slug
+        i = 2
+        while Recipe.objects.filter(slug=slug).count() > 0:
+            slug = slug_orig + "_" + str(i)
+            i += 1
+        return slug
 
     @staticmethod
     def __get_times_details_html(recipe: Recipe):
@@ -163,7 +180,12 @@ class CRecipe:
         return html
 
     @staticmethod
-    def get_recipe_html(recipe: Recipe):
+    def get_recipe_html_from_slug(slug: str) -> str:
+        recipe = Recipe.objects.get(slug=slug)
+        return CRecipe.get_recipe_html(recipe)
+
+    @staticmethod
+    def get_recipe_html(recipe: Recipe) -> str:
         """
         Get the html of the full recipe
         :param recipe:

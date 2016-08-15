@@ -372,3 +372,32 @@ class TModels(TestCase):
         html_expected += "<div id='proposals'><p id='proposalsHeader'><strong>Conseils&#8239;:</strong></p><ul><li>" \
                          "cons 1</li><li>cons 2</li><li>cons 3</li></ul></div>"
         self.assertEqual(html_expected, html)
+
+    def test_two_recipes_with_same_title(self):
+        title = "Title of the recipe"
+        description = "My description"
+        tps_prep = 20
+        tps_rep = 140
+        tps_cuis = 65
+        picture_file = "myFile.jpg"
+        nb_people = 4
+        nb_people_max = None
+        pub_date = datetime.now()
+        author = User(first_name="Floréal", last_name="Cabanettes", email="test@gmail.com")
+        author.save()
+        cat = Category(name="Category1", url="category1")
+        cat.save()
+        categories = [cat]
+        precision = "ne vous loupez pas"
+        r1 = CRecipe.add_new(title=title, description=description, tps_prep=tps_prep, picture_file=picture_file,
+                            nb_people=nb_people, author=author, categories=categories, pub_date=pub_date,
+                            tps_rep=tps_rep, tps_cuis=tps_cuis, nb_people_max=nb_people_max, precision=precision)
+        r2 = CRecipe.add_new(title=title, description=description, tps_prep=tps_prep, picture_file=picture_file,
+                            nb_people=nb_people, author=author, categories=categories, pub_date=pub_date,
+                            tps_rep=tps_rep, tps_cuis=tps_cuis, nb_people_max=nb_people_max, precision=precision)
+        self.assertEqual(r1.slug, "title_of_the_recipe")
+        self.assertEqual(r2.slug, "title_of_the_recipe_2")
+        r1_get = Recipe.objects.get(id=r1.id)
+        self.assertEqual(r1_get.slug, "title_of_the_recipe")
+        r2_get = Recipe.objects.get(id=r2.id)
+        self.assertEqual(r2_get.slug, "title_of_the_recipe_2")
