@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from website.models import User, Category, Recipe, IngredientGroup, IngredientInGroup, Instruction, Equipment, \
-    EquipmentInRecipe, Proposal, Comment, Ingredient
+    EquipmentInRecipe, Proposal, Comment
 
 from website.controllers import CRecipe, CIngredientGroup, CInstruction, CEquipment, CProposal, CComment
 
@@ -300,4 +300,75 @@ class TModels(TestCase):
         CEquipment.add_new_to_recipe("equipment 2", 2, 1, r)
 
         html = CEquipment.build_html_for_equipments(r)
-        html_expected = "<ul><li>equipment 1</li><li>equipment 2</li><li>equipment 3</li></ul>"
+        html_expected = "<ul><li>1 equipment 1</li><li>2 equipment 2</li><li>3 equipment 3</li></ul>"
+        self.assertEqual(html_expected, html)
+
+    def add_new_recipe_full(self):
+        title = "Title of the recipe"
+        description = "My description"
+        tps_prep = 20
+        tps_rep = 140
+        tps_cuis = 65
+        picture_file = "myFile.jpg"
+        nb_people = 4
+        nb_people_max = None
+        pub_date = datetime.now()
+        author = User(first_name="Floréal", last_name="Cabanettes", email="test@gmail.com")
+        author.save()
+        cat = Category(name="Category1", url="category1")
+        cat.save()
+        categories = [cat]
+        precision = "ne vous loupez pas"
+        r = CRecipe.add_new(title=title, description=description, tps_prep=tps_prep, picture_file=picture_file,
+                            nb_people=nb_people, author=author, categories=categories, pub_date=pub_date,
+                            tps_rep=tps_rep, tps_cuis=tps_cuis, nb_people_max=nb_people_max, precision=precision)
+        # Group 1
+        CIngredientGroup.add_new("group 1 :", 0, r, 1, [{"name": "carottes", "quantity": 2, "unit": "", "nb": 0}])
+        # Group 2
+        CIngredientGroup.add_new("Pour les oeufs :", 1, r, 2, [{"name": "chocolat", "quantity": 100, "unit":
+                                 "g de", "nb": 0}, {"name": "sucre", "quantity": 25, "unit": "g de", "nb": 1}])
+        # Group 3
+        CIngredientGroup.add_new("", 2, r, 2, [{"name": "poires", "quantity": 3, "unit": "", "nb": 0}, {"name": "eau",
+                                 "quantity": 5, "unit": "cl d'", "nb": 1}])
+        # Group 4
+        CIngredientGroup.add_new("", 3, r, 1, [{"name": "pommes", "quantity": 4, "unit": "kg de", "nb": 0}, {"name":
+                                 "sel", "quantity": 5, "unit": "g de", "nb": 1}])
+        CEquipment.add_new_to_recipe("equipment 3", 3, 2, r)
+        CEquipment.add_new_to_recipe("equipment 1", 1, 0, r)
+        CEquipment.add_new_to_recipe("equipment 2", 2, 1, r)
+        CInstruction.add_new("instr 1", 0, r, 1)
+        CInstruction.add_new("instr 3", 2, r, 2)
+        CInstruction.add_new("instr 4 :", 3, r, 2)
+        CInstruction.add_new("instr 9", 8, r, 1)
+        CInstruction.add_new("instr 5", 4, r, 3)
+        CInstruction.add_new("instr 6", 5, r, 3)
+        CInstruction.add_new("instr 7", 6, r, 2)
+        CInstruction.add_new("instr 8", 7, r, 1)
+        CInstruction.add_new("instr 2 :", 1, r, 1)
+        CProposal.add_new_to_recipe("cons 1", 0, r)
+        CProposal.add_new_to_recipe("cons 3", 2, r)
+        CProposal.add_new_to_recipe("cons 2", 1, r)
+        return r
+
+    def test_full_recipe(self):
+        r = self.add_new_recipe_full()
+        html = CRecipe.get_recipe_html(r)
+        html_expected = "<div id='masquer'><div><a href='/Photos/myFile.jpg'><img class='shadow' style='float: left; " \
+                        "margin-right: 6px;' title='Title of the recipe' src='/Photos/myFile.jpg' alt='illustration' " \
+                        "width='254px' /></a></div>My description</div>"
+        html_expected += "<div id='timesDetail'><strong>Temps de préparation&#8239;: 20 min<br/>Temps de repos&#8239;" \
+                         ": 2 h 20 min<br/>Temps de cuisson&#8239;: 1 h 5 min</strong></div>"
+        html_expected += "<div id='ingredientsAndEquipments'><div id='ingredients'><p id='ingredientsHeader'><strong>" \
+                         "Ingrédients (pour 4 personnes (ne vous loupez pas))&#8239;:</strong></p>"
+        html_expected += "<ul><li>group 1 :</li><ul><li>2 carottes</li><li>Pour les oeufs :</li><ul><li>100 g de " \
+                         "chocolat</li><li>25 g de sucre</li></ul><li>3 poires</li><li>5 cl d'eau</li></ul><li>4 kg " \
+                         "de pommes</li><li>5 g de sel</li></ul>"
+        html_expected += "</div><div class='equipment'><p id='equipmentHeader'><strong>Matériel nécessaire&#8239;:" \
+                         "</strong></p><ul><li>1 equipment 1</li><li>2 equipment 2</li><li>3 equipment 3</li></ul>" \
+                         "</div></div>"
+        html_expected += "<div id='instructions'><p id='instructionsHeader'><strong>Préparation&#8239;:</strong></p>" \
+                         "<ol><li>instr 1</li><li>instr 2 :</li><ol><li>instr 3</li><li>instr 4 :</li><ol><li>instr 5" \
+                         "</li><li>instr 6</li></ol><li>instr 7</li></ol><li>instr 8</li><li>instr 9</li></ol></div>"
+        html_expected += "<div id='proposals'><p id='proposalsHeader'><strong>Conseils&#8239;:</strong></p><ul><li>" \
+                         "cons 1</li><li>cons 2</li><li>cons 3</li></ul></div>"
+        self.assertEqual(html_expected, html)

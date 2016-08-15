@@ -1,6 +1,14 @@
 from website.models import Recipe, User, Category
 
 from website.functions.exceptions import RequiredParameterException, BadParameterException
+
+from website.controllers.C_IngredientGroup import CIngredientGroup
+from website.controllers.C_Equipment import CEquipment
+from website.controllers.C_Instruction import CInstruction
+from website.controllers.C_Proposal import CProposal
+
+from website.config import RecipeConfig
+
 import datetime
 
 
@@ -9,7 +17,7 @@ class CRecipe:
     @staticmethod
     def add_new(title: str, description: str, tps_prep: int, picture_file: str, nb_people: int, author: User,
                 categories: "list of Category" = None, pub_date: datetime = datetime.datetime.now(),
-                tps_rep: int = None, tps_cuis: int = None, nb_people_max: int = None, excerpt: str = None,
+                tps_rep: int = None, tps_cuis: int = None, nb_people_max: int = None, precision: str = None, excerpt: str = None,
                 enable_comments: bool = True, published: bool = True) -> Recipe:
         """
         Add new recipe
@@ -24,6 +32,7 @@ class CRecipe:
         :param tps_rep: the break ("repos") time {int} [OPT]
         :param tps_cuis: the cooking ("cuisson") time {int} [OPT]
         :param nb_people_max: the number of people for this recipe (max value, if filled, the min value is nb_people)
+        :param precision: the precision to add to the ingredients header just after nb people
         :param excerpt: the excerpt of the recipe (shown in index pages)
         :param enable_comments: enable comments for this recipe
         :param published: is the recipe publicly published
@@ -65,7 +74,9 @@ class CRecipe:
         if author is None:
             raise RequiredParameterException("author is required")
         if nb_people_max is not None and (not isinstance(nb_people_max, int)):
-            raise TypeError("nb_people_max must be an integer")
+            raise TypeError("nb_people_max must be an integer (or None)")
+        if precision is not None and (not isinstance(precision, str)):
+            raise TypeError("precision must be a string (or None)")
         if categories is None:
             raise RequiredParameterException("categories is required")
         else:
@@ -82,8 +93,9 @@ class CRecipe:
 
         # Create recipe:
         r = Recipe(title=title, description=description, tps_prep=tps_prep, tps_rep=tps_rep, tps_cuis=tps_cuis,
-                   picture_file=picture_file, nb_people=nb_people, author=author, pub_date=pub_date,
-                   enable_comments=enable_comments, excerpt=excerpt, published=published)
+                   picture_file=picture_file, nb_people=nb_people, nb_people_max=nb_people_max, precision=precision,
+                   author=author, pub_date=pub_date, enable_comments=enable_comments, excerpt=excerpt,
+                   published=published)
         r.save()
 
         # Add categories:
@@ -103,3 +115,128 @@ class CRecipe:
         # Do the staff:
         for cat in categories:
             recipe.category.add(cat)
+
+    @staticmethod
+    def __get_times_details_html(recipe: Recipe):
+        """
+        Get html of the times of the recipe
+        :param recipe: the recipe to build times
+        :return: the html of the times
+        """
+        html = "<div id='timesDetail'>"
+        # Preparation time:
+        if recipe.tps_prep is None or recipe.tps_prep == 0:
+            raise BadParameterException("tps_prep is required and must be higher than 0")
+        tps_prep_h = int(recipe.tps_prep / 60)
+        tps_prep_min = recipe.tps_prep % 60
+        html += "<strong>" + RecipeConfig.timePreparation
+        if tps_prep_h > 0:
+            html += " " + str(tps_prep_h) + " h"
+        if tps_prep_min > 0:
+            html += " " + str(tps_prep_min) + " min"
+
+        # Break time:
+        if recipe.tps_rep is not None and recipe.tps_rep > 0:
+            tps_rep_j = int(recipe.tps_rep / 1440)
+            tps_rep_h = int((recipe.tps_rep % 1440) / 60)
+            tps_rep_min = recipe.tps_rep % 60
+            html += "<br/>" + RecipeConfig.timeRep
+            if tps_rep_j > 0:
+                html += " " + str(tps_rep_j) + " j"
+            if tps_rep_h > 0:
+                html += " " + str(tps_rep_h) + " h"
+            if tps_rep_min > 0:
+                html += " " + str(tps_rep_min) + " min"
+
+        # Cook time:
+        if recipe.tps_cuis is not None and recipe.tps_cuis > 0:
+            tps_cuis_h = int(recipe.tps_cuis / 60)
+            tps_cuis_min = recipe.tps_cuis % 60
+            html += "<br/>" + RecipeConfig.timeCuis
+            if tps_cuis_h > 0:
+                html += " " + str(tps_cuis_h) + " h"
+            if tps_cuis_min > 0:
+                html += " " + str(tps_cuis_min) + " min"
+
+        # End times:
+        html += "</strong></div>"
+        return html
+
+    @staticmethod
+    def get_recipe_html(recipe: Recipe):
+        """
+        Get the html of the full recipe
+        :param recipe:
+        :return:
+        """
+        if recipe is None:
+            raise RequiredParameterException("recipe is required")
+        if not isinstance(recipe, Recipe):
+            raise TypeError("recipe must be an instance of the Recipe class")
+        # Start html:
+        html = "<div id='masquer'>"
+
+        # Add picture:
+        html += "<div><a href='" + RecipeConfig.directory_photos + recipe.picture_file + "'><img class='shadow' " \
+                "style='float: left; margin-right: 6px;' title='" + recipe.title + "' src='" + \
+                RecipeConfig.directory_photos + recipe.picture_file + "' alt='illustration' width='" + \
+                RecipeConfig.photo_in_recipe_width + "' /></a></div>"
+
+        # Add description:
+        html += recipe.description
+
+        # End masquer div:
+        html += "</div>"
+
+        # time details:
+        html += CRecipe.__get_times_details_html(recipe)
+
+        # Ingredients headers:
+        html += "<div id='ingredientsAndEquipments'><div id='ingredients'>"
+        html += "<p id='ingredientsHeader'><strong>"
+        if recipe.nb_people_max is not None and recipe.nb_people_max > 0:
+            if recipe.precision is not None and len(recipe.precision) > 0:
+                html += RecipeConfig.ingredients_range_long % (recipe.nb_people, recipe.nb_people_max, recipe.precision)
+            else:
+                html += RecipeConfig.ingredients_range_short % (recipe.nb_people, recipe.nb_people_max)
+        else:
+            if recipe.precision is not None and len(recipe.precision) > 0:
+                if recipe.nb_people > 1:
+                    html += RecipeConfig.ingredients_long % (recipe.nb_people, recipe.precision)
+                else:
+                    html += RecipeConfig.ingredients_long_1p (recipe.nb_people, recipe.precision)
+            else:
+                if recipe.nb_people > 1:
+                    html += RecipeConfig.ingredients_short % recipe.nb_people
+                else:
+                    html += RecipeConfig.ingredients_short_1p % recipe.nb_people
+        html += "</strong></p>"
+
+        # Ingredients:
+        html += CIngredientGroup.build_html_for_ingredients(recipe)
+
+        html += "</div>"  # Close ingredients div
+
+        # Equipment:
+        if recipe.equipmentinrecipe_set.count() > 0:
+            html += "<div class='equipment'>"
+            html += "<p id='equipmentHeader'><strong>" + RecipeConfig.equipment + "</strong></p>"
+            html += CEquipment.build_html_for_equipments(recipe)
+            html += "</div>"
+
+        html += "</div>"  # Close Ingredients and equipments div
+
+        # Instructions:
+        html += "<div id='instructions'>"
+        html += "<p id='instructionsHeader'><strong>" + RecipeConfig.instructions + "</strong></p>"
+        html += CInstruction.build_html_for_instructions(recipe)
+        html += "</div>"
+
+        # Proposals:
+        if recipe.proposal_set.count() > 0:
+            html += "<div id='proposals'>"
+            html += "<p id='proposalsHeader'><strong>" + RecipeConfig.proposals + "</strong></p>"
+            html += CProposal.build_html_for_proposals(recipe)
+            html += "</div>"
+
+        return html

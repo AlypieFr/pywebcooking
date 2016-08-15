@@ -100,4 +100,6 @@ class CEquipment:
         for eq in equipments:
             html += "<li>" + str(eq.quantity) + " " + eq.equipment.name + "</li>"
 
+        html += "</ul>"
+
         return html
