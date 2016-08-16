@@ -1,5 +1,5 @@
-from website.models import Comment, Recipe, User
-from website.functions.exceptions import RequiredParameterException
+from main.models import Comment, Recipe, User
+from main.functions.exceptions import RequiredParameterException
 
 
 class CComment:
@@ -20,7 +20,7 @@ class CComment:
         if mail is not None and (not isinstance(mail, str)):
             raise TypeError("mail must be a string, or None")
         if website is not None and (not isinstance(website, str)):
-            raise TypeError("website must be a string, or None")
+            raise TypeError("main must be a string, or None")
         if author is not None and (not isinstance(author, User)):
             raise TypeError("author must be an instance of the User class, or None")
         if author is None and pseudo is None:
@@ -28,7 +28,7 @@ class CComment:
         if author is None and mail is None:
             raise RequiredParameterException("if you do not give an author, mail is required")
         if author is not None and (pseudo is not None or mail is not None or website is not None):
-            raise RequiredParameterException("if you give author, you cannot give pseudo, mail or website")
+            raise RequiredParameterException("if you give author, you cannot give pseudo, mail or main")
         if not isinstance(published, bool):
             raise TypeError("published must be a boolean")
 

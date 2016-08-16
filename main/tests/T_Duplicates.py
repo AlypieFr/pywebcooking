@@ -2,9 +2,9 @@ from django.test import TestCase
 from django.db.utils import IntegrityError
 from django.db import transaction
 
-from website.tests import TModels
+from main.tests import TModels
 
-from website.controllers import CIngredientGroup, CInstruction, CProposal, CEquipment
+from main.controllers import CIngredientGroup, CInstruction, CProposal, CEquipment
 
 
 class TDuplicates(TestCase):

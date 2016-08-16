@@ -1,11 +1,11 @@
 from django.test import TestCase
 
-from website.models import User, Category, Recipe, IngredientGroup, IngredientInGroup, Instruction, Equipment, \
+from main.models import User, Category, Recipe, IngredientGroup, IngredientInGroup, Instruction, Equipment, \
     EquipmentInRecipe, Proposal, Comment
 
-from website.controllers import CRecipe, CIngredientGroup, CInstruction, CEquipment, CProposal, CComment
+from main.controllers import CRecipe, CIngredientGroup, CInstruction, CEquipment, CProposal, CComment
 
-from website.functions.exceptions import *
+from main.functions.exceptions import *
 
 from datetime import datetime
 
@@ -214,7 +214,7 @@ class TModels(TestCase):
             CComment.add_new(content="My comment 6", recipe=r, author=author, pseudo="Houbi")
             self.fail("This test is expected to fail")
         except RequiredParameterException as e:
-            if str(e) != "if you give author, you cannot give pseudo, mail or website":
+            if str(e) != "if you give author, you cannot give pseudo, mail or main":
                 self.fail("RequiredParameterException: " + str(e))
 
     def test_build_html_for_ig(self):

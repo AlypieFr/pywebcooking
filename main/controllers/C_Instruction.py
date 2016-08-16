@@ -1,5 +1,5 @@
-from website.models import Recipe, Instruction
-from website.functions.exceptions import RequiredParameterException
+from main.models import Recipe, Instruction
+from main.functions.exceptions import RequiredParameterException
 
 
 class CInstruction:

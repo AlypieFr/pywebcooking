@@ -1,5 +1,5 @@
-from website.models import Proposal, Recipe
-from website.functions.exceptions import RequiredParameterException, MissingKeyException, UnknownKeyException
+from main.models import Proposal, Recipe
+from main.functions.exceptions import RequiredParameterException, MissingKeyException, UnknownKeyException
 
 
 class CProposal:

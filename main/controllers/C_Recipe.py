@@ -1,13 +1,13 @@
-from website.models import Recipe, User, Category
+from main.models import Recipe, User, Category
 
-from website.functions.exceptions import RequiredParameterException, BadParameterException
+from main.functions.exceptions import RequiredParameterException, BadParameterException
 
-from website.controllers.C_IngredientGroup import CIngredientGroup
-from website.controllers.C_Equipment import CEquipment
-from website.controllers.C_Instruction import CInstruction
-from website.controllers.C_Proposal import CProposal
+from main.controllers.C_IngredientGroup import CIngredientGroup
+from main.controllers.C_Equipment import CEquipment
+from main.controllers.C_Instruction import CInstruction
+from main.controllers.C_Proposal import CProposal
 
-from website.config import RecipeConfig
+from main.config import RecipeConfig
 
 import datetime, unicodedata, re
 
@@ -180,8 +180,19 @@ class CRecipe:
         return html
 
     @staticmethod
+    def get_recipe_from_slug(slug: str) -> Recipe:
+        try:
+            recipe = Recipe.objects.get(slug=slug)
+        except Recipe.DoesNotExist:
+            return None
+        return recipe
+
+    @staticmethod
     def get_recipe_html_from_slug(slug: str) -> str:
-        recipe = Recipe.objects.get(slug=slug)
+        try:
+            recipe = Recipe.objects.get(slug=slug)
+        except Recipe.DoesNotExist:
+            return None
         return CRecipe.get_recipe_html(recipe)
 
     @staticmethod

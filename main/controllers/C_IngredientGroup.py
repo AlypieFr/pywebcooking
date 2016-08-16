@@ -1,6 +1,6 @@
-from website.models import IngredientGroup, IngredientInGroup, Ingredient, Recipe
+from main.models import IngredientGroup, IngredientInGroup, Ingredient, Recipe
 
-from website.functions.exceptions import RequiredParameterException, MissingKeyException
+from main.functions.exceptions import RequiredParameterException, MissingKeyException
 
 
 class CIngredientGroup:

@@ -1,5 +1,5 @@
-from website.models import Equipment, Recipe, EquipmentInRecipe
-from website.functions.exceptions import RequiredParameterException, MissingKeyException, UnknownKeyException
+from main.models import Equipment, Recipe, EquipmentInRecipe
+from main.functions.exceptions import RequiredParameterException, MissingKeyException, UnknownKeyException
 
 
 class CEquipment:
