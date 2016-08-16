@@ -1,11 +1,13 @@
+{% load staticfiles %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{{ view.recipe.recipe.title }} | {{ view.website_name }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
 </head>
 <body>
-<h1>{{ view.recipe.title }}</h1>
-{{ view.recipe.html }}
+<h1>{{ view.recipe.recipe.title }}</h1>
+{{ view.recipe.html | safe }}
 </body>
 </html>

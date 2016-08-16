@@ -1,3 +1,5 @@
+from pywebcooking.settings import STATIC_URL
+
 from main.models import Recipe, User, Category
 
 from main.functions.exceptions import RequiredParameterException, BadParameterException
@@ -9,7 +11,9 @@ from main.controllers.C_Proposal import CProposal
 
 from main.config import RecipeConfig
 
-import datetime, unicodedata, re
+import datetime
+import unicodedata
+import re
 
 
 class CRecipe:
@@ -210,13 +214,13 @@ class CRecipe:
         html = "<div id='masquer'>"
 
         # Add picture:
-        html += "<div><a href='" + RecipeConfig.directory_photos + recipe.picture_file + "'><img class='shadow' " \
-                "style='float: left; margin-right: 6px;' title='" + recipe.title + "' src='" + \
-                RecipeConfig.directory_photos + recipe.picture_file + "' alt='illustration' width='" + \
-                RecipeConfig.photo_in_recipe_width + "' /></a></div>"
+        html += "<div id='illustration'><a href='" + STATIC_URL + "Photos/" + recipe.picture_file + "'><img " \
+                "class='shadow' title='" + recipe.title + "' src='" + STATIC_URL + "Photos/" + \
+                recipe.picture_file + "' alt='illustration' width='" + RecipeConfig.photo_in_recipe_width + \
+                "' /></a></div>"
 
         # Add description:
-        html += recipe.description
+        html += "<div id='description'><p>" + recipe.description + "</p></div>"
 
         # End masquer div:
         html += "</div>"

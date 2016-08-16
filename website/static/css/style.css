@@ -1,0 +1,23 @@
+.shadow {
+  -moz-box-shadow: 2px 2px 5px #888;
+  -webkit-box-shadow: 2px 2px 5px #888;
+  box-shadow:2px 2px 3px #888;
+}
+
+#detail {
+        clear: both;
+        overflow: hidden; /* Précaution pour IE 7 */
+}
+
+#illustration, #description {
+    display: inline-block;
+    vertical-align: top;
+}
+
+#description {
+    margin-left: 15px;
+}
+
+#description p {
+    margin-top: 5px;
+}

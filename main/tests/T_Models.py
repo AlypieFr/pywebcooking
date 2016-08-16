@@ -353,9 +353,9 @@ class TModels(TestCase):
     def test_full_recipe(self):
         r = self.add_new_recipe_full()
         html = CRecipe.get_recipe_html(r)
-        html_expected = "<div id='masquer'><div><a href='/Photos/myFile.jpg'><img class='shadow' style='float: left; " \
-                        "margin-right: 6px;' title='Title of the recipe' src='/Photos/myFile.jpg' alt='illustration' " \
-                        "width='254px' /></a></div>My description</div>"
+        html_expected = "<div id='masquer'><div id='illustration'><a href='/static/Photos/myFile.jpg'><img class=" \
+                        "'shadow' title='Title of the recipe' src='/static/Photos/myFile.jpg' alt='illustration' " \
+                        "width='254px' /></a></div><div id='description'><p>My description</p></div></div>"
         html_expected += "<div id='timesDetail'><strong>Temps de préparation&#8239;: 20 min<br/>Temps de repos&#8239;" \
                          ": 2 h 20 min<br/>Temps de cuisson&#8239;: 1 h 5 min</strong></div>"
         html_expected += "<div id='ingredientsAndEquipments'><div id='ingredients'><p id='ingredientsHeader'><strong>" \
