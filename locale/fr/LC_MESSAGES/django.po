@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-18 11:28+0200\n"
-"PO-Revision-Date: 2016-08-17 23:26+0200\n"
+"POT-Creation-Date: 2016-08-19 00:07+0200\n"
+"PO-Revision-Date: 2016-08-19 00:14+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -18,20 +18,75 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.8.8\n"
 
+#. Translators: terms used in a recipe
+#: main/config/RecipeConfig.py:8
+#, python-format
+msgid "Ingredients (for %d people):"
+msgstr "Ingrédients (pour %d personnes)&#8239;:"
+
+#: main/config/RecipeConfig.py:9
+#, python-format
+msgid "Ingredients (for %d person):"
+msgstr "Ingrédients (pour %d personne)&#8239;:"
+
+#: main/config/RecipeConfig.py:10
+#, python-format
+msgid "Ingredients (for %d people (%s)):"
+msgstr "Ingrédients (pour %d personnes (%s))&#8239;:"
+
+#: main/config/RecipeConfig.py:11
+#, python-format
+msgid "Ingredients (for %d person (%s)):"
+msgstr "Ingrédients (pour %d personne (%s))&#8239;:"
+
+#: main/config/RecipeConfig.py:12
+#, python-format
+msgid "Ingredients (from %d to %d people):"
+msgstr "Ingrédients (pour %d à %d personnes)&#8239;:"
+
+#: main/config/RecipeConfig.py:13
+#, python-format
+msgid "Ingredients (from %d to %d people (%s)):"
+msgstr "Ingrédients (pour %d à %d personnes (%s))&#8239;:"
+
+#: main/config/RecipeConfig.py:14
+msgid "Required equipment:"
+msgstr "Matériel nécessaire&#8239;:"
+
+#: main/config/RecipeConfig.py:15
+msgid "Instructions:"
+msgstr "Préparation&#8239;:"
+
+#: main/config/RecipeConfig.py:16
+msgid "Proposals:"
+msgstr "Conseils&#8239;:"
+
+#: main/config/RecipeConfig.py:17
+msgid "Prep:"
+msgstr "Temps de préparation&#8239;:"
+
+#: main/config/RecipeConfig.py:18
+msgid "Cook:"
+msgstr "Temps de cuisson&#8239;:"
+
+#: main/config/RecipeConfig.py:19
+msgid "Break:"
+msgstr "Conseils&#8239;:"
+
 #. Translators: words in subtitle of recipes in RecipeView
-#: templates/website/recipe.html:11
+#: templates/website/recipe.html:12
 msgid "Posted on"
 msgstr "Posté le"
 
-#: templates/website/recipe.html:15
+#: templates/website/recipe.html:16
 msgid "By"
 msgstr "Par"
 
-#: templates/website/recipe.html:15
+#: templates/website/recipe.html:16
 msgid "In"
 msgstr "Dans"
 
 #. Translators: recipe is the parent tag of a recipe
-#: website/urls.py:11
+#: website/urls.py:10
 msgid "recipe"
 msgstr "recette"
