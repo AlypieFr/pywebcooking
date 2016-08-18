@@ -1,13 +1,22 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ view.recipe.recipe.title }} | {{ view.website_name }}</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+{% load l10n %}
+{% load i18n %}
+{% include "website/header.html" %}
+<title>{{ view.recipe.recipe.title }} | {{ view.config.title }}</title>
 </head>
 <body>
-<h1>{{ view.recipe.recipe.title }}</h1>
-{{ view.recipe.html | safe }}
+    <div id="body">
+        {% include "website/sidebar.html" %}
+        <article>
+            <h1 id="recipe_title">{{ view.recipe.recipe.title }}</h1>
+            {# Translators: words in subtitle of recipes in RecipeView #}
+            <p id="post_details">{% trans "Posted on" %}
+                {% localize on %}
+                    {{ view.recipe.date_published }}
+                {% endlocalize %}
+                - {% trans "By" %} {{ view.recipe.recipe.author.first_name }} - {% trans "In" %} {{ view.recipe.categories | safe }}
+            </p>
+            {{ view.recipe.html | safe }}
+        </article>
+    </div>
 </body>
 </html>

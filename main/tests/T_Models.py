@@ -363,7 +363,7 @@ class TModels(TestCase):
         html_expected += "<ul><li>group 1 :</li><ul><li>2 carottes</li><li>Pour les oeufs :</li><ul><li>100 g de " \
                          "chocolat</li><li>25 g de sucre</li></ul><li>3 poires</li><li>5 cl d'eau</li></ul><li>4 kg " \
                          "de pommes</li><li>5 g de sel</li></ul>"
-        html_expected += "</div><div class='equipment'><p id='equipmentHeader'><strong>Matériel nécessaire&#8239;:" \
+        html_expected += "</div><div id='equipments'><p id='equipmentHeader'><strong>Matériel nécessaire&#8239;:" \
                          "</strong></p><ul><li>1 equipment 1</li><li>2 equipment 2</li><li>3 equipment 3</li></ul>" \
                          "</div></div>"
         html_expected += "<div id='instructions'><p id='instructionsHeader'><strong>Préparation&#8239;:</strong></p>" \

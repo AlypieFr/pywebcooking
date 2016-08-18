@@ -211,7 +211,7 @@ class CRecipe:
         if not isinstance(recipe, Recipe):
             raise TypeError("recipe must be an instance of the Recipe class")
         # Start html:
-        html = "<div id='masquer'>"
+        html = "<div id='illustration_desc'>"
 
         # Add picture:
         html += "<div id='illustration'><a href='" + STATIC_URL + "Photos/" + recipe.picture_file + "'><img " \
@@ -256,7 +256,7 @@ class CRecipe:
 
         # Equipment:
         if recipe.equipmentinrecipe_set.count() > 0:
-            html += "<div class='equipment'>"
+            html += "<div id='equipments'>"
             html += "<p id='equipmentHeader'><strong>" + RecipeConfig.equipment + "</strong></p>"
             html += CEquipment.build_html_for_equipments(recipe)
             html += "</div>"
