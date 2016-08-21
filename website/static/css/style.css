@@ -67,3 +67,19 @@ article {
 #illustration_desc {
     margin-bottom: 5px;
 }
+
+footer {
+    border-top: double 3px gray;
+    margin-top: 10px;
+    padding-top: 10px;
+    font-size: 9pt
+}
+
+.copyright, .doNotCopy {
+    display: inline-block;
+}
+
+.doNotCopy {
+    float: right;
+    font-weight: bold;
+}

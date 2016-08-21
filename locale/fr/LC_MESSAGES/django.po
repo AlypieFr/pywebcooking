@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-19 00:07+0200\n"
-"PO-Revision-Date: 2016-08-19 00:14+0200\n"
+"POT-Creation-Date: 2016-08-22 00:19+0200\n"
+"PO-Revision-Date: 2016-08-21 23:54+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -73,16 +73,32 @@ msgstr "Temps de cuisson&#8239;:"
 msgid "Break:"
 msgstr "Conseils&#8239;:"
 
+#: templates/website/footer.html:4
+msgid "Powered by"
+msgstr "Propulsé par"
+
+#. Translators : copyright message
+#: templates/website/footer.html:6
+msgid ""
+"Copy of text and pictures forbidden, unless you cite us with good visibility"
+msgstr ""
+"Copie des textes et des images interdite sans indiquer clairement la source"
+
+#. Translators: author url
+#: templates/website/recipe.html:4
+msgid "author"
+msgstr "auteur"
+
 #. Translators: words in subtitle of recipes in RecipeView
-#: templates/website/recipe.html:12
+#: templates/website/recipe.html:15
 msgid "Posted on"
 msgstr "Posté le"
 
-#: templates/website/recipe.html:16
+#: templates/website/recipe.html:19
 msgid "By"
 msgstr "Par"
 
-#: templates/website/recipe.html:16
+#: templates/website/recipe.html:19
 msgid "In"
 msgstr "Dans"
 
@@ -90,3 +106,8 @@ msgstr "Dans"
 #: website/urls.py:10
 msgid "recipe"
 msgstr "recette"
+
+#. Translators: category url
+#: website/views/RecipeView.py:26
+msgid "category"
+msgstr "categorie"

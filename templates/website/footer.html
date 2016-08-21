@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% load i18n %}
+{% load copyrighttags %}
+<footer>
+    <div class="copyright">&#169; Copyright {% getCopyrightYears %} <a href="/">{{ SITE_NAME }}</a> | {% trans "Powered by" %} PyWebCooking</div>
+    {# Translators : copyright message #}
+    <div class="doNotCopy">{%  trans "Copy of text and pictures forbidden, unless you cite us with good visibility" %}.</div>
+</footer>
