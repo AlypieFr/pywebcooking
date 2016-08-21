@@ -1,5 +1,8 @@
 {% load l10n %}
 {% load i18n %}
+{# Translators: author url #}
+{% trans "author" as author %}
+
 {% include "website/header.html" %}
 <title>{{ view.recipe.recipe.title }} | {{ view.config.title }}</title>
 </head>
@@ -13,7 +16,7 @@
                 {% localize on %}
                     {{ view.recipe.date_published }}
                 {% endlocalize %}
-                - {% trans "By" %} {{ view.recipe.recipe.author.first_name }} - {% trans "In" %} {{ view.recipe.categories | safe }}
+                - {% trans "By" %} <a href="/{{ author }}/{{ view.recipe.recipe.author.url }}">{{ view.recipe.recipe.author.first_name }}</a> - {% trans "In" %} {{ view.recipe.categories | safe }}
             </p>
             {{ view.recipe.html | safe }}
         </article>
