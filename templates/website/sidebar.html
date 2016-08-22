@@ -1,11 +1,15 @@
 {% load staticfiles %}
+{% load i18n %}
 <div id="sidebar_left">
     <header>
         <a href="/"><img src='{% static "images/logo-pywebcooking.svg" %}' alt="PyWebCooking" id="logo_website" /></a>
     </header>
-    <nav>
+    <nav class="categories">
+        {% static "" as base_url %}
+        <img src="{{ base_url }}/images/{% trans "header-categories.png" %}" alt="{% trans "Categories" %}"/>
         {% for cat in view.categories %}
-            <a href="/category/{{ cat.url }}"><div class="category" id="{{ cat.url }}">{{ cat.name }}</div></a>
+            <a href="/{% trans "category" %}/{{ cat.url }}"><div class="category" id="{{ cat.url }}">{{ cat.name }}</div></a>
         {% endfor %}
+        <img src="{{ base_url }}/images/footer-categories.png" alt="---" />
     </nav>
 </div>

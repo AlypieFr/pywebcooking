@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-22 00:19+0200\n"
-"PO-Revision-Date: 2016-08-21 23:54+0200\n"
+"POT-Creation-Date: 2016-08-22 14:51+0200\n"
+"PO-Revision-Date: 2016-08-22 13:52+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -102,12 +102,20 @@ msgstr "Par"
 msgid "In"
 msgstr "Dans"
 
+#: templates/website/sidebar.html:9
+msgid "header-categories.png"
+msgstr "header-categories-fr.png"
+
+#: templates/website/sidebar.html:9
+msgid "Categories"
+msgstr "Catégories"
+
+#. Translators: category url
+#: templates/website/sidebar.html:11 website/views/RecipeView.py:26
+msgid "category"
+msgstr "categorie"
+
 #. Translators: recipe is the parent tag of a recipe
 #: website/urls.py:10
 msgid "recipe"
 msgstr "recette"
-
-#. Translators: category url
-#: website/views/RecipeView.py:26
-msgid "category"
-msgstr "categorie"
