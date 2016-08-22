@@ -86,7 +86,8 @@ footer {
 }
 
 .category {
-    background-color: #000000;
+    background: #000000 url("../images/category.svg") no-repeat 2px 2px;
+    background-size: 25px 25px;
     color: #ffffff;
     font-weight: bold;
     text-decoration: none;
@@ -96,6 +97,7 @@ footer {
     min-width: 110px;
     width: auto;
     display: inline-block;
+
 }
 
 .category:hover {
