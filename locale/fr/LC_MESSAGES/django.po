@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-22 14:51+0200\n"
-"PO-Revision-Date: 2016-08-22 13:52+0200\n"
+"POT-Creation-Date: 2016-08-22 16:05+0200\n"
+"PO-Revision-Date: 2016-08-22 16:07+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -73,21 +73,117 @@ msgstr "Temps de cuisson&#8239;:"
 msgid "Break:"
 msgstr "Conseils&#8239;:"
 
+#. Translators: categories fields
+#: main/models/Category.py:7
+msgid "name"
+msgstr "nom"
+
+#: main/models/Category.py:8
+msgid "url"
+msgstr "url"
+
+#: main/models/Category.py:9
+msgid "order"
+msgstr "ordre"
+
+#: main/models/Category.py:15
+msgid "Category"
+msgstr "Catégorie"
+
+#: main/models/Category.py:16 templates/website/sidebar.html:9
+msgid "Categories"
+msgstr "Catégories"
+
+#. Translators : recipe fields
+#: main/models/Recipe.py:10
+msgid "title"
+msgstr "titre"
+
+#: main/models/Recipe.py:11
+msgid "description"
+msgstr "description"
+
+#: main/models/Recipe.py:12
+msgid "prep time"
+msgstr "temps de préparation"
+
+#: main/models/Recipe.py:13
+msgid "break time"
+msgstr "temps de repos"
+
+#: main/models/Recipe.py:15
+msgid "cook time"
+msgstr "temps de cuisson"
+
+#: main/models/Recipe.py:16
+msgid "Picture file"
+msgstr "fichier d'illustration"
+
+#: main/models/Recipe.py:18
+msgid "number of people"
+msgstr "nombre de personnes"
+
+#: main/models/Recipe.py:19
+msgid "max number of people"
+msgstr "nombre de personnes max"
+
+#: main/models/Recipe.py:22
+msgid "precision"
+msgstr "précision"
+
+#: main/models/Recipe.py:24
+msgid "publication date"
+msgstr "date de publication"
+
+#: main/models/Recipe.py:25
+msgid "last modification"
+msgstr "dernière modification"
+
+#. Translators: author url
+#: main/models/Recipe.py:26 templates/website/recipe.html:4
+msgid "author"
+msgstr "auteur"
+
+#: main/models/Recipe.py:27
+msgid "category"
+msgstr "catégorie"
+
+#: main/models/Recipe.py:29
+msgid "equipment"
+msgstr "Matériel nécessaire"
+
+#: main/models/Recipe.py:30
+msgid "excerpt"
+msgstr "résumé"
+
+#: main/models/Recipe.py:31
+msgid "enable comments"
+msgstr "activer les commentaires"
+
+#: main/models/Recipe.py:32
+msgid "published"
+msgstr "publié"
+
+#: main/models/Recipe.py:33
+msgid "slug"
+msgstr "slug"
+
+#: main/models/Recipe.py:39
+msgid "Recipe"
+msgstr "Recette"
+
+#: main/models/Recipe.py:40
+msgid "Recipes"
+msgstr "Recettes"
+
 #: templates/website/footer.html:4
 msgid "Powered by"
 msgstr "Propulsé par"
 
 #. Translators : copyright message
 #: templates/website/footer.html:6
-msgid ""
-"Copy of text and pictures forbidden, unless you cite us with good visibility"
-msgstr ""
-"Copie des textes et des images interdite sans indiquer clairement la source"
-
-#. Translators: author url
-#: templates/website/recipe.html:4
-msgid "author"
-msgstr "auteur"
+msgid "Copy of text and pictures forbidden, unless you cite us with good visibility"
+msgstr "Copie des textes et des images interdite sans indiquer clairement la source"
 
 #. Translators: words in subtitle of recipes in RecipeView
 #: templates/website/recipe.html:15
@@ -106,12 +202,9 @@ msgstr "Dans"
 msgid "header-categories.png"
 msgstr "header-categories-fr.png"
 
-#: templates/website/sidebar.html:9
-msgid "Categories"
-msgstr "Catégories"
-
 #. Translators: category url
-#: templates/website/sidebar.html:11 website/views/RecipeView.py:26
+#: templates/website/sidebar.html:11 website/views/RecipeView.py:27
+msgctxt "category url"
 msgid "category"
 msgstr "categorie"
 
@@ -119,3 +212,7 @@ msgstr "categorie"
 #: website/urls.py:10
 msgid "recipe"
 msgstr "recette"
+
+#~ msgctxt "category verbose name"
+#~ msgid "category"
+#~ msgstr "catégorie"

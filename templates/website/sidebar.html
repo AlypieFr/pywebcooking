@@ -8,7 +8,7 @@
         {% static "" as base_url %}
         <img src="{{ base_url }}/images/{% trans "header-categories.png" %}" alt="{% trans "Categories" %}"/>
         {% for cat in view.categories %}
-            <a href="/{% trans "category" %}/{{ cat.url }}"><div class="category" id="{{ cat.url }}">{{ cat.name }}</div></a>
+            <a href="/{% trans "category" context "category url" %}/{{ cat.url }}"><div class="category" id="{{ cat.url }}">{{ cat.name }}</div></a>
         {% endfor %}
         <img src="{{ base_url }}/images/footer-categories.png" alt="---" />
     </nav>

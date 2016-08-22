@@ -1,7 +1,8 @@
 from .GenericView import GenericView
 from django.views.generic import TemplateView
 from django.http import Http404
-from django.utils.translation import ugettext as _
+from django.utils.translation import pgettext
+
 
 from main.controllers import CRecipe
 
@@ -23,6 +24,6 @@ class RecipeView(TemplateView):
         data["categories"] = []
         for cat in recipe.category.all():
             # Translators: category url
-            data["categories"].append("<a href='/" + _("category") + "/" + cat.url + "'>" + cat.name + "</a>")
+            data["categories"].append("<a href='/" + pgettext("category url", "category") + "/" + cat.url + "'>" + cat.name + "</a>")
         data["categories"] = " - ".join(data["categories"])
         return data
