@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-22 16:05+0200\n"
-"PO-Revision-Date: 2016-08-22 16:07+0200\n"
+"PO-Revision-Date: 2016-08-24 01:07+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -71,7 +71,7 @@ msgstr "Temps de cuisson&#8239;:"
 
 #: main/config/RecipeConfig.py:19
 msgid "Break:"
-msgstr "Conseils&#8239;:"
+msgstr "Temps de repos&#8239;:"
 
 #. Translators: categories fields
 #: main/models/Category.py:7

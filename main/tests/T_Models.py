@@ -35,7 +35,7 @@ class TModels(TestCase):
         nb_people = 4
         author = User(first_name="Floréal", last_name="Cabanettes", email="test@gmail.com")
         author.save()
-        cat = Category(name="Category1", url="category1")
+        cat = Category(name="Category1", url="category1", order=0)
         cat.save()
         categories = [cat]
         r = self.recipe_test(title, description, tps_prep, picture_file, nb_people, author, categories)
@@ -315,7 +315,7 @@ class TModels(TestCase):
         pub_date = datetime.now()
         author = User(first_name="Floréal", last_name="Cabanettes", email="test@gmail.com")
         author.save()
-        cat = Category(name="Category1", url="category1")
+        cat = Category(name="Category1", url="category1", order=1)
         cat.save()
         categories = [cat]
         precision = "ne vous loupez pas"
@@ -351,11 +351,12 @@ class TModels(TestCase):
         return r
 
     def test_full_recipe(self):
+        self.maxDiff = None
         r = self.add_new_recipe_full()
         html = CRecipe.get_recipe_html(r)
-        html_expected = "<div id='masquer'><div id='illustration'><a href='/static/Photos/myFile.jpg'><img class=" \
-                        "'shadow' title='Title of the recipe' src='/static/Photos/myFile.jpg' alt='illustration' " \
-                        "width='254px' /></a></div><div id='description'><p>My description</p></div></div>"
+        html_expected = "<div id='illustration_desc'><div id='illustration'><a href='/static/Photos/myFile.jpg'><img " \
+                        "class='shadow' title='Title of the recipe' src='/static/Photos/myFile.jpg' alt='illustration" \
+                        "' width='254px' /></a></div><div id='description'><p>My description</p></div></div>"
         html_expected += "<div id='timesDetail'><strong>Temps de préparation&#8239;: 20 min<br/>Temps de repos&#8239;" \
                          ": 2 h 20 min<br/>Temps de cuisson&#8239;: 1 h 5 min</strong></div>"
         html_expected += "<div id='ingredientsAndEquipments'><div id='ingredients'><p id='ingredientsHeader'><strong>" \
@@ -385,7 +386,7 @@ class TModels(TestCase):
         pub_date = datetime.now()
         author = User(first_name="Floréal", last_name="Cabanettes", email="test@gmail.com")
         author.save()
-        cat = Category(name="Category1", url="category1")
+        cat = Category(name="Category1", url="category1", order=2)
         cat.save()
         categories = [cat]
         precision = "ne vous loupez pas"
