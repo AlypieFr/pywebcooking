@@ -1,6 +1,7 @@
 from pywebcooking.settings import STATIC_URL
 
-from main.models import Recipe, User, Category
+from main.models import Recipe, Category
+from django.contrib.auth.models import User
 
 from main.functions.exceptions import RequiredParameterException, BadParameterException
 

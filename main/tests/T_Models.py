@@ -1,7 +1,9 @@
 from django.test import TestCase
 
-from main.models import User, Category, Recipe, IngredientGroup, IngredientInGroup, Instruction, Equipment, \
+from main.models import Category, Recipe, IngredientGroup, IngredientInGroup, Instruction, Equipment, \
     EquipmentInRecipe, Proposal, Comment
+
+from django.contrib.auth.models import User
 
 from main.controllers import CRecipe, CIngredientGroup, CInstruction, CEquipment, CProposal, CComment
 
@@ -183,7 +185,7 @@ class TModels(TestCase):
         self.assertEqual(c_get.mail, "elaura@gmail.com")
         self.assertIs(c_get.website, None)
         self.assertIs(c_get.author, None)
-        author = User(first_name="Alyssia", last_name="Frênaie", email="alyssia.frenaie@gmail.com")
+        author = User(first_name="Alyssia", last_name="Frênaie", email="alyssia.frenaie@gmail.com", username="alyssia")
         author.save()
 
         CComment.add_new(content="My comment 3", recipe=r, author=author)
@@ -313,7 +315,7 @@ class TModels(TestCase):
         nb_people = 4
         nb_people_max = None
         pub_date = datetime.now()
-        author = User(first_name="Floréal", last_name="Cabanettes", email="test@gmail.com")
+        author = User(first_name="Floréal", last_name="Cabanettes", email="test@gmail.com", username="floreal")
         author.save()
         cat = Category(name="Category1", url="category1", order=1)
         cat.save()
@@ -384,7 +386,7 @@ class TModels(TestCase):
         nb_people = 4
         nb_people_max = None
         pub_date = datetime.now()
-        author = User(first_name="Floréal", last_name="Cabanettes", email="test@gmail.com")
+        author = User(first_name="Floréal", last_name="Cabanettes", email="test@gmail.com", username="floreal2")
         author.save()
         cat = Category(name="Category1", url="category1", order=2)
         cat.save()

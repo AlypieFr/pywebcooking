@@ -1,5 +1,4 @@
 from .Recipe import Recipe
-from .User import User
 from .Group import Group
 from .Category import Category
 from .Ingredient import Ingredient

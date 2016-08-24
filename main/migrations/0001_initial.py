@@ -2,45 +2,53 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
+from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Category',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('url', models.CharField(max_length=100)),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
+                ('name', models.CharField(verbose_name='nom', max_length=100)),
+                ('url', models.CharField(verbose_name='url', max_length=100)),
+                ('order', models.IntegerField(verbose_name='ordre', unique=True)),
             ],
+            options={
+                'verbose_name': 'Catégorie',
+                'verbose_name_plural': 'Catégories',
+            },
         ),
         migrations.CreateModel(
             name='Comment',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
                 ('pseudo', models.CharField(default=None, max_length=100, null=True)),
                 ('website', models.CharField(default=None, max_length=255, null=True)),
                 ('mail', models.CharField(default=None, max_length=255, null=True)),
                 ('content', models.TextField()),
                 ('published', models.BooleanField(default=True)),
                 ('pub_date', models.DateTimeField(verbose_name='date published', auto_now=True)),
+                ('author', models.ForeignKey(to=settings.AUTH_USER_MODEL, null=True, default=None)),
             ],
         ),
         migrations.CreateModel(
             name='Equipment',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
                 ('name', models.CharField(max_length=255)),
             ],
         ),
         migrations.CreateModel(
             name='EquipmentInRecipe',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
                 ('quantity', models.IntegerField()),
                 ('nb', models.IntegerField()),
                 ('equipment', models.ForeignKey(to='main.Equipment')),
@@ -49,7 +57,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Group',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
                 ('name', models.CharField(max_length=100)),
                 ('level', models.IntegerField()),
             ],
@@ -57,15 +65,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Ingredient',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
-                ('name', models.CharField(unique=True, max_length=255)),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
+                ('name', models.CharField(max_length=255, unique=True)),
             ],
         ),
         migrations.CreateModel(
             name='IngredientGroup',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
-                ('title', models.CharField(default='', max_length=255)),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
+                ('title', models.CharField(max_length=255, default='')),
                 ('nb', models.IntegerField()),
                 ('level', models.IntegerField(default=0)),
             ],
@@ -73,7 +81,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='IngredientInGroup',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
                 ('quantity', models.FloatField()),
                 ('unit', models.CharField(max_length=100)),
                 ('nb', models.IntegerField()),
@@ -84,7 +92,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Instruction',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
                 ('nb', models.IntegerField()),
                 ('level', models.IntegerField(default=0)),
                 ('text_inst', models.TextField()),
@@ -93,7 +101,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Proposal',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
                 ('nb', models.IntegerField()),
                 ('text_cons', models.TextField()),
             ],
@@ -101,50 +109,30 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Recipe',
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
-                ('title', models.CharField(max_length=255)),
-                ('description', models.TextField()),
-                ('tps_prep', models.IntegerField()),
-                ('tps_rep', models.IntegerField(default=None, null=True)),
-                ('tps_cuis', models.IntegerField(default=None, null=True)),
-                ('picture_file', models.CharField(max_length=255)),
-                ('nb_people', models.IntegerField()),
-                ('nb_people_max', models.IntegerField(default=None, null=True)),
-                ('precision', models.CharField(default=None, max_length=150, null=True)),
-                ('pub_date', models.DateTimeField(verbose_name='date published', auto_now=True)),
-                ('last_modif', models.DateTimeField(verbose_name='lase modification', auto_now=True)),
-                ('excerpt', models.TextField()),
-                ('enable_comments', models.BooleanField(default=True)),
-                ('published', models.BooleanField(default=True)),
-                ('slug', models.CharField(max_length=255)),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
+                ('title', models.CharField(verbose_name='titre', max_length=255)),
+                ('description', models.TextField(verbose_name='description')),
+                ('tps_prep', models.IntegerField(verbose_name='temps de préparation')),
+                ('tps_rep', models.IntegerField(verbose_name='temps de repos', default=None, null=True)),
+                ('tps_cuis', models.IntegerField(verbose_name='temps de cuisson', default=None, null=True)),
+                ('picture_file', models.CharField(verbose_name="fichier d'illustration", max_length=255)),
+                ('nb_people', models.IntegerField(verbose_name='nombre de personnes')),
+                ('nb_people_max', models.IntegerField(verbose_name='nombre de personnes max', default=None, null=True)),
+                ('precision', models.CharField(verbose_name='précision', default=None, max_length=150, null=True)),
+                ('pub_date', models.DateTimeField(verbose_name='date de publication', auto_now=True)),
+                ('last_modif', models.DateTimeField(verbose_name='dernière modification', auto_now=True)),
+                ('excerpt', models.TextField(verbose_name='résumé')),
+                ('enable_comments', models.BooleanField(verbose_name='activer les commentaires', default=True)),
+                ('published', models.BooleanField(verbose_name='publié', default=True)),
+                ('slug', models.CharField(verbose_name='slug', max_length=255)),
+                ('author', models.ForeignKey(verbose_name='auteur', to=settings.AUTH_USER_MODEL)),
+                ('category', models.ManyToManyField(verbose_name='catégorie', to='main.Category')),
+                ('equipment', models.ManyToManyField(verbose_name='Matériel nécessaire', through='main.EquipmentInRecipe', to='main.Equipment')),
             ],
-        ),
-        migrations.CreateModel(
-            name='User',
-            fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
-                ('first_name', models.CharField(max_length=100)),
-                ('last_name', models.CharField(max_length=100)),
-                ('email', models.CharField(max_length=255)),
-                ('date_created', models.DateTimeField(verbose_name='date published', auto_now=True)),
-                ('date_last_connection', models.DateTimeField(verbose_name='date published', auto_now=True)),
-                ('group', models.ForeignKey(default=None, null=True, to='main.Group')),
-            ],
-        ),
-        migrations.AddField(
-            model_name='recipe',
-            name='author',
-            field=models.ForeignKey(to='main.User'),
-        ),
-        migrations.AddField(
-            model_name='recipe',
-            name='category',
-            field=models.ManyToManyField(to='main.Category'),
-        ),
-        migrations.AddField(
-            model_name='recipe',
-            name='equipment',
-            field=models.ManyToManyField(to='main.Equipment', through='main.EquipmentInRecipe'),
+            options={
+                'verbose_name': 'Recette',
+                'verbose_name_plural': 'Recettes',
+            },
         ),
         migrations.AddField(
             model_name='proposal',
@@ -159,7 +147,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='ingredientgroup',
             name='ingredients',
-            field=models.ManyToManyField(to='main.Ingredient', through='main.IngredientInGroup'),
+            field=models.ManyToManyField(through='main.IngredientInGroup', to='main.Ingredient'),
         ),
         migrations.AddField(
             model_name='ingredientgroup',
@@ -170,11 +158,6 @@ class Migration(migrations.Migration):
             model_name='equipmentinrecipe',
             name='recipe',
             field=models.ForeignKey(to='main.Recipe'),
-        ),
-        migrations.AddField(
-            model_name='comment',
-            name='author',
-            field=models.ForeignKey(default=None, null=True, to='main.User'),
         ),
         migrations.AddField(
             model_name='comment',

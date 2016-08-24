@@ -13,7 +13,8 @@ import django
 django.setup()
 
 from main.controllers import *
-from main.models import Category, User
+from main.models import Category
+from django.contrib.auth.models import User
 
 title = input("Title: ")
 description = input("Description: ")

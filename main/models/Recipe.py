@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext as _
-from .User import User
+from django.contrib.auth.models import User
 from .Category import Category
 from .Equipment import Equipment
 

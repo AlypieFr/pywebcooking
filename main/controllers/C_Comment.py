@@ -1,4 +1,5 @@
-from main.models import Comment, Recipe, User
+from django.contrib.auth.models import User
+from main.models import Comment, Recipe
 from main.functions.exceptions import RequiredParameterException
 
 
