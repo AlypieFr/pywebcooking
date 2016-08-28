@@ -1,6 +1,6 @@
 from pywebcooking.settings import STATIC_URL
 
-from main.models import Recipe, Category
+from main.models import Recipe, Category, IngredientInGroup
 from django.contrib.auth.models import User
 
 from main.functions.exceptions import RequiredParameterException, BadParameterException
@@ -110,6 +110,81 @@ class CRecipe:
         CRecipe.add_categories(r, categories)
 
         return r
+
+    @staticmethod
+    def get_author_recipes_data(author: User) -> list:
+        recipes = Recipe.objects.filter(author=author);
+        recipes_data = []
+        for recipe in recipes:
+            recipes_data.append(CRecipe.get_recipe_data(recipe))
+        return recipes_data
+
+    @staticmethod
+    def get_recipe_data_from_id(id_recipe: int) -> dict:
+        return CRecipe.get_recipe_data(Recipe.objects.get(id=id_recipe))
+
+    @staticmethod
+    def get_recipe_data(recipe: Recipe) -> dict:
+        """
+        get data of a recipe
+        :param recipe: the recipe to get the data
+        :return: data of the recipe
+        """
+        data = {"author": recipe.author.username}
+        vars_recipe = vars(recipe)
+        for key in vars_recipe:
+            if not key.startswith("_") and key != "author_id":
+                data[key] = vars_recipe[key]
+        categories = []
+        for cat in recipe.category.all():
+            categories.append(cat.url)
+        data["category"] = categories
+        ingredients = []
+        ingredients_groups = recipe.ingredientgroup_set
+        for ingredients_group in ingredients_groups.all():
+            ig = {
+                "title": ingredients_group.title,
+                "nb": ingredients_group.nb,
+                "level": ingredients_group.level,
+                "ingredients": []
+            }
+            ingredients_in_group = IngredientInGroup.objects.filter(ingredientGroup=ingredients_group)
+            for iig in ingredients_in_group:
+                ig["ingredients"].append({
+                    "name": iig.ingredient.name,
+                    "quantity": iig.quantity,
+                    "unit": iig.unit,
+                    "nb": iig.nb
+                })
+            ingredients.append(ig)
+        data["ingredients"] = ingredients
+        equipments = []
+        for eq in recipe.equipmentinrecipe_set.all():
+            equipment = {
+                "name": eq.equipment.name,
+                "quantity": eq.quantity,
+                "nb": eq.nb
+            }
+            equipments.append(equipment)
+        data["equipments"] = equipments
+        instructions = []
+        for instr in recipe.instruction_set.all():
+            instruction = {
+                "text_inst": instr.text_inst,
+                "nb": instr.nb,
+                "level": instr.level
+            }
+            instructions.append(instruction)
+        data["instructions"] = instruction
+        proposals = []
+        for prop in recipe.proposal_set.all():
+            proposal = {
+                "text_cons": prop.text_cons,
+                "nb": prop.nb
+            }
+            proposals.append(proposal)
+        data["proposals"] = proposals
+        return data
 
     @staticmethod
     def add_categories(recipe: Recipe, categories: "list of Categories"):
