@@ -26,8 +26,8 @@ nb_people = int(input("Nb people: "))
 nb_people_max = int(input("Nb people max: "))
 precision = input("Precision: ")
 
-category = Category.objects.get_or_create(name="Dessert", url="dessert")[0]
-author = User.objects.get_or_create(first_name="Utilisteur", last_name="Test", email="utilisateur.test@gmail.com")[0]
+category = Category.objects.get_or_create(name="Dessert", url="dessert", order=0)[0]
+author = User.objects.get(username="floreal")
 
 recipe = CRecipe.add_new(title=title, description=description, tps_prep=tps_prep, tps_rep=tps_rep, tps_cuis=tps_cuis,
                 picture_file=picture_file, nb_people=nb_people, nb_people_max=nb_people_max, precision=precision,
