@@ -13,6 +13,18 @@ from datetime import datetime
 
 
 class TModels(TestCase):
+
+    def check_equal(self, val1, val2):
+        if type(val1) == datetime and type(val2) == datetime:
+            self.assertEqual(val1.day, val2.day, "Test of same day")
+            self.assertEqual(val1.month, val2.month, "Test of same month")
+            self.assertEqual(val1.year, val2.year, "Test of same year")
+            self.assertEqual(val1.hour, val2.hour, "Test of same hour")
+            self.assertEqual(val1.minute, val2.minute, "Test of same minute")
+            self.assertEqual(val1.second, val2.second, "Test of same second")
+        else:
+            self.assertEqual(val1, val2)
+
     def recipe_test(self, title: str, description: str, tps_prep: int, picture_file: str, nb_people: int, author: User,
                     categories: "list of Category" = None, pub_date: datetime = datetime.now(), tps_rep: int = None,
                     tps_cuis: int = None, nb_people_max: int = None):
@@ -26,7 +38,7 @@ class TModels(TestCase):
         for key in vars_orig:
             if not key.startswith("_"):
                 self.assertIs(key in vars_get, True)
-                self.assertEqual(vars_orig[key], vars_get[key])
+                self.check_equal(vars_orig[key], vars_get[key])
         return r
 
     def add_new_recipe_minimalist(self):
