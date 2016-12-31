@@ -188,7 +188,7 @@ class CRecipe:
                     "level": instr.level
                 }
                 instructions.append(instruction)
-            data["instructions"] = instruction
+            data["instructions"] = instructions
             proposals = []
             for prop in recipe.proposal_set.all():
                 proposal = {
