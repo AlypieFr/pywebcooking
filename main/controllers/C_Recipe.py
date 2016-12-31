@@ -120,8 +120,20 @@ class CRecipe:
         return recipes_data
 
     @staticmethod
-    def get_recipe_data_from_id(id_recipe: int) -> dict:
-        return CRecipe.get_recipe_data(Recipe.objects.get(id=id_recipe))
+    def get_recipe_data_from_id(id_recipe: int, author: str=None, details: bool=False) -> dict:
+        if author is None:
+            return CRecipe.get_recipe_data(Recipe.objects.get(id=id_recipe), details)
+        else:
+            recipe = Recipe.objects.get(id=id_recipe, author=author)
+            return CRecipe.get_recipe_data(recipe, details)
+
+    @staticmethod
+    def get_recipe_data_from_slug(slug: str, author: str=None, details: bool=False) -> dict:
+        if author is None:
+            return CRecipe.get_recipe_data(Recipe.objects.get(slug=slug), details)
+        else:
+            recipe = Recipe.objects.get(slug=slug, author=author)
+            return CRecipe.get_recipe_data(recipe, details)
 
     @staticmethod
     def get_recipe_data(recipe: Recipe, details=False) -> dict:

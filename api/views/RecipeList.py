@@ -1,22 +1,17 @@
-from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework import permissions
 from rest_framework.parsers import MultiPartParser, FormParser
 
 from api.serializers import RecipeSerializer
 
 from main.controllers import CRecipe
 
-# Create your views here.
-
 
 class RecipeList(APIView):
     """
     List all recipes of the user, or create a new one
     """
-    permission_classes = (permissions.IsAuthenticated,)
     parser_classes = (MultiPartParser, FormParser)
 
     def get(self, request):
