@@ -30,7 +30,7 @@ class Recipe(models.Model):
     excerpt = models.TextField(verbose_name=_("excerpt"))
     enable_comments = models.BooleanField(default=True, verbose_name=_("enable comments"))
     published = models.BooleanField(default=True, verbose_name=_("published"))
-    slug = models.CharField(max_length=255, verbose_name=_("slug"))
+    slug = models.CharField(max_length=255, verbose_name=_("slug"), unique=True)
 
     def __str__(self):
         return self.title
