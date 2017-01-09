@@ -176,7 +176,8 @@ class CRecipe:
                 equipment = {
                     "name": eq.equipment.name,
                     "quantity": eq.quantity,
-                    "nb": eq.nb
+                    "nb": eq.nb,
+                    "isComment": eq.isComment
                 }
                 equipments.append(equipment)
             data["equipments"] = equipments
@@ -192,7 +193,7 @@ class CRecipe:
             proposals = []
             for prop in recipe.proposal_set.all():
                 proposal = {
-                    "text_cons": prop.text_cons,
+                    "text_prop": prop.text_cons,
                     "nb": prop.nb
                 }
                 proposals.append(proposal)
