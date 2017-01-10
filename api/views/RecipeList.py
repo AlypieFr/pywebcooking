@@ -23,5 +23,5 @@ class RecipeList(APIView):
         #     serializer.save()
         #     return Response(serializer.data, status=status.HTTP_201_CREATED)
         # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        print(request.FILES)
-        return Response("ok")
+        print(request.FILES["main_picture"].name)
+        return Response(request.FILES["main_picture"].name)
