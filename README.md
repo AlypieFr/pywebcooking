@@ -10,5 +10,8 @@ Install dependancies:
 - pip3 install djangorestframework
 - pip3 install mysqlclient
 
+Dépendances pour Apache :
+- libapache2-mod-wsgi-py3
+
 Still in development state, contact us for more informations:
 https://www.flo-art.fr/#!p=contact
