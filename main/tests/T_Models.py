@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from main.models import Category, Recipe, IngredientGroup, IngredientInGroup, Instruction, Equipment, \
-    EquipmentInRecipe, Proposal, Comment
+    EquipmentInRecipe, Proposal, Comment, UserProfile
 
 from django.contrib.auth.models import User
 
@@ -49,10 +49,12 @@ class TModels(TestCase):
         nb_people = 4
         author = User(first_name="Floréal", last_name="Cabanettes", email="test@gmail.com")
         author.save()
+        author_p = UserProfile(user=author, url="floreal")
+        author_p.save()
         cat = Category(name="Category1", url="category1", order=0)
         cat.save()
         categories = [cat]
-        r = self.recipe_test(title, description, tps_prep, picture_file, nb_people, author, categories)
+        r = self.recipe_test(title, description, tps_prep, picture_file, nb_people, author_p, categories)
         return r
 
     def test_add_new_ingredientGroup(self):
@@ -199,16 +201,18 @@ class TModels(TestCase):
         self.assertIs(c_get.author, None)
         author = User(first_name="Alyssia", last_name="Frênaie", email="alyssia.frenaie@gmail.com", username="alyssia")
         author.save()
+        author_p = UserProfile(url="alyssia", user=author)
+        author_p.save()
 
-        CComment.add_new(content="My comment 3", recipe=r, author=author)
+        CComment.add_new(content="My comment 3", recipe=r, author=author_p)
         c_get = Comment.objects.get(content="My comment 3")
         self.assertEqual(c_get.id is None, False)
         self.assertEqual(c_get.recipe.id, r.id)
         self.assertIs(c_get.pseudo, None)
         self.assertIs(c_get.mail, None)
-        self.assertEqual(c_get.author.first_name, "Alyssia")
-        self.assertEqual(c_get.author.last_name, "Frênaie")
-        self.assertEqual(c_get.author.email, "alyssia.frenaie@gmail.com")
+        self.assertEqual(c_get.author.user.first_name, "Alyssia")
+        self.assertEqual(c_get.author.user.last_name, "Frênaie")
+        self.assertEqual(c_get.author.user.email, "alyssia.frenaie@gmail.com")
 
         try:
             CComment.add_new(content="My comment 4", recipe=r, pseudo="Martin")
@@ -225,7 +229,7 @@ class TModels(TestCase):
                 self.fail("RequiredParameterException: " + str(e))
 
         try:
-            CComment.add_new(content="My comment 6", recipe=r, author=author, pseudo="Houbi")
+            CComment.add_new(content="My comment 6", recipe=r, author=author_p, pseudo="Houbi")
             self.fail("This test is expected to fail")
         except RequiredParameterException as e:
             if str(e) != "if you give author, you cannot give pseudo, mail or main":
@@ -329,12 +333,14 @@ class TModels(TestCase):
         pub_date = datetime.now()
         author = User(first_name="Floréal", last_name="Cabanettes", email="test@gmail.com", username="floreal")
         author.save()
+        author_p = UserProfile(user=author, url="floreal")
+        author_p.save()
         cat = Category(name="Category1", url="category1", order=1)
         cat.save()
         categories = [cat]
         precision = "ne vous loupez pas"
         r = CRecipe.add_new(title=title, description=description, tps_prep=tps_prep, picture_file=picture_file,
-                            nb_people=nb_people, author=author, categories=categories, pub_date=pub_date,
+                            nb_people=nb_people, author=author_p, categories=categories, pub_date=pub_date,
                             tps_rep=tps_rep, tps_cuis=tps_cuis, nb_people_max=nb_people_max, precision=precision)
         # Group 1
         CIngredientGroup.add_new("group 1 :", 0, r, 1, [{"name": "carottes", "quantity": 2, "unit": "", "nb": 0}])
@@ -368,8 +374,8 @@ class TModels(TestCase):
         self.maxDiff = None
         r = self.add_new_recipe_full()
         html = CRecipe.get_recipe_html(r)
-        html_expected = "<div id='illustration_desc'><div id='illustration'><a href='/static/Photos/myFile.jpg'><img " \
-                        "class='shadow' title='Title of the recipe' src='/static/Photos/myFile.jpg' alt='illustration" \
+        html_expected = "<div id='illustration_desc'><div id='illustration'><a href='/media/floreal/myFile.jpg'><img " \
+                        "class='shadow' title='Title of the recipe' src='/media/floreal/myFile.jpg' alt='illustration" \
                         "' width='254px' /></a></div><div id='description'><p>My description</p></div></div>"
         html_expected += "<div id='timesDetail'><strong>Temps de préparation&#8239;: 20 min<br/>Temps de repos&#8239;" \
                          ": 2 h 20 min<br/>Temps de cuisson&#8239;: 1 h 5 min</strong></div>"
@@ -400,15 +406,17 @@ class TModels(TestCase):
         pub_date = datetime.now()
         author = User(first_name="Floréal", last_name="Cabanettes", email="test@gmail.com", username="floreal2")
         author.save()
+        author_p = UserProfile(user=author, url="floreal")
+        author_p.save()
         cat = Category(name="Category1", url="category1", order=2)
         cat.save()
         categories = [cat]
         precision = "ne vous loupez pas"
         r1 = CRecipe.add_new(title=title, description=description, tps_prep=tps_prep, picture_file=picture_file,
-                            nb_people=nb_people, author=author, categories=categories, pub_date=pub_date,
+                            nb_people=nb_people, author=author_p, categories=categories, pub_date=pub_date,
                             tps_rep=tps_rep, tps_cuis=tps_cuis, nb_people_max=nb_people_max, precision=precision)
         r2 = CRecipe.add_new(title=title, description=description, tps_prep=tps_prep, picture_file=picture_file,
-                            nb_people=nb_people, author=author, categories=categories, pub_date=pub_date,
+                            nb_people=nb_people, author=author_p, categories=categories, pub_date=pub_date,
                             tps_rep=tps_rep, tps_cuis=tps_cuis, nb_people_max=nb_people_max, precision=precision)
         self.assertEqual(r1.slug, "title_of_the_recipe")
         self.assertEqual(r2.slug, "title_of_the_recipe_2")

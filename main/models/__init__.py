@@ -9,3 +9,4 @@ from .Proposal import Proposal
 from .Comment import Comment
 from .Equipment import Equipment
 from .EquipmentInRecipe import EquipmentInRecipe
+from .UserProfile import UserProfile

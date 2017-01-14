@@ -1,13 +1,13 @@
 from django.db import models
 from .Recipe import Recipe
-from django.contrib.auth.models import User
+from .UserProfile import UserProfile
 
 
 class Comment(models.Model):
     pseudo = models.CharField(max_length=100, null=True, default=None)
     website = models.CharField(max_length=255, null=True, default=None)
     mail = models.CharField(max_length=255, null=True, default=None)
-    author = models.ForeignKey(User, null=True, default=None)
+    author = models.ForeignKey(UserProfile, null=True, default=None)
     content = models.TextField()
     recipe = models.ForeignKey(Recipe)
     published = models.BooleanField(default=True)

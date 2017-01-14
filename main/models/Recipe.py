@@ -1,8 +1,8 @@
 from django.db import models
 from django.utils.translation import ugettext as _
-from django.contrib.auth.models import User
 from .Category import Category
 from .Equipment import Equipment
+from .UserProfile import UserProfile
 
 
 class Recipe(models.Model):
@@ -23,7 +23,7 @@ class Recipe(models.Model):
     # precision to nb_people
     pub_date = models.DateTimeField(auto_now=True, verbose_name=_("publication date"))  # Date of recipe publishing
     last_modif = models.DateTimeField(auto_now=True, verbose_name=_("last modification"))
-    author = models.ForeignKey(User, verbose_name=_("author"))
+    author = models.ForeignKey(UserProfile, verbose_name=_("author"))
     category = models.ManyToManyField(Category, verbose_name=_("category"))  # Recipe
     # category
     equipment = models.ManyToManyField(Equipment, through='EquipmentInRecipe', verbose_name=_("equipment"))

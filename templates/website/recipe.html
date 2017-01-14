@@ -16,7 +16,7 @@
                 {% localize on %}
                     {{ view.recipe.date_published }}
                 {% endlocalize %}
-                - {% trans "By" %} <a href="/{{ author }}/{{ view.recipe.recipe.author.url }}">{{ view.recipe.recipe.author.first_name }}</a> - {% trans "In" %} {{ view.recipe.categories | safe }}
+                - {% trans "By" %} <a href="/{{ author }}/{{ view.recipe.recipe.author.url }}">{{ view.recipe.recipe.author.user.first_name }}</a> - {% trans "In" %} {{ view.recipe.categories | safe }}
             </p>
             {{ view.recipe.html | safe }}
         </article>

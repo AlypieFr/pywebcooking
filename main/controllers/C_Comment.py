@@ -1,12 +1,11 @@
-from django.contrib.auth.models import User
-from main.models import Comment, Recipe
+from main.models import Comment, Recipe, UserProfile
 from main.functions.exceptions import RequiredParameterException
 
 
 class CComment:
     @staticmethod
     def add_new(content: str, recipe: Recipe, pseudo: str = None, mail: str = None, website: str = None,
-                author: User = None, published: bool = True) -> Comment:
+                author: UserProfile = None, published: bool = True) -> Comment:
         # Check parameters:
         if content is not None and (not isinstance(content, str)):
             raise TypeError("content must be a string")
@@ -22,8 +21,8 @@ class CComment:
             raise TypeError("mail must be a string, or None")
         if website is not None and (not isinstance(website, str)):
             raise TypeError("main must be a string, or None")
-        if author is not None and (not isinstance(author, User)):
-            raise TypeError("author must be an instance of the User class, or None")
+        if author is not None and (not isinstance(author, UserProfile)):
+            raise TypeError("author must be an instance of the UserProfile class, or None")
         if author is None and pseudo is None:
             raise RequiredParameterException("if you do not give an author, pseudo is required")
         if author is None and mail is None:

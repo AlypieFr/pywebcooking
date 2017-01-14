@@ -1,6 +1,6 @@
-from pywebcooking.settings import STATIC_URL
+from pywebcooking.settings import MEDIA_ROOT
 
-from main.models import Recipe, Category, IngredientInGroup
+from main.models import Recipe, Category, IngredientInGroup, UserProfile
 from django.contrib.auth.models import User
 
 from main.functions.exceptions import RequiredParameterException, BadParameterException
@@ -20,7 +20,7 @@ import re
 class CRecipe:
 
     @staticmethod
-    def add_new(title: str, description: str, tps_prep: int, picture_file: str, nb_people: int, author: User,
+    def add_new(title: str, description: str, tps_prep: int, picture_file: str, nb_people: int, author: UserProfile,
                 categories: "list of Category" = None, pub_date: datetime = datetime.datetime.now(),
                 tps_rep: int = None, tps_cuis: int = None, nb_people_max: int = None, precision: str = None, excerpt: str = None,
                 enable_comments: bool = True, published: bool = True) -> Recipe:
@@ -74,8 +74,8 @@ class CRecipe:
             raise TypeError("nb_people must be an integer")
         if nb_people is None or nb_people == 0:
             raise RequiredParameterException("nb_people is required and must be greater than 0")
-        if author is not None and (not isinstance(author, User)):
-            raise TypeError("author must be an instance of User object")
+        if author is not None and (not isinstance(author, UserProfile)):
+            raise TypeError("author must be an instance of UserProfile object")
         if author is None:
             raise RequiredParameterException("author is required")
         if nb_people_max is not None and (not isinstance(nb_people_max, int)):
@@ -113,7 +113,7 @@ class CRecipe:
 
     @staticmethod
     def get_author_recipes_data(author: User) -> list:
-        recipes = Recipe.objects.filter(author=author);
+        recipes = Recipe.objects.filter(author__user=author);
         recipes_data = []
         for recipe in recipes:
             recipes_data.append(CRecipe.get_recipe_data(recipe))
@@ -304,8 +304,8 @@ class CRecipe:
         html = "<div id='illustration_desc'>"
 
         # Add picture:
-        html += "<div id='illustration'><a href='" + STATIC_URL + "Photos/" + recipe.picture_file + "'><img " \
-                "class='shadow' title='" + recipe.title + "' src='" + STATIC_URL + "Photos/" + \
+        html += "<div id='illustration'><a href='" + MEDIA_ROOT + recipe.author.user.username + "/" + recipe.picture_file + "'><img " \
+                "class='shadow' title='" + recipe.title + "' src='" + MEDIA_ROOT + recipe.author.user.username + "/" + \
                 recipe.picture_file + "' alt='illustration' width='" + RecipeConfig.photo_in_recipe_width + \
                 "' /></a></div>"
 
