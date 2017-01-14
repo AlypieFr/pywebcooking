@@ -13,8 +13,7 @@ import django
 django.setup()
 
 from main.controllers import *
-from main.models import Category
-from django.contrib.auth.models import User
+from main.models import Category, UserProfile
 
 title = input("Title: ")
 description = input("Description: ")
@@ -27,7 +26,7 @@ nb_people_max = int(input("Nb people max: "))
 precision = input("Precision: ")
 
 category = Category.objects.get_or_create(name="Dessert", url="dessert", order=0)[0]
-author = User.objects.get(username="floreal")
+author = UserProfile.objects.get(user__username=input("Author username: "))
 
 recipe = CRecipe.add_new(title=title, description=description, tps_prep=tps_prep, tps_rep=tps_rep, tps_cuis=tps_cuis,
                 picture_file=picture_file, nb_people=nb_people, nb_people_max=nb_people_max, precision=precision,
