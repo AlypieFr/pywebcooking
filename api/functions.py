@@ -60,7 +60,15 @@ class Functions:
             recipe.delete()
             return -2, str(e)
             # TODO: remove files saved
-        return recipe.pk, None
+        Functions.__add_media_files(recipe, files_saved)
+        return recipe.pk, recipe.slug
+
+    @staticmethod
+    def __add_media_files(recipe: Recipe, medias: dict):
+        CRecipe.add_media_file(recipe, medias["main_picture"], "main")
+        if "other_pictures" in medias and len(medias["other_pictures"]) > 0:
+            for media in medias["other_pictures"]:
+                CRecipe.add_media_file(recipe, media, "other")
 
     @staticmethod
     def __save_ingredients(recipe: Recipe, ingredients: dict, ingredients_groups: dict, ingredients_in_groups: dict):
@@ -82,22 +90,32 @@ class Functions:
         return categories
 
     @staticmethod
+    def __save_file(file, user_url):
+        save_dir = settings.BASE_DIR + settings.MEDIA_ROOT + user_url + "/"
+        filename = file.name
+        ext = re.search(r"\.\w+$", filename).group(0)
+        base_name = filename[:-len(ext)]
+        if not os.path.isdir(save_dir):
+            Functions.mkdir_p(save_dir)
+        add = 2
+        while os.path.isfile(save_dir + filename):
+            filename = base_name + "_" + str(add) + ext
+            add += 1
+        with open(save_dir + filename, "wb") as my_file:
+            my_file.write(file.read())
+        return filename
+
+    @staticmethod
     def __save_files(files, user_url):
         files_saved = {}
         for f in files:
-            save_dir = settings.BASE_DIR + settings.MEDIA_ROOT + user_url + "/"
-            filename = files[f].name
-            ext = re.search(r"\.\w+$", filename).group(0)
-            base_name = filename[:-len(ext)]
-            if not os.path.isdir(save_dir):
-                Functions.mkdir_p(save_dir)
-            add = 2
-            while os.path.isfile(save_dir + filename):
-                filename = base_name + "_" + str(add) + ext
-                add += 1
-            with open(save_dir + filename, "wb") as my_file:
-                my_file.write(files[f].read())
-            files_saved[f] = filename
+            files_list = files.getlist(f)
+            if len(files_list) > 1:
+                files_saved[f] = []
+                for file in files_list:
+                    files_saved[f].append(Functions.__save_file(file, user_url))
+            else :
+                files_saved[f] = Functions.__save_file(files_list[0], user_url)
         return files_saved
 
     @staticmethod
