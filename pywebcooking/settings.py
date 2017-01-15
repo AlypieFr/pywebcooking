@@ -125,6 +125,6 @@ SITE_NAME = "PyWebCooking"
 COPY_START_YEAR = 2012
 
 try:
-    from local_settings import *
+    from .local_settings import *
 except ImportError as e:
     pass
