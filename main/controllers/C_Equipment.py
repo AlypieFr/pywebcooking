@@ -4,7 +4,7 @@ from main.functions.exceptions import RequiredParameterException, MissingKeyExce
 
 class CEquipment:
     @staticmethod
-    def add_new_to_recipe(name: str, quantity: int, nb: int, recipe: Recipe) -> EquipmentInRecipe:
+    def add_new_to_recipe(name: str, quantity: int, nb: int, is_comment: bool, recipe: Recipe) -> EquipmentInRecipe:
         # Check parameters:
         if name is not None and (not isinstance(name, str)):
             raise TypeError("name must be a string")
@@ -12,12 +12,14 @@ class CEquipment:
             raise RequiredParameterException("name is required and must be not empty")
         if quantity is not None and (not isinstance(quantity, int)):
             raise TypeError("quantity must be an integer")
-        if quantity is None or quantity == 0:
-            raise RequiredParameterException("quantity is required and must be strictly higher than 0")
         if nb is not None and (not isinstance(nb, int)):
             raise TypeError("nb must be an integer")
         if nb is None:
             raise RequiredParameterException("nb is required")
+        if is_comment is not None and (not isinstance(is_comment, bool)):
+            raise TypeError("isComment must be a boolean")
+        if is_comment is None:
+            is_comment = False
         if recipe is not None and (not isinstance(recipe, Recipe)):
             raise TypeError("recipe must be an instance of the Recipe class")
         if recipe is None:
@@ -25,7 +27,8 @@ class CEquipment:
 
         # Do the add:
         e = Equipment.objects.get_or_create(name=name)[0]
-        eir = EquipmentInRecipe(equipment=e, recipe=recipe, nb=nb, quantity=quantity)
+        eir = EquipmentInRecipe(equipment=e, recipe=recipe, nb=nb, quantity=quantity if int(quantity) > 0 else None,
+                                is_comment=is_comment)
         eir.save()
 
         return eir
@@ -42,7 +45,8 @@ class CEquipment:
                 req_keys = {
                     "name": False,
                     "quantity": False,
-                    "nb": False
+                    "nb": False,
+                    "isComment": False
                 }
                 for key, value in equipment.items():
                     if key in req_keys:
@@ -78,7 +82,7 @@ class CEquipment:
         for equipment in equipments:
             # noinspection PyTypeChecker
             eir_list.append(CEquipment.add_new_to_recipe(equipment['name'], equipment["quantity"], equipment["nb"],
-                                                         recipe))
+                                                         equipment['isComment'], recipe))
 
         return eir_list
 
@@ -96,10 +100,21 @@ class CEquipment:
             equipments.append(eq)
         equipments.sort(key=lambda k: k.nb)
 
-        html = "<ul>"
+        html = ""
+        list_begin = False
         for eq in equipments:
-            html += "<li>" + str(eq.quantity) + " " + eq.equipment.name + "</li>"
+            if not eq.is_comment:
+                if not list_begin:
+                    list_begin = True
+                    html += "<ul>"
+                html += "<li>" + str(eq.quantity) + " " + eq.equipment.name + "</li>"
+            else:
+                if list_begin:
+                    list_begin = False
+                    html += "</ul>"
+                html += "<p>" + eq.equipment.name + "</p>"
 
-        html += "</ul>"
+        if list_begin:
+            html += "</ul>"
 
         return html
