@@ -149,7 +149,7 @@ class TModels(TestCase):
     def test_add_new_proposal(self):
         r = self.add_new_recipe_minimalist()
         p = CProposal.add_new_to_recipe("My proposal 1", 0, r)
-        p_get = Proposal.objects.get(text_cons="My proposal 1")
+        p_get = Proposal.objects.get(text_prop="My proposal 1")
         self.assertIs(p_get.id is None, False)
         vars_orig = vars(p)
         vars_get = vars(p_get)
@@ -160,16 +160,16 @@ class TModels(TestCase):
 
     def test_ann_new_proposal_list_to_recipe(self):
         proposals = [{
-            "text_cons": "My proposal 2",
+            "text_prop": "My proposal 2",
             "nb": 1
         }, {
-            "text_cons": "My proposal 3",
+            "text_prop": "My proposal 3",
             "nb": 2
         }]
         r = self.add_new_recipe_minimalist()
         p_list = CProposal.add_new_list_to_recipe(proposals, r)
         for p in p_list:
-            p_get = Proposal.objects.get(text_cons=p.text_cons)
+            p_get = Proposal.objects.get(text_prop=p.text_prop)
             self.assertIs(p_get.id is None, False)
             vars_orig = vars(p)
             vars_get = vars(p_get)

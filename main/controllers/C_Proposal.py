@@ -4,12 +4,12 @@ from main.functions.exceptions import RequiredParameterException, MissingKeyExce
 
 class CProposal:
     @staticmethod
-    def add_new_to_recipe(text_cons: str, nb: int, recipe: Recipe) -> Proposal:
+    def add_new_to_recipe(text_prop: str, nb: int, recipe: Recipe) -> Proposal:
         # Test parameters:
-        if text_cons is not None and (not isinstance(text_cons, str)):
-            raise TypeError("text_cons must be a string")
-        if text_cons is None or len(text_cons) == 0:
-            raise RequiredParameterException("text_cons is required and must be not empty")
+        if text_prop is not None and (not isinstance(text_prop, str)):
+            raise TypeError("text_prop must be a string")
+        if text_prop is None or len(text_prop) == 0:
+            raise RequiredParameterException("text_prop is required and must be not empty")
         if nb is not None and (not isinstance(nb, int)):
             raise TypeError("nb must be an integer")
         if nb is None:
@@ -20,7 +20,7 @@ class CProposal:
             raise RequiredParameterException("recipe is required")
 
         # Do the add:
-        p = Proposal(text_cons=text_cons, nb=nb, recipe=recipe)
+        p = Proposal(text_prop=text_prop, nb=nb, recipe=recipe)
         p.save()
 
         return p
@@ -35,17 +35,17 @@ class CProposal:
         else:
             for proposal in proposals:
                 req_keys = {
-                    "text_cons": False,
+                    "text_prop": False,
                     "nb": False
                 }
                 for key, value in proposal.items():
                     if key in req_keys:
                         req_keys[key] = True
-                        if key == "text_cons":
+                        if key == "text_prop":
                             if value is not None and (not isinstance(value, str)):
-                                raise TypeError("proposal: text_cons must be a string")
+                                raise TypeError("proposal: text_prop must be a string")
                             if value is None or len(value) == 0:
-                                raise RequiredParameterException("proposal: text_cons must be not none or empty")
+                                raise RequiredParameterException("proposal: text_prop must be not none or empty")
                         elif key == "nb":
                             if value is not None and (not isinstance(value, int)):
                                 raise TypeError("proposal: nb must be an integer")
@@ -64,7 +64,7 @@ class CProposal:
         # Do the add:
         p_list = []
         for proposal in proposals:
-            p_list.append(CProposal.add_new_to_recipe(proposal["text_cons"], proposal["nb"], recipe))
+            p_list.append(CProposal.add_new_to_recipe(proposal["text_prop"], proposal["nb"], recipe))
 
         return p_list
 
@@ -84,7 +84,7 @@ class CProposal:
 
         html = "<ul>"
         for p in proposals:
-            html += "<li>" + p.text_cons + "</li>"
+            html += "<li>" + p.text_prop + "</li>"
         html += "</ul>"
 
         return html

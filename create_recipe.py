@@ -97,8 +97,8 @@ def add_instruction():
 def add_proposal():
     global nb_proposal, recipe
     nb_proposal += 1
-    text_cons = input("Text: ")
-    CProposal.add_new_to_recipe(text_cons, nb_proposal, recipe)
+    text_prop = input("Text: ")
+    CProposal.add_new_to_recipe(text_prop, nb_proposal, recipe)
 
 what_to_do_next()
 choice = int(input("Choice: "))

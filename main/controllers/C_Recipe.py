@@ -193,7 +193,7 @@ class CRecipe:
             proposals = []
             for prop in recipe.proposal_set.all():
                 proposal = {
-                    "text_prop": prop.text_cons,
+                    "text_prop": prop.text_prop,
                     "nb": prop.nb
                 }
                 proposals.append(proposal)
