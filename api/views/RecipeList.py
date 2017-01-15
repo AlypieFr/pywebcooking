@@ -25,7 +25,13 @@ class RecipeList(APIView):
         #     serializer.save()
         #     return Response(serializer.data, status=status.HTTP_201_CREATED)
         # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        #print(request.FILES["main_picture"].name)
+        data = Functions.get_data_dict(request.POST.dict())
         user_profile = UserProfile.objects.get(user__username=request.user.username)
-        r_id = Functions.add_recipe(request.POST, request.FILES, user_profile.url)
-        return Response(request.FILES["main_picture"].name)
+        r_id, error = Functions.add_recipe(data, request.FILES, user_profile.url)
+        if r_id < 0:
+            if r_id == -1:
+                return Response(error)
+            else:
+                return Response("Unexpected error: " + error)
+        else:
+            return Response("ok " + str(r_id))
