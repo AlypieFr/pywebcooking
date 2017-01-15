@@ -1,8 +1,13 @@
+import os
+
 from django.db import models
 from django.utils.translation import ugettext as _
 from .Category import Category
 from .Equipment import Equipment
 from .UserProfile import UserProfile
+from django.conf import settings
+
+from django.db.models.signals import post_delete
 
 
 class Recipe(models.Model):

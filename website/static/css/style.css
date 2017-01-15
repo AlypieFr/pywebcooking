@@ -103,3 +103,8 @@ footer {
 .category:hover {
     background-color: #4d4d4d;
 }
+
+article img.autoresize {
+    max-width: 100% !important;
+    display: block;
+}

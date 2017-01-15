@@ -1,6 +1,6 @@
 from pywebcooking.settings import MEDIA_ROOT
 
-from main.models import Recipe, Category, IngredientInGroup, UserProfile
+from main.models import Recipe, Category, IngredientInGroup, UserProfile, MediaInRecipe
 from django.contrib.auth.models import User
 
 from main.functions.exceptions import RequiredParameterException, BadParameterException
@@ -367,3 +367,7 @@ class CRecipe:
             html += "</div>"
 
         return html
+
+    @staticmethod
+    def add_media_file(recipe: Recipe, media: str, type: str):
+        MediaInRecipe.objects.create(recipe=recipe, media=media, type=type)

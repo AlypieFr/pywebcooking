@@ -1,5 +1,6 @@
 from main.models import Recipe, Instruction
 from main.functions.exceptions import RequiredParameterException
+from website.functions import Functions
 
 
 class CInstruction:
@@ -88,6 +89,7 @@ class CInstruction:
         instructions.sort(key=lambda k: k.nb)
         html = ""
         last_level = 0
+        author_url = recipe.author.url
         for instr in instructions:
             level = instr.level
             if level > last_level:
@@ -97,9 +99,9 @@ class CInstruction:
                 for i in range(level, last_level):
                     html += "</ol>"
             if level > 0:
-                html += "<li>" + instr.text_inst + "</li>"
+                html += "<li>" + Functions.insert_picture(instr.text_inst, author_url) + "</li>"
             else:
-                html += "<p>" + instr.text_inst + "</p>"
+                html += "<p>" + Functions.insert_picture(instr.text_inst, author_url) + "</p>"
             last_level = level
 
         if last_level > 0:

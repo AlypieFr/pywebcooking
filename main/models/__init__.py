@@ -10,3 +10,4 @@ from .Comment import Comment
 from .Equipment import Equipment
 from .EquipmentInRecipe import EquipmentInRecipe
 from .UserProfile import UserProfile
+from .MediaInRecipe import MediaInRecipe
