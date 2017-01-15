@@ -99,7 +99,7 @@ class CInstruction:
             if level > 0:
                 html += "<li>" + instr.text_inst + "</li>"
             else:
-                html += instr.text_inst
+                html += "<p>" + instr.text_inst + "</p>"
             last_level = level
 
         if last_level > 0:
