@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-22 16:05+0200\n"
-"PO-Revision-Date: 2016-08-24 01:07+0200\n"
+"POT-Creation-Date: 2017-01-15 17:09+0100\n"
+"PO-Revision-Date: 2017-01-15 17:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -16,7 +16,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#: api/functions.py:24
+msgid "Category does not exists"
+msgstr "La catégorie n'existe pas"
+
+#: api/functions.py:28
+msgid "User not found. Please contact an administrator"
+msgstr "Utilisateur non trouvé. Veuillez contacter un administrateur"
 
 #. Translators: terms used in a recipe
 #: main/config/RecipeConfig.py:8
