@@ -45,9 +45,9 @@ class CEquipment:
                 req_keys = {
                     "name": False,
                     "quantity": False,
-                    "nb": False,
-                    "isComment": False
+                    "nb": False
                 }
+                opt_keys = ["is_comment"]
                 for key, value in equipment.items():
                     if key in req_keys:
                         req_keys[key] = True
@@ -67,6 +67,10 @@ class CEquipment:
                                 raise TypeError("equipment: nb must be an integer")
                             if value is None:
                                 raise RequiredParameterException("equipment: nb must not be none")
+                    elif key in opt_keys:
+                        if key == "is_comment":
+                            if value is not None and (not isinstance(value, bool)):
+                                raise TypeError("equipment: nb must be a boolean")
                     else:
                         raise UnknownKeyException("equipment: unknown key: " + key)
                 for key in req_keys:
@@ -82,7 +86,8 @@ class CEquipment:
         for equipment in equipments:
             # noinspection PyTypeChecker
             eir_list.append(CEquipment.add_new_to_recipe(equipment['name'], equipment["quantity"], equipment["nb"],
-                                                         equipment['isComment'], recipe))
+                                                         equipment['is_comment'] if "is_comment" in equipment
+                                                         else False, recipe))
 
         return eir_list
 
