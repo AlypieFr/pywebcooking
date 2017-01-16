@@ -120,23 +120,12 @@ class Functions:
 
     @staticmethod
     def get_data_dict(data: dict):
+        is_obj = ["categories", "ingredients", "ingredients_groups", "ingredients_in_groups", "equipments",
+                  "instructions", "proposals"]
         new_data = {}
         for key, value in data.items():
-            if type(value) == str and len(value) > 0 and (value[0] == "{" or value[0] == "["):
+            if key in is_obj and type(value) == str:
                 new_data[key] = json.loads(value)
-                if value[0] == "[" and len(new_data[key]) > 0 and type(new_data[key][0]) == str \
-                        and len(new_data[key][0]) > 0 and (new_data[key][0][0] == "{"
-                                                           or new_data[key][0][0] == "["):
-                    for it in range(0, len(new_data[key])):
-                        new_data[key][it] = json.loads(new_data[key][it])
-                elif value[0] == "{" and len(new_data[key]) > 0:
-                    first_item = list(new_data[key].keys())[0]
-                    if type(new_data[key][first_item]) == str \
-                        and len(new_data[key][first_item]) > 0 and (new_data[key][first_item][0] == "{" \
-                                                                    or new_data[key][first_item][0] == "["):
-                        for k, v in new_data[key].items():
-                            new_data[key][k] = json.loads(v)
-
             else:
                 new_data[key] = value
         return new_data
