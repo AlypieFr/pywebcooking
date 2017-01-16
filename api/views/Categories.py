@@ -13,7 +13,7 @@ class Categories(APIView):
 
     def get(self, request):
         cats = []
-        for cat in Category.objects.all():
+        for cat in Category.objects.order_by('order'):
             cat_dict = {
                 "name": cat.name,
                 "url": cat.url
