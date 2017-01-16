@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-15 17:09+0100\n"
-"PO-Revision-Date: 2017-01-15 17:12+0100\n"
+"POT-Creation-Date: 2017-01-16 19:49+0100\n"
+"PO-Revision-Date: 2017-01-16 19:50+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -19,12 +19,17 @@ msgstr ""
 "X-Generator: Poedit 1.8.7.1\n"
 
 #: api/functions.py:24
-msgid "Category does not exists"
-msgstr "La catégorie n'existe pas"
+msgid "Category does not exists: "
+msgstr "La catégorie n'existe pas : "
 
 #: api/functions.py:28
 msgid "User not found. Please contact an administrator"
 msgstr "Utilisateur non trouvé. Veuillez contacter un administrateur"
+
+#. Translators: recipe is the parent tag of a recipe
+#: api/views/RecipeList.py:39 website/urls.py:10
+msgid "recipe"
+msgstr "recette"
 
 #. Translators: terms used in a recipe
 #: main/config/RecipeConfig.py:8
@@ -103,84 +108,84 @@ msgid "Categories"
 msgstr "Catégories"
 
 #. Translators : recipe fields
-#: main/models/Recipe.py:10
+#: main/models/Recipe.py:15
 msgid "title"
 msgstr "titre"
 
-#: main/models/Recipe.py:11
+#: main/models/Recipe.py:16
 msgid "description"
 msgstr "description"
 
-#: main/models/Recipe.py:12
+#: main/models/Recipe.py:17
 msgid "prep time"
 msgstr "temps de préparation"
 
-#: main/models/Recipe.py:13
+#: main/models/Recipe.py:18
 msgid "break time"
 msgstr "temps de repos"
 
-#: main/models/Recipe.py:15
+#: main/models/Recipe.py:20
 msgid "cook time"
 msgstr "temps de cuisson"
 
-#: main/models/Recipe.py:16
+#: main/models/Recipe.py:21
 msgid "Picture file"
 msgstr "fichier d'illustration"
 
-#: main/models/Recipe.py:18
+#: main/models/Recipe.py:23
 msgid "number of people"
 msgstr "nombre de personnes"
 
-#: main/models/Recipe.py:19
+#: main/models/Recipe.py:24
 msgid "max number of people"
 msgstr "nombre de personnes max"
 
-#: main/models/Recipe.py:22
+#: main/models/Recipe.py:27
 msgid "precision"
 msgstr "précision"
 
-#: main/models/Recipe.py:24
+#: main/models/Recipe.py:29
 msgid "publication date"
 msgstr "date de publication"
 
-#: main/models/Recipe.py:25
+#: main/models/Recipe.py:30
 msgid "last modification"
 msgstr "dernière modification"
 
 #. Translators: author url
-#: main/models/Recipe.py:26 templates/website/recipe.html:4
+#: main/models/Recipe.py:31 templates/website/recipe.html:4
 msgid "author"
 msgstr "auteur"
 
-#: main/models/Recipe.py:27
+#: main/models/Recipe.py:32
 msgid "category"
 msgstr "catégorie"
 
-#: main/models/Recipe.py:29
+#: main/models/Recipe.py:34
 msgid "equipment"
 msgstr "Matériel nécessaire"
 
-#: main/models/Recipe.py:30
+#: main/models/Recipe.py:35
 msgid "excerpt"
 msgstr "résumé"
 
-#: main/models/Recipe.py:31
+#: main/models/Recipe.py:36
 msgid "enable comments"
 msgstr "activer les commentaires"
 
-#: main/models/Recipe.py:32
+#: main/models/Recipe.py:37
 msgid "published"
 msgstr "publié"
 
-#: main/models/Recipe.py:33
+#: main/models/Recipe.py:38
 msgid "slug"
 msgstr "slug"
 
-#: main/models/Recipe.py:39
+#: main/models/Recipe.py:44
 msgid "Recipe"
 msgstr "Recette"
 
-#: main/models/Recipe.py:40
+#: main/models/Recipe.py:45
 msgid "Recipes"
 msgstr "Recettes"
 
@@ -215,11 +220,6 @@ msgstr "header-categories-fr.png"
 msgctxt "category url"
 msgid "category"
 msgstr "categorie"
-
-#. Translators: recipe is the parent tag of a recipe
-#: website/urls.py:10
-msgid "recipe"
-msgstr "recette"
 
 #~ msgctxt "category verbose name"
 #~ msgid "category"

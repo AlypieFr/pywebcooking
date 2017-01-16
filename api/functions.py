@@ -20,8 +20,8 @@ class Functions:
         """
         try:
             cats = Functions.__get_categories_objects(data["categories"])
-        except Category.DoesNotExist:
-            return -1, _("Category does not exists")
+        except Category.DoesNotExist as e:
+            return -1, _("Category does not exists: " + str(e))
         try:
             author = UserProfile.objects.get(user__username=user_url)
         except UserProfile.DoesNotExist:
@@ -86,7 +86,10 @@ class Functions:
     def __get_categories_objects(cats:list):
         categories = []
         for cat in cats:
-            categories.append(Category.objects.get(name=cat))
+            try:
+                categories.append(Category.objects.get(name=cat))
+            except Category.DoesNotExist:
+                raise Category.DoesNotExist(cat)
         return categories
 
     @staticmethod
