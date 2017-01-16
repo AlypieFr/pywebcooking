@@ -113,7 +113,7 @@ class CRecipe:
 
     @staticmethod
     def get_author_recipes_data(author: User) -> list:
-        recipes = Recipe.objects.filter(author__user=author);
+        recipes = Recipe.objects.filter(author__user=author)
         recipes_data = []
         for recipe in recipes:
             recipes_data.append(CRecipe.get_recipe_data(recipe))

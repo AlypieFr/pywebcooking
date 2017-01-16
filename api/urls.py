@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^$', views.RecipeList.as_view()),
     url(r'^recipe/by-id/([0-9]+)$', views.RecipeById.as_view()),
     url(r'^recipe/by-slug/([\w_]+)$', views.RecipeBySlug.as_view()),
+    url(r'^categories/', views.Categories.as_view()),
     url(r'^auth/', include('rest_framework.urls',
                                namespace='rest_framework')),
 ]
