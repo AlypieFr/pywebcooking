@@ -142,7 +142,7 @@ class CRecipe:
         :param recipe: the recipe to get the data
         :return: data of the recipe
         """
-        data = {"author": recipe.author.username}
+        data = {"author": recipe.author.user.username}
         vars_recipe = vars(recipe)
         for key in vars_recipe:
             if not key.startswith("_") and key != "author_id":
