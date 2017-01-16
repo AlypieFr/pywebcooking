@@ -22,7 +22,7 @@ class RecipeView(TemplateView):
         data["recipe"] = recipe
         data["date_published"] = recipe.pub_date.date()
         data["categories"] = []
-        for cat in recipe.category.all():
+        for cat in recipe.category.all().order_by("order"):
             # Translators: category url
             data["categories"].append("<a href='/" + pgettext("category url", "category") + "/" + cat.url + "'>" + cat.name + "</a>")
         data["categories"] = " - ".join(data["categories"])
