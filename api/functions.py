@@ -67,8 +67,11 @@ class Functions:
     def __add_media_files(recipe: Recipe, medias: dict):
         CRecipe.add_media_file(recipe, medias["main_picture"], "main")
         if "other_pictures" in medias and len(medias["other_pictures"]) > 0:
-            for media in medias["other_pictures"]:
-                CRecipe.add_media_file(recipe, media, "other")
+            if type(medias["other_pictures"]) == list:
+                for media in medias["other_pictures"]:
+                    CRecipe.add_media_file(recipe, media, "other")
+            else:
+                CRecipe.add_media_file(recipe, medias["other_pictures"], "other")
 
     @staticmethod
     def __save_ingredients(recipe: Recipe, ingredients: dict, ingredients_groups: dict, ingredients_in_groups: dict):
