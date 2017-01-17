@@ -1,5 +1,7 @@
+import django
 from main.models import IngredientGroup, IngredientInGroup, Ingredient, Recipe
 
+from main.functions import Functions
 from main.functions.exceptions import RequiredParameterException, MissingKeyException
 
 
@@ -49,7 +51,7 @@ class CIngredientGroup:
         if ingredients is not None:
             for ingr in ingredients:
                 ingredient = Ingredient.objects.get_or_create(name=ingr["name"])[0]
-                iig = IngredientInGroup(quantity=ingr["quantity"], unit=ingr["unit"], nb=ingr["nb"],
+                iig = IngredientInGroup(quantity=ingr["quantity"] if ingr["quantity"] > 0 else None, unit=ingr["unit"], nb=ingr["nb"],
                                         ingredient=ingredient, ingredientGroup=ig)
                 iig.save()
 
@@ -103,17 +105,27 @@ class CIngredientGroup:
             if has_title:
                 html += "<ul>"
             for ingr in ingredients:
-                qte = round(ingr.quantity, 2)
-                quantity = str(ingr.quantity)
-                if qte in quantity_transform:
-                    quantity = quantity_transform[qte]
-                elif quantity[-2:] == ".0":  # Remove .0 if any
-                    quantity = quantity[:-2]
+                if ingr.quantity is not None:
+                    qte = round(ingr.quantity, 2)
+                    quantity = str(ingr.quantity)
+                    if qte in quantity_transform:
+                        quantity = quantity_transform[qte]
+                    elif quantity[-2:] == ".0":  # Remove .0 if any
+                        quantity = quantity[:-2]
+                else:
+                    quantity = ""
                 unit = ""
                 if len(ingr.unit) > 0:
                     unit = ingr.unit
                     if unit[-1] != "'":
                         unit += " "
+                    if django.utils.translation.get_language().lower().startswith("fr"):
+                        vowels = ["a", "e", "i", "o", "u", "y"]
+                        if Functions.remove_accents(ingr.ingredient.name[0].lower()) in vowels:
+                            unit += " d'"
+                        else:
+                            unit += " de "
+
                 html += "<li>" + quantity + " " + unit + ingr.ingredient.name + "</li>"
 
         return html, has_ingr
