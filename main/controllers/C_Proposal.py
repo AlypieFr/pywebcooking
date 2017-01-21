@@ -1,10 +1,11 @@
 from main.models import Proposal, Recipe
 from main.functions.exceptions import RequiredParameterException, MissingKeyException, UnknownKeyException
+from main.functions import Functions
 
 
 class CProposal:
     @staticmethod
-    def add_new_to_recipe(text_prop: str, nb: int, is_comment: bool, recipe: Recipe) -> Proposal:
+    def add_new_to_recipe(text_prop: str, nb: int, is_comment: bool, recipe: Recipe, files_replaces: dict = None) -> Proposal:
         # Test parameters:
         if text_prop is not None and (not isinstance(text_prop, str)):
             raise TypeError("text_prop must be a string")
@@ -24,13 +25,15 @@ class CProposal:
             raise RequiredParameterException("recipe is required")
 
         # Do the add:
+        if files_replaces is not None:
+            text_prop = Functions.replace_files(text_prop, files_replaces)
         p = Proposal(text_prop=text_prop, nb=nb, recipe=recipe, is_comment=is_comment)
         p.save()
 
         return p
 
     @staticmethod
-    def add_new_list_to_recipe(proposals: list, recipe: Recipe):
+    def add_new_list_to_recipe(proposals: list, recipe: Recipe, files_replaces: dict = None):
         # Check parameters:
         if proposals is not None and (not isinstance(proposals, list)):
             raise TypeError("proposals must be a list")
@@ -74,7 +77,8 @@ class CProposal:
         p_list = []
         for proposal in proposals:
             p_list.append(CProposal.add_new_to_recipe(proposal["text_prop"], proposal["nb"],
-                                                      proposal["is_comment"] if "is_comment" in proposal else False, recipe))
+                                                      proposal["is_comment"] if "is_comment" in proposal else False,
+                                                      recipe, files_replaces=files_replaces))
 
         return p_list
 

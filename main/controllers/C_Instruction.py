@@ -1,17 +1,18 @@
 from main.models import Recipe, Instruction
 from main.functions.exceptions import RequiredParameterException
-from website.functions import Functions
+from main.functions import Functions
 
 
 class CInstruction:
     @staticmethod
-    def add_new(text_inst: str, nb: int, recipe: Recipe, level: int = 0) -> Instruction:
+    def add_new(text_inst: str, nb: int, recipe: Recipe, level: int = 0, files_replaces: dict = None) -> Instruction:
         """
         Add new instruction to a recipe
         :param text_inst: text of the instruction {str} [REQ]
         :param nb: define order of instructions in the recipe {int} [REQ]
         :param recipe: the recipe to add the instruction {Recipe} [REQ]
         :param level: represent the indentation of the instruction {int} [OPT]
+        :param files_replaces: list of files replaces to do in text {dict} [OPT]
         :return:
         """
         # Check parameters:
@@ -31,13 +32,15 @@ class CInstruction:
             raise TypeError("level must be an integer")
 
         # Add instruction:
+        if files_replaces is not None:
+            text_inst = Functions.replace_files(text_inst, files_replaces)
         inst = Instruction(text_inst=text_inst, nb=nb, recipe=recipe, level=level)
         inst.save()
 
         return inst
 
     @staticmethod
-    def add_new_list(instructions: list, recipe: Recipe):
+    def add_new_list(instructions: list, recipe: Recipe, files_replaces: dict = None):
         # Check parameters and order instructions to add:
         if recipe is not None and (not isinstance(recipe, Recipe)):
             raise TypeError("recipe must be an instance of Recipe model")
@@ -68,7 +71,8 @@ class CInstruction:
         instrs = []
         for instruction in instructions:
             level = instruction["level"] if "level" in instruction else 0
-            instr = CInstruction.add_new(text_inst=instruction["text_inst"], nb=instruction["nb"], level=level, recipe=recipe)
+            instr = CInstruction.add_new(text_inst=instruction["text_inst"], nb=instruction["nb"], level=level,
+                                         recipe=recipe, files_replaces=files_replaces)
             instrs.append(instr)
 
         return instrs

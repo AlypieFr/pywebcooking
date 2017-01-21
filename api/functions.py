@@ -28,7 +28,7 @@ class Functions:
             return -1, _("User not found. Please contact an administrator")
 
         # Save uploaded files:
-        files_saved = Functions.__save_files(files, user_url)
+        files_saved, files_renamed = Functions.__save_files(files, user_url)
         try:
             recipe = CRecipe.add_new(title=data["title"], description=data["description"], tps_prep=int(data["tps_prep"]),
                             tps_cuis=int(data["tps_cuis"]) if "tps_cuis" in data and int(data["tps_cuis"]) > 0 else None,
@@ -52,10 +52,11 @@ class Functions:
             if "equipments" in data and len(data["equipments"]) > 0:
                 CEquipment.add_new_list_to_recipe(equipments=data["equipments"], recipe=recipe)
             # Add instructions:
-            CInstruction.add_new_list(instructions=data["instructions"], recipe=recipe)
+            CInstruction.add_new_list(instructions=data["instructions"], recipe=recipe, files_replaces=files_renamed)
             # Add proposals:
             if "proposals" in data and len(data["proposals"]) > 0:
-                CProposal.add_new_list_to_recipe(proposals=data["proposals"], recipe=recipe)
+                CProposal.add_new_list_to_recipe(proposals=data["proposals"], recipe=recipe,
+                                                 files_replaces=files_renamed)
         except Exception as e:
             recipe.delete()
             return -2, str(e)
@@ -120,15 +121,23 @@ class Functions:
     @staticmethod
     def __save_files(files, user_url):
         files_saved = {}
+        files_renamed = {}
         for f in files:
             files_list = files.getlist(f)
             if len(files_list) > 1:
                 files_saved[f] = []
                 for file in files_list:
-                    files_saved[f].append(Functions.__save_file(file, user_url))
+                    filename = Functions.__save_file(file, user_url)
+                    files_saved[f].append(filename)
+                    if file.name != filename:
+                        files_renamed[file.name] = filename
             else :
-                files_saved[f] = Functions.__save_file(files_list[0], user_url)
-        return files_saved
+                filename = Functions.__save_file(files_list[0], user_url)
+                files_saved[f] = filename
+                if files_list[0].name != filename:
+                    files_renamed[files_list[0].name] = filename
+
+        return files_saved, files_renamed
 
     @staticmethod
     def get_data_dict(data: dict):
