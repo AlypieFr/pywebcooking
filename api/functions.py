@@ -107,8 +107,14 @@ class Functions:
         while os.path.isfile(save_dir + filename):
             filename = base_name + "_" + str(add) + ext
             add += 1
-        with open(save_dir + filename, "wb") as my_file:
+        file_path = save_dir + filename
+        with open(file_path, "wb") as my_file:
             my_file.write(file.read())
+        if file_path.lower().endswith(".jpg") or file_path.lower().endswith(".jpeg"):
+            jpegoptim = Functions.which("jpegoptim")
+            print("jpegoptim", jpegoptim)
+            if jpegoptim is not None:
+                os.system(jpegoptim + " -s " + file_path)
         return filename
 
     @staticmethod
@@ -145,3 +151,23 @@ class Functions:
                 pass
             else:
                 raise
+
+    @staticmethod
+    def which(program):
+        import os
+
+        def is_exe(fpath):
+            return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
+
+        fpath, fname = os.path.split(program)
+        if fpath:
+            if is_exe(program):
+                return program
+        else:
+            for path in os.environ["PATH"].split(os.pathsep):
+                path = path.strip('"')
+                exe_file = os.path.join(path, program)
+                if is_exe(exe_file):
+                    return exe_file
+
+        return None
