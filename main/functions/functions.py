@@ -11,8 +11,8 @@ class Functions:
 
     @staticmethod
     def insert_picture(item: str, author_url: str):
-        pict = re.search(r"\[PICT:(\w+):(\d+):(\d+)(:center)?:([^]]+)]", item)
-        if pict:
+        pict_iter = re.finditer(r"\[PICT:(\w+):(\d+):(\d+)(:center)?:([^]]+)]", item)
+        for pict in pict_iter:
             bal_img = pict.group(0)
             printable = pict.group(1)
             width = pict.group(2)
