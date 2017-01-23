@@ -196,7 +196,8 @@ class CRecipe:
             for prop in recipe.proposal_set.all().order_by("nb"):
                 proposal = {
                     "text_prop": prop.text_prop,
-                    "nb": prop.nb
+                    "nb": prop.nb,
+                    "is_comment": prop.is_comment
                 }
                 proposals.append(proposal)
             data["proposals"] = proposals
