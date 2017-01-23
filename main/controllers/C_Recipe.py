@@ -150,8 +150,8 @@ class CRecipe:
         data["picture_url"] = "/media/" + recipe.author.user.username + "/" + recipe.picture_file
         categories = []
         for cat in recipe.category.all():
-            categories.append(cat.url)
-        data["category"] = categories
+            categories.append(cat.name)
+        data["categories"] = categories
         if details:
             ingredients = []
             ingredients_groups = recipe.ingredientgroup_set
