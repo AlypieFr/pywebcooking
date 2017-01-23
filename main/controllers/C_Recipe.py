@@ -124,7 +124,7 @@ class CRecipe:
         if author is None:
             return CRecipe.get_recipe_data(Recipe.objects.get(id=id_recipe), details)
         else:
-            recipe = Recipe.objects.get(id=id_recipe, author=author)
+            recipe = Recipe.objects.get(id=id_recipe, author__user=author)
             return CRecipe.get_recipe_data(recipe, details)
 
     @staticmethod
@@ -132,7 +132,7 @@ class CRecipe:
         if author is None:
             return CRecipe.get_recipe_data(Recipe.objects.get(slug=slug), details)
         else:
-            recipe = Recipe.objects.get(slug=slug, author=author)
+            recipe = Recipe.objects.get(slug=slug, author__user=author)
             return CRecipe.get_recipe_data(recipe, details)
 
     @staticmethod
