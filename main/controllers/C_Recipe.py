@@ -155,14 +155,15 @@ class CRecipe:
         if details:
             ingredients = []
             ingredients_groups = recipe.ingredientgroup_set
-            for ingredients_group in ingredients_groups.all():
+            for ingredients_group in ingredients_groups.all().order_by("nb"):
                 ig = {
                     "title": ingredients_group.title,
                     "nb": ingredients_group.nb,
                     "level": ingredients_group.level,
                     "ingredients": []
                 }
-                ingredients_in_group = IngredientInGroup.objects.filter(ingredientGroup=ingredients_group)
+                ingredients_in_group = IngredientInGroup.objects.filter(ingredientGroup=ingredients_group)\
+                    .order_by("nb")
                 for iig in ingredients_in_group:
                     ig["ingredients"].append({
                         "name": iig.ingredient.name,
@@ -173,17 +174,17 @@ class CRecipe:
                 ingredients.append(ig)
             data["ingredients"] = ingredients
             equipments = []
-            for eq in recipe.equipmentinrecipe_set.all():
+            for eq in recipe.equipmentinrecipe_set.all().order_by("nb"):
                 equipment = {
                     "name": eq.equipment.name,
                     "quantity": eq.quantity,
                     "nb": eq.nb,
-                    "isComment": eq.isComment
+                    "is_comment": eq.is_comment
                 }
                 equipments.append(equipment)
             data["equipments"] = equipments
             instructions = []
-            for instr in recipe.instruction_set.all():
+            for instr in recipe.instruction_set.all().order_by("nb"):
                 instruction = {
                     "text_inst": instr.text_inst,
                     "nb": instr.nb,
@@ -192,7 +193,7 @@ class CRecipe:
                 instructions.append(instruction)
             data["instructions"] = instructions
             proposals = []
-            for prop in recipe.proposal_set.all():
+            for prop in recipe.proposal_set.all().order_by("nb"):
                 proposal = {
                     "text_prop": prop.text_prop,
                     "nb": prop.nb
