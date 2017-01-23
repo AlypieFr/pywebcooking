@@ -147,6 +147,7 @@ class CRecipe:
         for key in vars_recipe:
             if not key.startswith("_") and key != "author_id":
                 data[key] = vars_recipe[key]
+        data["picture_url"] = "/media/" + recipe.author.user.username + "/" + recipe.picture_file
         categories = []
         for cat in recipe.category.all():
             categories.append(cat.url)
