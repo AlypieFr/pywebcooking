@@ -91,7 +91,7 @@ class CRecipe:
                 if not isinstance(cat, Category):
                     raise TypeError("categories must be a list of Category object")
 
-        if excerpt == None:
+        if excerpt is None:
             desc_words = description.split(" ")
             excerpt_words = desc_words[0:max(len(desc_words), 50)]  # TODO: set the true number of words
             excerpt = " ".join(excerpt_words)
@@ -110,6 +110,104 @@ class CRecipe:
         CRecipe.add_categories(r, categories)
 
         return r
+
+    @staticmethod
+    def update(recipe: Recipe, title: str = None, description: str = None, tps_prep: int = None,
+               picture_file: str = None, nb_people: int = None, author: UserProfile = None,
+               categories: "list of Category" = None, pub_date: datetime = datetime.datetime.now(),
+               tps_rep: int = None, tps_cuis: int = None, nb_people_max: int = None, precision: str = None,
+               excerpt: str = None, enable_comments: bool = True, published: bool = True) -> Recipe:
+        """
+                Add new recipe
+                :param title: title of the recipe {string} [REQ]
+                :param description: description of the recipe {string} [REQ]
+                :param tps_prep: time needed to prepare the recipe, without "cuisson" time - in minutes {int} [REQ]
+                :param picture_file: the illustration filename of the recipe {string} [REQ]
+                :param nb_people: the number of people for this recipe {int} [REQ]
+                :param author: the author of this recipe {User} [REQ]
+                :param categories: the list of categories for this recipe {list<Category>} [REQ]
+                :param pub_date: the publication date - if not sent, use current date {datetime} [OPT]
+                :param tps_rep: the break ("repos") time {int} [OPT]
+                :param tps_cuis: the cooking ("cuisson") time {int} [OPT]
+                :param nb_people_max: the number of people for this recipe (max value, if filled, the min value is nb_people)
+                :param precision: the precision to add to the ingredients header just after nb people
+                :param excerpt: the excerpt of the recipe (shown in index pages)
+                :param enable_comments: enable comments for this recipe
+                :param published: is the recipe publicly published
+                [OPT]
+                :return: the recipe created {Recipe}
+                """
+
+        # Check parameters:
+        if recipe is None:
+            raise RequiredParameterException("recipe parameter is required")
+        if recipe is not None and (not isinstance(recipe, Recipe)):
+            raise TypeError("recipe must be an instance of the Recipe object")
+        if title is not None and (not isinstance(title, str)):
+            raise TypeError("title must be a string")
+        if description is not None and (not isinstance(description, str)):
+            raise TypeError("description must be a string")
+        if tps_prep is not None and (not isinstance(tps_prep, int)):
+            raise TypeError("tps_prep must be an integer")
+        if tps_prep is not None and tps_prep == 0:
+            raise BadParameterException("tps_prep is given but is equal to 0")
+        if tps_rep is not None and (not isinstance(tps_rep, int)):
+            raise TypeError("tps_rep must be an integer")
+        if tps_cuis is not None and (not isinstance(tps_cuis, int)):
+            raise TypeError("tps_cuis must be an integer")
+        if picture_file is not None and (not isinstance(picture_file, str)):
+            raise TypeError("picture_file must be a string")
+        if nb_people is not None and (not isinstance(nb_people, int)):
+            raise TypeError("nb_people must be an integer")
+        if author is not None and (not isinstance(author, UserProfile)):
+            raise TypeError("author must be an instance of UserProfile object")
+        if nb_people_max is not None and (not isinstance(nb_people_max, int)):
+            raise TypeError("nb_people_max must be an integer (or None)")
+        if precision is not None and (not isinstance(precision, str)):
+            raise TypeError("precision must be a string (or None)")
+        if categories is not None:
+            if not isinstance(categories, list):
+                raise TypeError("categories must be a list")
+            for cat in categories:
+                if not isinstance(cat, Category):
+                    raise TypeError("categories must be a list of Category object")
+
+        if title is not None:
+            recipe.title = title
+        if description is not None:
+            recipe.description = description
+            if excerpt is None:
+                desc_words = description.split(" ")
+                excerpt_words = desc_words[0:max(len(desc_words), 50)]  # TODO: set the true number of words
+                excerpt = " ".join(excerpt_words)
+                recipe.excerpt = excerpt
+        if tps_prep is not None:
+            recipe.tps_prep = tps_prep
+        if tps_cuis is not None:
+            recipe.tps_cuis = tps_cuis if tps_cuis > 0 else None
+        if tps_rep is not None:
+            recipe.tps_rep = tps_rep if tps_rep > 0 else None
+        if picture_file is not None:
+            recipe.picture_file = picture_file
+        if nb_people is not None:
+            recipe.nb_people = nb_people
+        if nb_people_max is not None:
+            recipe.nb_people_max = nb_people_max if nb_people_max > 0 else None
+        if precision is not None:
+            recipe.precision = precision if len(precision) > 0 else None
+        if author is not None:
+            recipe.author = author
+        if pub_date is not None:
+            recipe.pub_date = pub_date
+        recipe.enable_comments = enable_comments
+        recipe.published = published
+        recipe.last_modif = datetime.datetime.now()
+        recipe.save()
+
+        if categories is not None:
+            CRecipe.set_categories(recipe, categories)
+
+        return recipe
 
     @staticmethod
     def get_author_recipes_data(author: User) -> list:
@@ -213,6 +311,20 @@ class CRecipe:
                 raise TypeError("categories must be a list of Category object")
 
         # Do the staff:
+        for cat in categories:
+            recipe.category.add(cat)
+
+    @staticmethod
+    def set_categories(recipe: Recipe, categories: "list of Categories"):
+        # Check parameters:
+        if not isinstance(categories, list):
+            raise TypeError("categories must be a list")
+        for cat in categories:
+            if not isinstance(cat, Category):
+                raise TypeError("categories must be a list of Category object")
+
+        # Do the staff:
+        recipe.category.all().delete()
         for cat in categories:
             recipe.category.add(cat)
 
