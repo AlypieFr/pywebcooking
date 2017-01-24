@@ -117,8 +117,6 @@ class CIngredientGroup:
                 unit = ""
                 if len(ingr.unit) > 0:
                     unit = ingr.unit
-                    if unit[-1] != "'":
-                        unit += " "
                     if django.utils.translation.get_language().lower().startswith("fr"):
                         vowels = ["a", "e", "i", "o", "u", "y"]
                         if Functions.remove_accents(ingr.ingredient.name[0].lower()) in vowels:
