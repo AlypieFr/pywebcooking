@@ -112,7 +112,7 @@ class TModels(TestCase):
     def test_add_new_equipment_to_recipe(self):
         equip_name = "My equipment 1"
         r = self.add_new_recipe_minimalist()
-        eir = CEquipment.add_new_to_recipe(name=equip_name, quantity=1, nb=0, recipe=r)
+        eir = CEquipment.add_new_to_recipe(name=equip_name, quantity=1, nb=0, recipe=r, is_comment=False)
         self.assertIs(eir.id is None, False)
         self.assertEqual(eir.equipment.name, equip_name)
         self.assertEqual(eir.quantity, 1)
@@ -148,7 +148,7 @@ class TModels(TestCase):
 
     def test_add_new_proposal(self):
         r = self.add_new_recipe_minimalist()
-        p = CProposal.add_new_to_recipe("My proposal 1", 0, r)
+        p = CProposal.add_new_to_recipe("My proposal 1", 0, False, r)
         p_get = Proposal.objects.get(text_prop="My proposal 1")
         self.assertIs(p_get.id is None, False)
         vars_orig = vars(p)
@@ -237,7 +237,7 @@ class TModels(TestCase):
 
     def test_build_html_for_ig(self):
         ingr1 = {"name": "Carottes", "quantity": 2, "nb": 1, "unit": ""}
-        ingr2 = {"nb": 2, "name": "Pommes de terre", "quantity": 400, "unit": "g de"}
+        ingr2 = {"nb": 2, "name": "Pommes de terre", "quantity": 400, "unit": "g"}
         ingrs = [ingr2, ingr1]
         r = self.add_new_recipe_minimalist()
         ig = CIngredientGroup.add_new("Pour la pâte à tarte:", 1, r, 1, ingrs)
@@ -251,13 +251,13 @@ class TModels(TestCase):
         CIngredientGroup.add_new("group 1 :", 0, r, 1, [{"name": "carottes", "quantity": 2, "unit": "", "nb": 0}])
         # Group 2
         CIngredientGroup.add_new("Pour les oeufs :", 1, r, 2, [{"name": "chocolat", "quantity": 100, "unit":
-                                 "g de", "nb": 0}, {"name": "sucre", "quantity": 25, "unit": "g de", "nb": 1}])
+                                 "g", "nb": 0}, {"name": "sucre", "quantity": 25, "unit": "g", "nb": 1}])
         # Group 3
         CIngredientGroup.add_new("", 2, r, 2, [{"name": "poires", "quantity": 3, "unit": "", "nb": 0}, {"name": "eau",
-                                               "quantity": 5, "unit": "cl d'", "nb": 1}])
+                                               "quantity": 5, "unit": "cl", "nb": 1}])
         # Group 4
-        CIngredientGroup.add_new("", 3, r, 1, [{"name": "pommes", "quantity": 4, "unit": "kg de", "nb": 0}, {"name":
-                                               "sel", "quantity": 5, "unit": "g de", "nb": 1}])
+        CIngredientGroup.add_new("", 3, r, 1, [{"name": "pommes", "quantity": 4, "unit": "kg", "nb": 0}, {"name":
+                                               "sel", "quantity": 5, "unit": "g", "nb": 1}])
         html = CIngredientGroup.build_html_for_ingredients(r)
         html_expected = "<ul><li>group 1 :</li><ul><li>2 carottes</li><li>Pour les oeufs :</li><ul><li>100 g de " \
                         "chocolat</li><li>25 g de sucre</li></ul><li>3 poires</li><li>5 cl d'eau</li></ul><li>4 kg de" \
@@ -270,11 +270,11 @@ class TModels(TestCase):
         CIngredientGroup.add_new("group 1 :", 0, r, 1, [{"name": "carottes", "quantity": 2, "unit": "", "nb": 0}])
         # Group 2
         CIngredientGroup.add_new("Pour les oeufs :", 1, r, 2, [{"name": "chocolat", "quantity": 100, "unit":
-            "g de", "nb": 0}, {"name": "sucre", "quantity": 25, "unit": "g de", "nb": 1}])
+            "g", "nb": 0}, {"name": "sucre", "quantity": 25, "unit": "g", "nb": 1}])
         # Group 3
         CIngredientGroup.add_new("", 2, r, 2, [{"name": "poires", "quantity": 3, "unit": "", "nb": 0}, {"name": "eau",
                                                                                                         "quantity": 5,
-                                                                                                        "unit": "cl d'",
+                                                                                                        "unit": "cl",
                                                                                                         "nb": 1}])
         # Group 4
         CIngredientGroup.add_new("Un commentaire pour finir", 3, r, 0)
@@ -303,9 +303,9 @@ class TModels(TestCase):
 
     def test_build_recipe_proposals(self):
         r = self.add_new_recipe_minimalist()
-        CProposal.add_new_to_recipe("cons 1", 0, r)
-        CProposal.add_new_to_recipe("cons 3", 2, r)
-        CProposal.add_new_to_recipe("cons 2", 1, r)
+        CProposal.add_new_to_recipe("cons 1", 0, False, r)
+        CProposal.add_new_to_recipe("cons 3", 2, False, r)
+        CProposal.add_new_to_recipe("cons 2", 1, False, r)
 
         html = CProposal.build_html_for_proposals(r)
         html_expected = "<ul><li>cons 1</li><li>cons 2</li><li>cons 3</li></ul>"
@@ -313,9 +313,9 @@ class TModels(TestCase):
 
     def test_build_recipe_equipments(self):
         r = self.add_new_recipe_minimalist()
-        CEquipment.add_new_to_recipe("equipment 3", 3, 2, r)
-        CEquipment.add_new_to_recipe("equipment 1", 1, 0, r)
-        CEquipment.add_new_to_recipe("equipment 2", 2, 1, r)
+        CEquipment.add_new_to_recipe("equipment 3", 3, 2, False, r)
+        CEquipment.add_new_to_recipe("equipment 1", 1, 0, False, r)
+        CEquipment.add_new_to_recipe("equipment 2", 2, 1, False, r)
 
         html = CEquipment.build_html_for_equipments(r)
         html_expected = "<ul><li>1 equipment 1</li><li>2 equipment 2</li><li>3 equipment 3</li></ul>"
@@ -346,16 +346,16 @@ class TModels(TestCase):
         CIngredientGroup.add_new("group 1 :", 0, r, 1, [{"name": "carottes", "quantity": 2, "unit": "", "nb": 0}])
         # Group 2
         CIngredientGroup.add_new("Pour les oeufs :", 1, r, 2, [{"name": "chocolat", "quantity": 100, "unit":
-                                 "g de", "nb": 0}, {"name": "sucre", "quantity": 25, "unit": "g de", "nb": 1}])
+                                 "g", "nb": 0}, {"name": "sucre", "quantity": 25, "unit": "g", "nb": 1}])
         # Group 3
         CIngredientGroup.add_new("", 2, r, 2, [{"name": "poires", "quantity": 3, "unit": "", "nb": 0}, {"name": "eau",
-                                 "quantity": 5, "unit": "cl d'", "nb": 1}])
+                                 "quantity": 5, "unit": "cl", "nb": 1}])
         # Group 4
-        CIngredientGroup.add_new("", 3, r, 1, [{"name": "pommes", "quantity": 4, "unit": "kg de", "nb": 0}, {"name":
-                                 "sel", "quantity": 5, "unit": "g de", "nb": 1}])
-        CEquipment.add_new_to_recipe("equipment 3", 3, 2, r)
-        CEquipment.add_new_to_recipe("equipment 1", 1, 0, r)
-        CEquipment.add_new_to_recipe("equipment 2", 2, 1, r)
+        CIngredientGroup.add_new("", 3, r, 1, [{"name": "pommes", "quantity": 4, "unit": "kg", "nb": 0}, {"name":
+                                 "sel", "quantity": 5, "unit": "g", "nb": 1}])
+        CEquipment.add_new_to_recipe("equipment 3", 3, 2, False, r)
+        CEquipment.add_new_to_recipe("equipment 1", 1, 0, False, r)
+        CEquipment.add_new_to_recipe("equipment 2", 2, 1, False, r)
         CInstruction.add_new("instr 1", 0, r, 1)
         CInstruction.add_new("instr 3", 2, r, 2)
         CInstruction.add_new("instr 4 :", 3, r, 2)
@@ -365,9 +365,9 @@ class TModels(TestCase):
         CInstruction.add_new("instr 7", 6, r, 2)
         CInstruction.add_new("instr 8", 7, r, 1)
         CInstruction.add_new("instr 2 :", 1, r, 1)
-        CProposal.add_new_to_recipe("cons 1", 0, r)
-        CProposal.add_new_to_recipe("cons 3", 2, r)
-        CProposal.add_new_to_recipe("cons 2", 1, r)
+        CProposal.add_new_to_recipe("cons 1", 0, False, r)
+        CProposal.add_new_to_recipe("cons 3", 2, False, r)
+        CProposal.add_new_to_recipe("cons 2", 1, False, r)
         return r
 
     def test_full_recipe(self):
@@ -424,3 +424,44 @@ class TModels(TestCase):
         self.assertEqual(r1_get.slug, "title_of_the_recipe")
         r2_get = Recipe.objects.get(id=r2.id)
         self.assertEqual(r2_get.slug, "title_of_the_recipe_2")
+
+    def test_update_recipe(self):
+        title = "Title of the recipe"
+        description = "My description"
+        tps_prep = 20
+        tps_rep = 140
+        tps_cuis = 65
+        picture_file = "myFile.jpg"
+        nb_people = 4
+        nb_people_max = None
+        pub_date = datetime.now()
+        author = User(first_name="Floréal", last_name="Cabanettes", email="test@gmail.com", username="floreal2")
+        author.save()
+        author_p = UserProfile(user=author, url="floreal")
+        author_p.save()
+        cat = Category(name="Category1", url="category1", order=2)
+        cat.save()
+        categories = [cat]
+        precision = "ne vous loupez pas"
+        r1 = CRecipe.add_new(title=title, description=description, tps_prep=tps_prep, picture_file=picture_file,
+                             nb_people=nb_people, author=author_p, categories=categories, pub_date=pub_date,
+                             tps_rep=tps_rep, tps_cuis=tps_cuis, nb_people_max=nb_people_max, precision=precision)
+        title = "New title"
+        description = "My new description"
+        tps_prep = 35
+        picture_file = "myFile2.jpg"
+        tps_rep = 0
+        precision = ""
+        r1 = CRecipe.update(recipe=r1, title=title, description=description, tps_prep=tps_prep, picture_file=picture_file,
+                            tps_rep=tps_rep, precision=precision)
+        self.assertEqual(r1.title, "New title")
+        self.assertEqual(r1.description, "My new description")
+        self.assertEqual(r1.tps_prep, 35)
+        self.assertIsNone(r1.tps_rep)
+        self.assertEqual(r1.tps_cuis, 65)
+        self.assertEqual(r1.picture_file, "myFile2.jpg")
+        self.assertEqual(r1.nb_people, 4)
+        self.assertIsNone(r1.nb_people_max)
+        self.assertEqual(r1.author.user.last_name, "Cabanettes")
+        self.assertEqual(r1.category.first().name, "Category1")
+        self.assertIsNone(r1.precision)

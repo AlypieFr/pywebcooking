@@ -45,10 +45,10 @@ class TDuplicates(TestCase):
 
         # Test 4: for Proposal in Recipe:
         with transaction.atomic():
-            CProposal.add_new_to_recipe("cons 1", 0, r)
+            CProposal.add_new_to_recipe("cons 1", 0, False, r)
         try:
             with transaction.atomic():
-                CProposal.add_new_to_recipe("cons 2", 0, r)
+                CProposal.add_new_to_recipe("cons 2", 0, False, r)
             self.fail("This test is expected to fail")
         except IntegrityError as e:
             if "Duplicate entry" not in str(e):
@@ -56,10 +56,10 @@ class TDuplicates(TestCase):
 
         # Test 5: for Equipment in Recipe:
         with transaction.atomic():
-            CEquipment.add_new_to_recipe("eq 1", 1, 0, r)
+            CEquipment.add_new_to_recipe("eq 1", 1, 0, False, r)
         try:
             with transaction.atomic():
-                CEquipment.add_new_to_recipe("eq 2", 2, 0, r)
+                CEquipment.add_new_to_recipe("eq 2", 2, 0, False, r)
             self.fail("This test is expected to fail")
         except IntegrityError as e:
             if "Duplicate entry" not in str(e):
