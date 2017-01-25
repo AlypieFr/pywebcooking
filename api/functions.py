@@ -4,7 +4,8 @@ from django.utils.translation import ugettext as _
 
 from pywebcooking import settings
 from main.controllers import CRecipe, CIngredientGroup, CInstruction, CEquipment, CProposal
-from main.models import UserProfile, Category, Recipe
+from main.models import UserProfile, Category, Recipe, IngredientGroup, EquipmentInRecipe, Instruction, Proposal, \
+    MediaInRecipe
 
 
 class Functions:
@@ -40,8 +41,15 @@ class Functions:
                             categories=cats, precision=data["precision"] if "precision" in data else "",
                             published=data["published"]=="1")
         except Exception as e:
-            # TODO: remove files saved
+            for group, files in files_saved.items():
+                if type(files) == str:
+                    os.remove(files)
+                else:
+                    for file in files:
+                        os.remove(file)
             return -2, str(e)
+
+        Functions.__add_media_files(recipe, files_saved)
 
         # Complete recipe:
         try:
@@ -60,8 +68,6 @@ class Functions:
         except Exception as e:
             recipe.delete()
             return -2, str(e)
-            # TODO: remove files saved
-        Functions.__add_media_files(recipe, files_saved)
         return recipe.pk, recipe.slug
 
     @staticmethod
