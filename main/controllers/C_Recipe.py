@@ -324,7 +324,7 @@ class CRecipe:
                 raise TypeError("categories must be a list of Category object")
 
         # Do the staff:
-        recipe.category.all().delete()
+        Recipe.category.through.objects.filter(recipe=recipe).delete() # Delete all categories from the recipe
         for cat in categories:
             recipe.category.add(cat)
 
@@ -485,4 +485,8 @@ class CRecipe:
 
     @staticmethod
     def add_media_file(recipe: Recipe, media: str, type: str):
-        MediaInRecipe.objects.create(recipe=recipe, media=media, type=type)
+        if type == "main":
+            MediaInRecipe.objects.filter(recipe=recipe, type="main").delete()
+            MediaInRecipe.objects.create(recipe=recipe, media=media, type=type)
+        else:
+            MediaInRecipe.objects.get_or_create(recipe=recipe, media=media, type=type)
