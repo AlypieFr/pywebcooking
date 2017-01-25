@@ -78,7 +78,7 @@ class CIngredientGroup:
         if has_title and level > 0:
             html += "<li>" + ingredient_group.title + "</li>"
         elif has_title:
-            html += ingredient_group.title
+            html += "<p>" + ingredient_group.title + "</p>"
 
         ingredients_query = IngredientInGroup.objects.filter(ingredientGroup=ingredient_group)
         ingredients = []
