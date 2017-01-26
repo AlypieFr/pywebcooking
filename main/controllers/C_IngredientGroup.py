@@ -105,24 +105,39 @@ class CIngredientGroup:
             if has_title:
                 html += "<ul>"
             for ingr in ingredients:
+                is_fraction = False
                 if ingr.quantity is not None:
                     qte = round(ingr.quantity, 2)
                     quantity = str(ingr.quantity)
                     if qte in quantity_transform:
                         quantity = quantity_transform[qte]
+                        is_fraction = True
                     elif quantity[-2:] == ".0":  # Remove .0 if any
                         quantity = quantity[:-2]
                 else:
                     quantity = ""
                 unit = ""
+                vowels = ["a", "e", "i", "o", "u", "y"]
                 if len(ingr.unit) > 0:
                     unit = ingr.unit
                     if django.utils.translation.get_language().lower().startswith("fr"):
-                        vowels = ["a", "e", "i", "o", "u", "y"]
                         if Functions.remove_accents(ingr.ingredient.name[0].lower()) in vowels:
                             unit += " d'"
                         else:
                             unit += " de "
+
+                if is_fraction and django.utils.translation.get_language().lower().startswith("fr") \
+                        and quantity != "1/2":
+                    if len(unit) == 0:
+                        if Functions.remove_accents(ingr.ingredient.name[0].lower()) in vowels:
+                            unit = "d'"
+                        else:
+                            unit = "de "
+                    elif len(ingr.unit) > 2:
+                        if Functions.remove_accents(unit[0].lower()) in vowels:
+                            unit = "d'" + unit
+                        else:
+                            unit = "de " + unit
 
                 html += "<li>" + quantity + " " + unit + ingr.ingredient.name + "</li>"
 
