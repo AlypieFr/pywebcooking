@@ -405,22 +405,18 @@ class CRecipe:
         return CRecipe.get_recipe_html(recipe)
 
     @staticmethod
-    def get_recipe_html(recipe: Recipe) -> str:
-        """
-        Get the html of the full recipe
-        :param recipe:
-        :return:
-        """
+    def build_html_recipe(recipe: Recipe) -> str:
         if recipe is None:
             raise RequiredParameterException("recipe is required")
         if not isinstance(recipe, Recipe):
             raise TypeError("recipe must be an instance of the Recipe class")
+
         # Start html:
         html = "<div id='illustration_desc'>"
 
         # Add picture:
         html += "<div id='illustration'><a href='" + MEDIA_ROOT + recipe.author.user.username + "/" + recipe.picture_file + "'><img " \
-                "class='shadow' title='" + recipe.title + "' src='" + MEDIA_ROOT + recipe.author.user.username + "/" + \
+                                                                                                                            "class='shadow' title='" + recipe.title + "' src='" + MEDIA_ROOT + recipe.author.user.username + "/" + \
                 recipe.picture_file + "' alt='illustration' width='" + RecipeConfig.photo_in_recipe_width + \
                 "' /></a></div>"
 
@@ -446,7 +442,7 @@ class CRecipe:
                 if recipe.nb_people > 1:
                     html += RecipeConfig.ingredients_long % (recipe.nb_people, recipe.precision)
                 else:
-                    html += RecipeConfig.ingredients_long_1p (recipe.nb_people, recipe.precision)
+                    html += RecipeConfig.ingredients_long_1p(recipe.nb_people, recipe.precision)
             else:
                 if recipe.nb_people > 1:
                     html += RecipeConfig.ingredients_short % recipe.nb_people
@@ -480,6 +476,28 @@ class CRecipe:
             html += "<p id='proposalsHeader'><strong>" + RecipeConfig.proposals + "</strong></p>"
             html += CProposal.build_html_for_proposals(recipe)
             html += "</div>"
+
+        recipe.html = html
+        recipe.save()
+
+        return html
+
+    @staticmethod
+    def get_recipe_html(recipe: Recipe) -> str:
+        """
+        Get the html of the full recipe
+        :param recipe:
+        :return:
+        """
+        if recipe is None:
+            raise RequiredParameterException("recipe is required")
+        if not isinstance(recipe, Recipe):
+            raise TypeError("recipe must be an instance of the Recipe class")
+
+        if recipe.html is not None:
+            return recipe.html
+
+        html = CRecipe.build_html_recipe(recipe)
 
         return html
 

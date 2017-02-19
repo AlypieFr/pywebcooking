@@ -68,6 +68,7 @@ class Functions:
         except Exception as e:
             recipe.delete()
             return -2, str(e)
+        CRecipe.build_html_recipe(recipe)
         return recipe.pk, recipe.slug
 
     @staticmethod
@@ -157,6 +158,8 @@ class Functions:
                     for file in files:
                         os.remove(file)
             return -2, str(e)
+
+        CRecipe.build_html_recipe(recipe)
 
         return recipe.pk, recipe.slug
 

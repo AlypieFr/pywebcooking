@@ -36,6 +36,7 @@ class Recipe(models.Model):
     enable_comments = models.BooleanField(default=True, verbose_name=_("enable comments"))
     published = models.BooleanField(default=True, verbose_name=_("published"))
     slug = models.CharField(max_length=255, verbose_name=_("slug"), unique=True)
+    html = models.TextField(null=True, default=None)
 
     def __str__(self):
         return self.title
