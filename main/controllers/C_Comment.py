@@ -38,3 +38,28 @@ class CComment:
         c.save()
 
         return c
+
+    @staticmethod
+    def get_recipe_comments(recipe: Recipe) -> "list of dict":
+        if recipe is not None and (not isinstance(recipe, Recipe)):
+            raise TypeError("recipe must be an instance of the Recipe class")
+        if recipe is None:
+            raise RequiredParameterException("recipe is required")
+
+        comments_o = Comment.objects.filter(recipe=recipe).order_by("pub_date")
+        comments = []
+        for comment_o in comments_o:
+            comment = {"content": comment_o.content, "id": comment_o.id, "date": comment_o.pub_date}
+            if comment_o.author is not None:
+                comment["authenticated"] = True
+                comment["pseudo"] = comment_o.author.user.first_name
+                comment["email"] = comment_o.author.user.email
+                comment["author_url"] = comment_o.author.url
+            else:
+                comment["authenticated"] = False
+                comment["pseudo"] = comment_o.pseudo
+                comment["email"] = comment_o.mail
+                comment["website"] = comment_o.website
+            comments.append(comment)
+
+        return comments

@@ -19,6 +19,7 @@ from django.conf import settings
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include('api.urls')),
+    url(r'^captcha/', include('captcha.urls')),
     url(r'^', include('website.urls'))
 ]
 

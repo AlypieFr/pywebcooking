@@ -42,6 +42,8 @@ INSTALLED_APPS = (
     'website',
     'api',
     'rest_framework',
+    'django_gravatar',
+    'captcha',
     'main.apps.MainAppConfig'
 )
 

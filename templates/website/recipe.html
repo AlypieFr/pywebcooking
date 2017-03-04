@@ -1,5 +1,6 @@
 {% load l10n %}
 {% load i18n %}
+{% load gravatar %}
 {# Translators: author url #}
 {% trans "author" as author %}
 
@@ -19,6 +20,65 @@
                 - {% trans "By" %} <a href="/{{ author }}/{{ view.recipe.recipe.author.url }}">{{ view.recipe.recipe.author.user.first_name }}</a> - {% trans "In" %} {{ view.recipe.categories | safe }}
             </p>
             {{ view.recipe.html | safe }}
+            <div id="comments">
+                <h3 class="comments">{% trans "Comments" %}</h3>
+                <div id="comments_list">
+                    {% for comment in view.recipe.comments %}
+                        <div class="acomment" id="comm{{ comment.id }}">
+                            <div class="comment-avatar">
+                                {% gravatar comment.email 50 %}
+                            </div>
+                            <div class="comment-body">
+                                {% if comment.authenticated %}
+                                    <a href="{% trans "author" %}/{{ comment.author_url }}/">
+                                        <p class="author">{{ comment.pseudo }}</p>
+                                    </a>
+                                {% else %}
+                                    {% if comment.website %}
+                                        <a href="{{ comment.website }}" target="_blank">
+                                            <p class="author">{{ comment.pseudo }}</p>
+                                        </a>
+                                    {% else %}
+                                        <p class="author">{{ comment.pseudo }}</p>
+                                    {% endif %}
+                                {% endif %}
+
+                                <p class="comment-date">{% trans "Posted on" %} {{ comment.date.date }}
+                                    {% trans "at" %} {{ comment.date|date:"H \h i" }}</p>
+
+                                <p>{{ comment.content }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <h4 id="new-comment-header">
+                    {% if view.recipe.comments %}
+                        {% trans "Give us your feed back!" %}
+                    {% else %}
+                        {% trans "Be the first one to post a comment!" %}
+                    {% endif %}
+                </h4>
+                {% if view.recipe.authenticated %}
+                    <p>{% trans "Welcome" %} {{ view.recipe.username }}</p>
+                {% endif %}
+
+                <form role="form" action="" method="post" id="post-comment">
+                    {% if view.recipe.error %}
+                        <div class="comment-error">
+                            {% if view.recipe.captcha_error %}
+                                {% trans "Error: you have entered an invalid value for the captcha" %}
+                            {% else %}
+                                {% trans "Error: please fill all required fields correctly." %}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    {% csrf_token %}
+                    <table>
+                    {{ view.recipe.comment_form }}
+                    </table>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
         </article>
         {% include "website/footer.html" %}
     </div>

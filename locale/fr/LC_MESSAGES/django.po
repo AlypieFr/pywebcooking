@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-16 19:49+0100\n"
-"PO-Revision-Date: 2017-01-16 19:50+0100\n"
+"POT-Creation-Date: 2017-03-04 23:29+0100\n"
+"PO-Revision-Date: 2017-03-04 23:30+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -18,16 +18,24 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#: api/functions.py:24
+#: api/functions.py:25 api/functions.py:81
 msgid "Category does not exists: "
 msgstr "La catégorie n'existe pas : "
 
-#: api/functions.py:28
+#: api/functions.py:29
 msgid "User not found. Please contact an administrator"
 msgstr "Utilisateur non trouvé. Veuillez contacter un administrateur"
 
+#: api/functions.py:87
+msgid "Author not found. Please contact an administrator"
+msgstr "Auteur non trouvé. Veuillez contacter un administrateur"
+
+#: api/views/RecipeById.py:46
+msgid "Unexpected error: "
+msgstr "Erreur inattendue :"
+
 #. Translators: recipe is the parent tag of a recipe
-#: api/views/RecipeList.py:39 website/urls.py:10
+#: api/views/RecipeById.py:48 api/views/RecipeList.py:39 website/urls.py:12
 msgid "recipe"
 msgstr "recette"
 
@@ -153,7 +161,8 @@ msgid "last modification"
 msgstr "dernière modification"
 
 #. Translators: author url
-#: main/models/Recipe.py:31 templates/website/recipe.html:4
+#: main/models/Recipe.py:31 templates/website/recipe.html:5
+#: templates/website/recipe.html.py:33
 msgid "author"
 msgstr "auteur"
 
@@ -181,11 +190,11 @@ msgstr "publié"
 msgid "slug"
 msgstr "slug"
 
-#: main/models/Recipe.py:44
+#: main/models/Recipe.py:45
 msgid "Recipe"
 msgstr "Recette"
 
-#: main/models/Recipe.py:45
+#: main/models/Recipe.py:46
 msgid "Recipes"
 msgstr "Recettes"
 
@@ -199,27 +208,71 @@ msgid "Copy of text and pictures forbidden, unless you cite us with good visibil
 msgstr "Copie des textes et des images interdite sans indiquer clairement la source"
 
 #. Translators: words in subtitle of recipes in RecipeView
-#: templates/website/recipe.html:15
+#: templates/website/recipe.html:16 templates/website/recipe.html.py:46
 msgid "Posted on"
 msgstr "Posté le"
 
-#: templates/website/recipe.html:19
+#: templates/website/recipe.html:20
 msgid "By"
 msgstr "Par"
 
-#: templates/website/recipe.html:19
+#: templates/website/recipe.html:20
 msgid "In"
 msgstr "Dans"
+
+#: templates/website/recipe.html:24
+msgid "Comments"
+msgstr "Commentaires"
+
+#: templates/website/recipe.html:47
+msgid "at"
+msgstr "à"
+
+#: templates/website/recipe.html:56
+msgid "Give us your feed back!"
+msgstr "Donnez-nous votre avis !"
+
+#: templates/website/recipe.html:58
+msgid "Be the first one to post a comment!"
+msgstr "Soyez le premier à donner votre avis !"
+
+#: templates/website/recipe.html:62
+msgid "Welcome"
+msgstr "Bienvenue"
+
+#: templates/website/recipe.html:69
+msgid "Error: you have entered an invalid value for the captcha"
+msgstr "Erreur : vous avez entré une valeur incorrecte pour le captcha"
+
+#: templates/website/recipe.html:71
+msgid "Error: please fill all required fields correctly."
+msgstr "Erreur : les champs sont incorrects ou il manque des champs requis."
 
 #: templates/website/sidebar.html:9
 msgid "header-categories.png"
 msgstr "header-categories-fr.png"
 
 #. Translators: category url
-#: templates/website/sidebar.html:11 website/views/RecipeView.py:27
+#: templates/website/sidebar.html:11 website/views/RecipeView.py:69
 msgctxt "category url"
 msgid "category"
 msgstr "categorie"
+
+#: website/forms/CommentForm.py:16
+msgid "Name"
+msgstr "Pseudo"
+
+#: website/forms/CommentForm.py:17
+msgid "Email"
+msgstr "E-mail"
+
+#: website/forms/CommentForm.py:18
+msgid "Website"
+msgstr "Site web"
+
+#: website/forms/CommentForm.py:19
+msgid "Comment"
+msgstr "Commentaire"
 
 #~ msgctxt "category verbose name"
 #~ msgid "category"
