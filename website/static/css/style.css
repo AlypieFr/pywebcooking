@@ -62,7 +62,7 @@ article, #sidebar_left {
 
 article {
     padding-left: 20px;
-    max-width: 660px;
+    width: 660px;
 }
 
 #illustration_desc {
