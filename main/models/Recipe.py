@@ -1,4 +1,4 @@
-import os
+from django.utils import timezone
 
 from django.db import models
 from django.utils.translation import ugettext as _
@@ -26,8 +26,8 @@ class Recipe(models.Model):
     # [if defined, np_people is the min value of the range]
     precision = models.CharField(max_length=150, default=None, null=True, verbose_name=_("precision"))  # Add a
     # precision to nb_people
-    pub_date = models.DateTimeField(auto_now=True, verbose_name=_("publication date"))  # Date of recipe publishing
-    last_modif = models.DateTimeField(auto_now=True, verbose_name=_("last modification"))
+    pub_date = models.DateTimeField(verbose_name=_("publication date"))  # Date of recipe publishing
+    last_modif = models.DateTimeField(verbose_name=_("last modification"))
     author = models.ForeignKey(UserProfile, verbose_name=_("author"))
     category = models.ManyToManyField(Category, verbose_name=_("category"))  # Recipe
     # category
@@ -40,6 +40,12 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.pub_date = timezone.now()
+        self.last_modif = timezone.now()
+        return super(Recipe, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = _("Recipe")
