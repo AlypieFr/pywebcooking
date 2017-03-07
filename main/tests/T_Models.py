@@ -280,8 +280,8 @@ class TModels(TestCase):
         CIngredientGroup.add_new("Un commentaire pour finir", 3, r, 0)
         html = CIngredientGroup.build_html_for_ingredients(r)
         html_expected = "<ul><li>group 1 :</li><ul><li>2 carottes</li><li>Pour les oeufs :</li><ul><li>100 g de " \
-                        "chocolat</li><li>25 g de sucre</li></ul><li>3 poires</li><li>5 cl d'eau</li></ul></ul>Un " \
-                        "commentaire pour finir"
+                        "chocolat</li><li>25 g de sucre</li></ul><li>3 poires</li><li>5 cl d'eau</li></ul></ul><p>Un " \
+                        "commentaire pour finir</p>"
         self.assertEqual(html_expected, html)
 
     def test_build_recipe_instructions(self):
