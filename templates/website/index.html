@@ -1,10 +1,29 @@
+{% load l10n %}
+{% load i18n %}
+
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+{% include "website/header.html" %}
+    <title>{{ view.config.title }}</title>
 </head>
 <body>
-Ceci est le template de l'index éè!
+    <div id="body">
+        {% include "website/sidebar.html" %}
+        <div class="main-content">
+            {% for recipe in view.data.recipes %}
+                <a href="/{% trans "recipe" %}/{{ recipe.slug }}">
+                    <div class="recipe-item">
+                        <div class="recipes-index">
+                            <img src="{{ view.data.media_root }}/{{ recipe.author.user.username }}/{{ recipe.picture_file }}" />
+                        </div>
+                        <div class="recipes-index recipe-description-index">
+                            <h1>{{ recipe.title }}</h1>
+                            <p>{{ recipe.excerpt }}</p>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+        {% include "website/footer.html" %}
+    </div>
 </body>
 </html>
