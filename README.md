@@ -10,6 +10,7 @@ Install requirements:
 - pip3 install djangorestframework
 - pip3 install django-simple-captcha
 - pip3 install django-gravatar2
+- pip3 install django-bootstrap-pagination
 - pip3 install mysqlclient
 - pip3 install urllib3
 
