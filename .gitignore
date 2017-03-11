@@ -3,3 +3,5 @@
 local_settings.py
 .idea
 database_settings.json
+media/*
+!media/README
