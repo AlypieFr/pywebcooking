@@ -37,7 +37,9 @@
                     </a>
                 </div>
             {% endfor %}
-            {% bootstrap_paginate view.data.recipes url_view_name=view.data.page_view_name url_extra_kwargs=view.data.additional_kwargs %}
+            <div class="pagination">
+                {% bootstrap_paginate view.data.recipes url_view_name=view.data.page_view_name url_extra_kwargs=view.data.additional_kwargs %}
+            </div>
         </div>
         {% include "website/footer.html" %}
     </div>
