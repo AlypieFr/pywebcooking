@@ -1,5 +1,6 @@
 {% load l10n %}
 {% load i18n %}
+{% load bootstrap_pagination %}
 
 <!DOCTYPE html>
 {% include "website/header.html" %}
@@ -9,19 +10,34 @@
     <div id="body">
         {% include "website/sidebar.html" %}
         <div class="main-content">
+            {% if view.data.in_archive %}
+                <div id="header-archive">
+                    <h1 class="header-archive">{{ view.data.archive_header }}</h1>
+                </div>
+            {% endif %}
             {% for recipe in view.data.recipes %}
-                <a href="/{% trans "recipe" %}/{{ recipe.slug }}">
-                    <div class="recipe-item">
+                <div class="recipe-item">
+                    <a href="/{% trans "recipe" %}/{{ recipe.slug }}">
                         <div class="recipes-index">
                             <img src="{{ view.data.media_root }}/{{ recipe.author.user.username }}/{{ recipe.picture_file }}" />
                         </div>
                         <div class="recipes-index recipe-description-index">
-                            <h1>{{ recipe.title }}</h1>
-                            <p>{{ recipe.excerpt }}</p>
+                            <h1 class="recipe-title">{{ recipe.title }}</h1>
+                            <p class="categories">
+                                {{ recipe.cats }}
+                            </p>
+                            <div class="times-icon"></div>
+                            <div class="times-body">
+                                <p class="times first">{% trans "Prep:" context "index_times"  %} {{ recipe.tps_prep }}.
+                                    {% if recipe.tps_rep %}{% trans "Break:" context "index_times" %} {{ recipe.tps_rep }}{% endif %}</p>
+                                <p class="times">{% if recipe.tps_cuis %}{% trans "Cook:" context "index_times" %} {{ recipe.tps_cuis }}{% endif %}</p>
+                            </div>
+                            <p class="excerpt">{{ recipe.excerpt }}</p>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             {% endfor %}
+            {% bootstrap_paginate view.data.recipes url_view_name=view.data.page_view_name url_extra_kwargs=view.data.additional_kwargs %}
         </div>
         {% include "website/footer.html" %}
     </div>

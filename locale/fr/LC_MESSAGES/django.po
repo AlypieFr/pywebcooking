@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-04 23:29+0100\n"
-"PO-Revision-Date: 2017-03-04 23:30+0100\n"
+"POT-Creation-Date: 2017-03-11 15:58+0100\n"
+"PO-Revision-Date: 2017-03-11 16:05+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -35,7 +35,8 @@ msgid "Unexpected error: "
 msgstr "Erreur inattendue :"
 
 #. Translators: recipe is the parent tag of a recipe
-#: api/views/RecipeById.py:48 api/views/RecipeList.py:39 website/urls.py:12
+#: api/views/RecipeById.py:48 api/views/RecipeList.py:39
+#: templates/website/index.html:14 website/urls.py:13
 msgid "recipe"
 msgstr "recette"
 
@@ -190,11 +191,11 @@ msgstr "publié"
 msgid "slug"
 msgstr "slug"
 
-#: main/models/Recipe.py:45
+#: main/models/Recipe.py:51
 msgid "Recipe"
 msgstr "Recette"
 
-#: main/models/Recipe.py:46
+#: main/models/Recipe.py:52
 msgid "Recipes"
 msgstr "Recettes"
 
@@ -206,6 +207,21 @@ msgstr "Propulsé par"
 #: templates/website/footer.html:6
 msgid "Copy of text and pictures forbidden, unless you cite us with good visibility"
 msgstr "Copie des textes et des images interdite sans indiquer clairement la source"
+
+#: templates/website/index.html:20
+msgctxt "index_times"
+msgid "Prep:"
+msgstr "Préparation :"
+
+#: templates/website/index.html:21
+msgctxt "index_times"
+msgid "Break:"
+msgstr "Repos :"
+
+#: templates/website/index.html:22
+msgctxt "index_times"
+msgid "Cook:"
+msgstr "Cuisson :"
 
 #. Translators: words in subtitle of recipes in RecipeView
 #: templates/website/recipe.html:16 templates/website/recipe.html.py:46
@@ -273,6 +289,10 @@ msgstr "Site web"
 #: website/forms/CommentForm.py:19
 msgid "Comment"
 msgstr "Commentaire"
+
+#: website/urls.py:11
+msgid "page"
+msgstr "page"
 
 #~ msgctxt "category verbose name"
 #~ msgid "category"

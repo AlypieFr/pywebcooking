@@ -216,10 +216,13 @@ h4#new-comment-header {
 
 .recipe-item {
     margin-bottom: 40px;
+    max-width: 700px;
+    display: inline-block;
+    margin-right: 20px;
 }
 
 .recipe-item h1 {
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 .recipe-description-index {
@@ -229,4 +232,38 @@ h4#new-comment-header {
 
 .recipe-item p, .recipe-item h1 {
     color: black;
+}
+
+p.times {
+    font-weight: bold;
+    color: #4a4a4a;
+}
+
+p.times.first {
+    margin-bottom: 0;
+}
+
+div.times-icon {
+    width: 30px;
+    height: 30px;
+    background: url("/static/images/times.svg") no-repeat 0 0;
+    background-size: 30px 30px;
+    margin-right: 5px;
+}
+
+div.times-icon, div.times-body {
+    display: inline-block;
+}
+
+p.excerpt {
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+div#header-archive {
+    border-bottom: double 3px gray;
+    width: 100%;
+    margin-bottom: 20px;
 }

@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'django_gravatar',
     'captcha',
+    'bootstrap_pagination',
     'main.apps.MainAppConfig'
 )
 
@@ -125,6 +126,8 @@ STATIC_URL = '/static/'
 SITE_NAME = "PyWebCooking"
 
 COPY_START_YEAR = 2012
+
+POSTS_PER_PAGE = 10
 
 try:
     from .local_settings import *
