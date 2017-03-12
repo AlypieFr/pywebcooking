@@ -1,10 +1,11 @@
 from .GenericView import GenericView
 from django.views.generic import TemplateView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.utils.translation import ugettext as _
 
 from pywebcooking.settings import MEDIA_ROOT, POSTS_PER_PAGE
 
-from main.models import Recipe, Category
+from main.models import Recipe, Category, UserProfile
 
 
 class IndexView(TemplateView):
@@ -24,6 +25,13 @@ class IndexView(TemplateView):
             dat["archive_header"] = Category.objects.get(url=self.kwargs["cat"]).name
             dat["additional_kwargs"] = {"cat": self.kwargs["cat"]}
             recipes = Recipe.objects.filter(category__url=self.kwargs["cat"]).order_by("-pub_date")
+        elif "author" in self.kwargs:
+            dat["in_archive"] = True
+            dat["page_view_name"] = "author_page"
+            dat["archive_header"] = _("Author:") + " " + \
+                UserProfile.objects.get(url=self.kwargs["author"]).user.first_name
+            dat["additional_kwargs"] = {"author": self.kwargs["author"]}
+            recipes = Recipe.objects.filter(author__url=self.kwargs["author"])
         else:
             recipes = Recipe.objects.all().order_by("-pub_date")
 

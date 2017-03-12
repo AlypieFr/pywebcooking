@@ -13,6 +13,9 @@ urlpatterns = [
     url(r'^' + pgettext("category url", "category") + "/(?P<cat>[\w-]+)$", IndexView.as_view(), name='category'),
     url(r'^' + pgettext("category url", "category") + "/(?P<cat>[\w-]+)/" + _("page") + '/(?P<page>\d+)$',
         IndexView.as_view(), name='category_page'),
+    url(r'^' + pgettext("author url", "author") + "/(?P<author>[\w-]+)$", IndexView.as_view(), name='author'),
+    url(r'^' + pgettext("author url", "author") + "/(?P<author>[\w-]+)/" + _("page") + '/(?P<page>\d+)$',
+        IndexView.as_view(), name='author_page'),
     # Translators: recipe is the parent tag of a recipe
     url(r'^' + _("recipe") + '/(?P<slug>\w+)$', RecipeView.as_view(), name='recipe'),
     url(r'^favicon\.ico$', favicon_view),

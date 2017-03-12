@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-11 15:58+0100\n"
-"PO-Revision-Date: 2017-03-11 16:05+0100\n"
+"POT-Creation-Date: 2017-03-12 12:57+0100\n"
+"PO-Revision-Date: 2017-03-12 12:58+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -36,7 +36,7 @@ msgstr "Erreur inattendue :"
 
 #. Translators: recipe is the parent tag of a recipe
 #: api/views/RecipeById.py:48 api/views/RecipeList.py:39
-#: templates/website/index.html:14 website/urls.py:13
+#: templates/website/index.html:20 website/urls.py:20
 msgid "recipe"
 msgstr "recette"
 
@@ -208,17 +208,17 @@ msgstr "Propulsé par"
 msgid "Copy of text and pictures forbidden, unless you cite us with good visibility"
 msgstr "Copie des textes et des images interdite sans indiquer clairement la source"
 
-#: templates/website/index.html:20
+#: templates/website/index.html:31
 msgctxt "index_times"
 msgid "Prep:"
 msgstr "Préparation :"
 
-#: templates/website/index.html:21
+#: templates/website/index.html:32
 msgctxt "index_times"
 msgid "Break:"
 msgstr "Repos :"
 
-#: templates/website/index.html:22
+#: templates/website/index.html:33
 msgctxt "index_times"
 msgid "Cook:"
 msgstr "Cuisson :"
@@ -269,7 +269,8 @@ msgid "header-categories.png"
 msgstr "header-categories-fr.png"
 
 #. Translators: category url
-#: templates/website/sidebar.html:11 website/views/RecipeView.py:69
+#: templates/website/sidebar.html:11 website/urls.py:13 website/urls.py:14
+#: website/views/RecipeView.py:69
 msgctxt "category url"
 msgid "category"
 msgstr "categorie"
@@ -290,9 +291,18 @@ msgstr "Site web"
 msgid "Comment"
 msgstr "Commentaire"
 
-#: website/urls.py:11
+#: website/urls.py:12 website/urls.py:14 website/urls.py:17
 msgid "page"
 msgstr "page"
+
+#: website/urls.py:16 website/urls.py:17
+msgctxt "author url"
+msgid "author"
+msgstr "auteur"
+
+#: website/views/IndexView.py:31
+msgid "Author:"
+msgstr "Auteur :"
 
 #~ msgctxt "category verbose name"
 #~ msgid "category"
