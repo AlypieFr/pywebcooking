@@ -75,16 +75,18 @@ class CIngredientGroup:
         has_title = ingredient_group.title is not None and len(ingredient_group.title) > 0
         level = ingredient_group.level
 
-        if has_title and level > 0:
-            html += "<li>" + ingredient_group.title + "</li>"
-        elif has_title:
-            html += "<p>" + ingredient_group.title + "</p>"
-
         ingredients_query = IngredientInGroup.objects.filter(ingredientGroup=ingredient_group)
         ingredients = []
         for ingr in ingredients_query:
             ingredients.append(ingr)
         ingredients.sort(key=lambda i: i.nb)
+
+        if has_title and level > 0:
+            html += "<li>" + ingredient_group.title
+            if len(ingredients) == 0:
+                html += "</li>"
+        elif has_title:
+            html += "<p>" + ingredient_group.title + "</p>"
 
         quantity_transform = {
             0.2: "1/5",
@@ -166,14 +168,18 @@ class CIngredientGroup:
         html = ""
 
         last_level = 0
+        opened_li = set()
         for ig in ingredient_groups:
             level = ig.level
             if level > last_level:
                 for i in range(last_level, level):
                     html += "<ul>"
             elif level < last_level:
-                for i in range(level, last_level):
+                for i in range(last_level, level, -1):
                     html += "</ul>"
+                    if i in opened_li:
+                        html += "</li>"
+                        opened_li.remove(i)
 
             html_ig, has_ingr = CIngredientGroup.build_html_for_ig(ig)
             html += html_ig
@@ -182,10 +188,14 @@ class CIngredientGroup:
             if ig.title is not None and len(ig.title) > 0 and has_ingr:  # If ingredient group has title and has
                 # ingredients (so contains a <ul> but not a </ul>
                 level += 1
+                opened_li.add(level)
             last_level = level
 
         if last_level > 0:
-            for i in range(0, last_level):
+            for i in range(last_level, 0, -1):
                 html += "</ul>"
+                if i in opened_li:
+                    html += "</li>"
+                    opened_li.remove(i)
 
         return html

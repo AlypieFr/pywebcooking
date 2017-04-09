@@ -94,14 +94,22 @@ class CInstruction:
         html = ""
         last_level = 0
         author_url = recipe.author.url
+        opened_li = set()
         for instr in instructions:
             level = instr.level
             if level > last_level:
+                if last_level > 0:
+                    # Remove last li:
+                    html = html[:-5]
+                    opened_li.add(level)
                 for i in range(last_level, level):
                     html += "<ol>"
             elif level < last_level:
-                for i in range(level, last_level):
+                for i in range(last_level, level, -1):
                     html += "</ol>"
+                    if i in opened_li:
+                        html += "</li>"
+                        opened_li.remove(i)
             if level > 0:
                 html += "<li>" + Functions.insert_picture(instr.text_inst, author_url) + "</li>"
             else:
@@ -109,7 +117,10 @@ class CInstruction:
             last_level = level
 
         if last_level > 0:
-            for i in range(0, last_level):
+            for i in range(last_level, 0, -1):
                 html += "</ol>"
+                if i in opened_li:
+                    html += "</li>"
+                    opened_li.remove(i)
 
         return html
