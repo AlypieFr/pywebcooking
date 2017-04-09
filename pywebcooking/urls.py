@@ -15,6 +15,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
+from django.views.static import serve
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -25,5 +26,5 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns.append(url(r'^media/(?P<path>.*)',
-                           'django.views.static.serve',
+                           serve,
                            {'document_root': settings.BASE_DIR + settings.MEDIA_ROOT}))
