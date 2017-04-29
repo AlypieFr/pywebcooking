@@ -21,9 +21,9 @@ class CRecipe:
 
     @staticmethod
     def add_new(title: str, description: str, tps_prep: int, picture_file: str, nb_people: int, author: UserProfile,
-                categories: "list of Category" = None, pub_date: datetime = datetime.datetime.now(),
-                tps_rep: int = None, tps_cuis: int = None, nb_people_max: int = None, precision: str = None, excerpt: str = None,
-                enable_comments: bool = True, published: bool = True, coup_de_coeur: int = 0) -> Recipe:
+                categories: "list of Category" = None, tps_rep: int = None, tps_cuis: int = None,
+                nb_people_max: int = None, precision: str = None, excerpt: str = None, enable_comments: bool = True,
+                published: bool = True, coup_de_coeur: int = 0) -> Recipe:
         """
         Add new recipe
         :param title: title of the recipe {string} [REQ]
@@ -108,7 +108,7 @@ class CRecipe:
         # Create recipe:
         r = Recipe(title=title, description=description, tps_prep=tps_prep, tps_rep=tps_rep, tps_cuis=tps_cuis,
                    picture_file=picture_file, nb_people=nb_people, nb_people_max=nb_people_max, precision=precision,
-                   author=author, pub_date=pub_date, enable_comments=enable_comments, excerpt=excerpt,
+                   author=author, enable_comments=enable_comments, excerpt=excerpt,
                    published=published, slug=slug, coup_de_coeur=coup_de_coeur)
         r.save()
 
