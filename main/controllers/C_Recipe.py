@@ -23,7 +23,7 @@ class CRecipe:
     def add_new(title: str, description: str, tps_prep: int, picture_file: str, nb_people: int, author: UserProfile,
                 categories: "list of Category" = None, pub_date: datetime = datetime.datetime.now(),
                 tps_rep: int = None, tps_cuis: int = None, nb_people_max: int = None, precision: str = None, excerpt: str = None,
-                enable_comments: bool = True, published: bool = True) -> Recipe:
+                enable_comments: bool = True, published: bool = True, coup_de_coeur: int = 0) -> Recipe:
         """
         Add new recipe
         :param title: title of the recipe {string} [REQ]
@@ -90,6 +90,12 @@ class CRecipe:
             for cat in categories:
                 if not isinstance(cat, Category):
                     raise TypeError("categories must be a list of Category object")
+        if coup_de_coeur is None:
+            coup_de_coeur = 0
+        elif not isinstance(coup_de_coeur, int):
+            raise TypeError("coup_de_coeur must be an int (or None)")
+        elif coup_de_coeur not in (0, 1, 2, 3):
+            raise BadParameterException("coup_de_coeur must be between 0 and 3")
 
         if excerpt is None:
             desc_words = description.split(" ")
@@ -103,7 +109,7 @@ class CRecipe:
         r = Recipe(title=title, description=description, tps_prep=tps_prep, tps_rep=tps_rep, tps_cuis=tps_cuis,
                    picture_file=picture_file, nb_people=nb_people, nb_people_max=nb_people_max, precision=precision,
                    author=author, pub_date=pub_date, enable_comments=enable_comments, excerpt=excerpt,
-                   published=published, slug=slug)
+                   published=published, slug=slug, coup_de_coeur=coup_de_coeur)
         r.save()
 
         # Add categories:

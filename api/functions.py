@@ -31,6 +31,7 @@ class Functions:
         # Save uploaded files:
         files_saved, files_renamed = Functions.__save_files(files, user_url)
         try:
+            coup_de_coeur = int(data["coup_de_coeur"]) if "coup_de_coeur" in data else 0
             recipe = CRecipe.add_new(title=data["title"], description=data["description"], tps_prep=int(data["tps_prep"]),
                             tps_cuis=int(data["tps_cuis"]) if "tps_cuis" in data and int(data["tps_cuis"]) > 0 else None,
                             tps_rep=int(data["tps_rep"]) if "tps_rep" in data and int(data["tps_rep"]) > 0 else None,
@@ -39,7 +40,7 @@ class Functions:
                                                                         int(data["nb_people_max"]) > 0 else None,
                             author=author,
                             categories=cats, precision=data["precision"] if "precision" in data else "",
-                            published=data["published"]=="1")
+                            published=data["published"]=="1", coup_de_coeur=coup_de_coeur)
         except Exception as e:
             for group, files in files_saved.items():
                 if type(files) == str:

@@ -18,8 +18,21 @@
             {% for recipe in view.data.recipes %}
                 <div class="recipe-item">
                     <a href="/{% trans "recipe" %}/{{ recipe.slug }}">
-                        <div class="recipes-index">
+                        <div class="recipes-index thumbnail">
                             <img src="{{ view.data.media_root }}/{{ recipe.author.user.username }}/{{ recipe.picture_file }}" />
+                            {% if recipe.coup_de_coeur == 1 %}
+                                <div class="coupDeCoeurLoop" align="right">
+                                    <img src="/static/images/coup_de_coeur_1-{% trans "en" context "coup_de_coeur_file" %}.png" alt="Coup de Coeur *" title="{% trans "Favorite" context "coup_de_coeur" %} - {% trans "Good" context "coup_de_coeur" %}" />
+                                </div>
+                            {% elif recipe.coup_de_coeur == 2 %}
+                                <div class="coupDeCoeurLoop" align="right">
+                                    <img src="/static/images/coup_de_coeur_2-{% trans "en" context "coup_de_coeur_file" %}.png" alt="Coup de Coeur **" title="{% trans "Favorite" context "coup_de_coeur" %} - {% trans "Very good" context "coup_de_coeur" %}" />
+                                </div>
+                            {% elif recipe.coup_de_coeur == 3 %}
+                                <div class="coupDeCoeurLoop" align="right">
+                                    <img src="/static/images/coup_de_coeur_3-{% trans "en" context "coup_de_coeur_file" %}.png" alt="Coup de Coeur ***" title="{% trans "Favorite" context "coup_de_coeur" %} - {% trans "Best of" context "coup_de_coeur" %}" />
+                                </div>
+                            {% endif %}
                         </div>
                         <div class="recipes-index recipe-description-index">
                             <h1 class="recipe-title">{{ recipe.title }}</h1>

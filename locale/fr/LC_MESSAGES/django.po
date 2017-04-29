@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-12 12:57+0100\n"
-"PO-Revision-Date: 2017-03-12 12:58+0100\n"
+"POT-Creation-Date: 2017-04-29 17:58+0200\n"
+"PO-Revision-Date: 2017-04-29 17:58+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#: api/functions.py:25 api/functions.py:81
+#: api/functions.py:25 api/functions.py:82
 msgid "Category does not exists: "
 msgstr "La catégorie n'existe pas : "
 
@@ -26,7 +26,7 @@ msgstr "La catégorie n'existe pas : "
 msgid "User not found. Please contact an administrator"
 msgstr "Utilisateur non trouvé. Veuillez contacter un administrateur"
 
-#: api/functions.py:87
+#: api/functions.py:88
 msgid "Author not found. Please contact an administrator"
 msgstr "Auteur non trouvé. Veuillez contacter un administrateur"
 
@@ -163,7 +163,7 @@ msgstr "dernière modification"
 
 #. Translators: author url
 #: main/models/Recipe.py:31 templates/website/recipe.html:5
-#: templates/website/recipe.html.py:33
+#: templates/website/recipe.html:41
 msgid "author"
 msgstr "auteur"
 
@@ -191,11 +191,11 @@ msgstr "publié"
 msgid "slug"
 msgstr "slug"
 
-#: main/models/Recipe.py:51
+#: main/models/Recipe.py:55
 msgid "Recipe"
 msgstr "Recette"
 
-#: main/models/Recipe.py:52
+#: main/models/Recipe.py:56
 msgid "Recipes"
 msgstr "Recettes"
 
@@ -208,59 +208,85 @@ msgstr "Propulsé par"
 msgid "Copy of text and pictures forbidden, unless you cite us with good visibility"
 msgstr "Copie des textes et des images interdite sans indiquer clairement la source"
 
-#: templates/website/index.html:31
+#: templates/website/index.html:25 templates/website/index.html:29
+#: templates/website/index.html:33
+msgctxt "coup_de_coeur_file"
+msgid "en"
+msgstr "fr"
+
+#: templates/website/index.html:44
 msgctxt "index_times"
 msgid "Prep:"
 msgstr "Préparation :"
 
-#: templates/website/index.html:32
+#: templates/website/index.html:45
 msgctxt "index_times"
 msgid "Break:"
 msgstr "Repos :"
 
-#: templates/website/index.html:33
+#: templates/website/index.html:46
 msgctxt "index_times"
 msgid "Cook:"
 msgstr "Cuisson :"
 
-#. Translators: words in subtitle of recipes in RecipeView
-#: templates/website/recipe.html:16 templates/website/recipe.html.py:46
+#: templates/website/recipe.html:18 templates/website/recipe.html:20
+#: templates/website/recipe.html:22
+msgctxt "coup_de_coeur"
+msgid "Favorite"
+msgstr "Coup de Coeur"
+
+#: templates/website/recipe.html:18
+msgctxt "coup_de_coeur"
+msgid "Good"
+msgstr "Très bon"
+
+#: templates/website/recipe.html:20
+msgctxt "coup_de_coeur"
+msgid "Very good"
+msgstr "Super bon !"
+
+#: templates/website/recipe.html:22
+msgctxt "coup_de_coeur"
+msgid "Best of"
+msgstr "Une tuerie !"
+
+#: templates/website/recipe.html:24 templates/website/recipe.html:54
 msgid "Posted on"
 msgstr "Posté le"
 
-#: templates/website/recipe.html:20
+#: templates/website/recipe.html:28
 msgid "By"
 msgstr "Par"
 
-#: templates/website/recipe.html:20
+#: templates/website/recipe.html:28
 msgid "In"
 msgstr "Dans"
 
-#: templates/website/recipe.html:24
+#: templates/website/recipe.html:32
 msgid "Comments"
 msgstr "Commentaires"
 
-#: templates/website/recipe.html:47
+#: templates/website/recipe.html:55
 msgid "at"
 msgstr "à"
 
-#: templates/website/recipe.html:56
+#: templates/website/recipe.html:64
 msgid "Give us your feed back!"
 msgstr "Donnez-nous votre avis !"
 
-#: templates/website/recipe.html:58
+#: templates/website/recipe.html:66
 msgid "Be the first one to post a comment!"
 msgstr "Soyez le premier à donner votre avis !"
 
-#: templates/website/recipe.html:62
+#: templates/website/recipe.html:70
 msgid "Welcome"
 msgstr "Bienvenue"
 
-#: templates/website/recipe.html:69
+#: templates/website/recipe.html:77
 msgid "Error: you have entered an invalid value for the captcha"
 msgstr "Erreur : vous avez entré une valeur incorrecte pour le captcha"
 
-#: templates/website/recipe.html:71
+#: templates/website/recipe.html:79
 msgid "Error: please fill all required fields correctly."
 msgstr "Erreur : les champs sont incorrects ou il manque des champs requis."
 

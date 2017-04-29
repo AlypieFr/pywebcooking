@@ -13,7 +13,15 @@
         <article>
             <h1 id="recipe_title">{{ view.recipe.recipe.title }}</h1>
             {# Translators: words in subtitle of recipes in RecipeView #}
-            <p id="post_details">{% trans "Posted on" %}
+            <p id="post_details">
+            {% if view.recipe.recipe.coup_de_coeur == 1 %}
+                <img src="/static/images/coup_de_coeur_1-mini.png" alt="" height="20" title="{% trans "Favorite" context "coup_de_coeur" %} - {% trans "Good" context "coup_de_coeur" %}"/>
+            {% elif view.recipe.recipe.coup_de_coeur == 2 %}
+                <img src="/static/images/coup_de_coeur_2-mini.png" alt="" height="20" title="{% trans "Favorite" context "coup_de_coeur" %} - {% trans "Very good" context "coup_de_coeur" %}"/>
+            {% elif view.recipe.recipe.coup_de_coeur == 3 %}
+                <img src="/static/images/coup_de_coeur_3-mini.png" alt="" height="20" title="{% trans "Favorite" context "coup_de_coeur" %} - {% trans "Best of" context "coup_de_coeur" %}"/>
+            {% endif %}
+                {% trans "Posted on" %}
                 {% localize on %}
                     {{ view.recipe.date_published }}
                 {% endlocalize %}

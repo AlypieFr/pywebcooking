@@ -272,3 +272,23 @@ div.pagination {
     display: block;
     margin: 0;
 }
+
+.thumbnail {
+    position: relative;
+    background-color: transparent;
+    padding: 0;
+    border: none;
+}
+
+.coupDeCoeurLoop {
+    width: 80px;
+    max-width: 25%;
+    position: absolute;
+    float: right;
+    right: 0;
+    top: 0;
+}
+
+.coupDeCoeurLoop img {
+    border-bottom: 0px none;
+}

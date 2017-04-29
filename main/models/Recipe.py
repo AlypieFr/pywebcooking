@@ -1,7 +1,7 @@
 from django.utils import timezone
 
 from django.db import models
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext as _, pgettext as __
 from .Category import Category
 from .Equipment import Equipment
 from .UserProfile import UserProfile
@@ -37,6 +37,10 @@ class Recipe(models.Model):
     published = models.BooleanField(default=True, verbose_name=_("published"))
     slug = models.CharField(max_length=255, verbose_name=_("slug"), unique=True)
     html = models.TextField(null=True, default=None)
+    coup_de_coeur = models.IntegerField(choices=((0, __("coup_de_coeur", "Not favorite")),
+                                                 (1, __("coup_de_coeur", "Good")),
+                                                 (2, __("coup_de_coeur", "Very good")),
+                                                 (3, __("coup_de_coeur", "Best of"))), default=0)
 
     def __str__(self):
         return self.title
