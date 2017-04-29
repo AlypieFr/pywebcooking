@@ -6,9 +6,14 @@ from pywebcooking import settings
 from main.controllers import CRecipe, CIngredientGroup, CInstruction, CEquipment, CProposal
 from main.models import UserProfile, Category, Recipe, IngredientGroup, EquipmentInRecipe, Instruction, Proposal, \
     MediaInRecipe
+# import the logging library
+import logging
 
 
 class Functions:
+
+    # Get an instance of a logger
+    logger = logging.getLogger(__name__)
 
     @staticmethod
     def add_recipe(data, files, user_url):
@@ -213,6 +218,26 @@ class Functions:
         return categories
 
     @staticmethod
+    def __tinify(file):
+        """
+        Tinify the giving file (replacing the original file)
+        :param file: full path of the input/output file
+        """
+        try:
+            if os.path.isfile(file):
+                import tinify
+                tinify.key = settings.TINIFY_KEY
+                try:
+                    source = tinify.from_file(file)
+                    source.to_file(file)
+                except tinify.Error as e:
+                    Functions.logger.error("Unable to tinify the picture {0}: {1}".format(file, e.message))
+            else:
+                Functions.logger.error("Unable to tinify the picture {0}: file not found".format(file))
+        except ImportError:
+            Functions.logger.error("Unable to tinify the picture {0}: tinify module not installed".format(file))
+
+    @staticmethod
     def __save_file(file, user_url):
         save_dir = settings.BASE_DIR + settings.MEDIA_ROOT + user_url + "/"
         filename = file.name
@@ -229,9 +254,10 @@ class Functions:
             my_file.write(file.read())
         if file_path.lower().endswith(".jpg") or file_path.lower().endswith(".jpeg"):
             jpegoptim = Functions.which("jpegoptim")
-            print("jpegoptim", jpegoptim)
             if jpegoptim is not None:
                 os.system(jpegoptim + " -s " + file_path)
+        if settings.TINIFY_KEY != "":
+            Functions.__tinify(file_path)
         return filename
 
     @staticmethod

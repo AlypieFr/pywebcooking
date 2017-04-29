@@ -20,6 +20,7 @@ Requirements for Apache:
 
 Optionnal requirements:
 - jpegoptim (automatically optimize JPEG files)
+- tinify python module (to optimize pictures)
 
 Still in development state, contact us for more informations:
 https://www.flo-art.fr/#!p=contact
