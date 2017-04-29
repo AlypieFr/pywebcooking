@@ -20,7 +20,7 @@ class Functions:
             center = pict.group(4) is not None
             img = pict.group(5)
             url = "/media/" + author_url + "/" + img
-            img_html = "<a href=\"" + url + "\"><img src=\"" + url + "\" width=\"" + width + \
+            img_html = "<a href=\"" + url + "\" data-lightbox='illustration'><img src=\"" + url + "\" width=\"" + width + \
                        "\" alt=\"Illustration\" class=\""
             if printable == "print-only":
                 img_html += "print-only "

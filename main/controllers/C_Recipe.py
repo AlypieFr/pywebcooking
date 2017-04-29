@@ -421,9 +421,10 @@ class CRecipe:
         html = "<div id='illustration_desc'>"
 
         # Add picture:
-        html += "<div id='illustration'><a href='" + MEDIA_ROOT + recipe.author.user.username + "/" + recipe.picture_file + "'><img " \
-                                                                                                                            "class='shadow' title='" + recipe.title + "' src='" + MEDIA_ROOT + recipe.author.user.username + "/" + \
-                recipe.picture_file + "' alt='illustration' width='" + RecipeConfig.photo_in_recipe_width + \
+        html += "<div id='illustration'><a href='" + MEDIA_ROOT + recipe.author.user.username + "/" + \
+                recipe.picture_file + "' data-lightbox='illustration' data-title='" + recipe.title.replace("'", "\\'") \
+                + "'><img class='shadow' title='" + recipe.title + "' src='" + MEDIA_ROOT + recipe.author.user.username\
+                + "/" + recipe.picture_file + "' alt='illustration' width='" + RecipeConfig.photo_in_recipe_width + \
                 "' /></a></div>"
 
         # Add description:
