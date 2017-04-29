@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'django_gravatar',
     'captcha',
+    'emoticons',
     'bootstrap_pagination',
     'main.apps.MainAppConfig'
 )

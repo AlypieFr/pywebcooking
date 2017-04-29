@@ -3,6 +3,7 @@
 {% load gravatar %}
 {# Translators: author url #}
 {% trans "author" as author %}
+{% load emoticons_tags %}
 
 {% include "website/header.html" %}
 <title>{{ view.recipe.recipe.title }} | {{ view.config.title }}</title>
@@ -27,7 +28,7 @@
                 {% endlocalize %}
                 - {% trans "By" %} <a href="/{{ author }}/{{ view.recipe.recipe.author.url }}">{{ view.recipe.recipe.author.user.first_name }}</a> - {% trans "In" %} {{ view.recipe.categories | safe }}
             </p>
-            {{ view.recipe.html | safe }}
+            {{ view.recipe.html | safe | emoticons }}
             <div id="comments">
                 <h3 class="comments">{% trans "Comments" %}</h3>
                 <div id="comments_list">
@@ -54,7 +55,7 @@
                                 <p class="comment-date">{% trans "Posted on" %} {{ comment.date.date }}
                                     {% trans "at" %} {{ comment.date|date:"H \h i" }}</p>
 
-                                <p>{{ comment.content }}</p>
+                                <p>{{ comment.content | emoticons }}</p>
                             </div>
                         </div>
                     {% endfor %}
