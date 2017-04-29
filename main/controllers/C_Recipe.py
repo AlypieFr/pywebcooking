@@ -120,7 +120,7 @@ class CRecipe:
     @staticmethod
     def update(recipe: Recipe, title: str = None, description: str = None, tps_prep: int = None,
                picture_file: str = None, nb_people: int = None, author: UserProfile = None,
-               categories: "list of Category" = None, pub_date: datetime = datetime.datetime.now(),
+               categories: "list of Category" = None, pub_date: datetime = None,
                tps_rep: int = None, tps_cuis: int = None, nb_people_max: int = None, precision: str = None,
                excerpt: str = None, enable_comments: bool = True, published: bool = True) -> Recipe:
         """
