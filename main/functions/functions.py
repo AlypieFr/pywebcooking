@@ -1,5 +1,9 @@
+import os
 import re
 import unicodedata
+
+from PIL import Image
+from main.config import RecipeConfig
 
 
 class Functions:
@@ -42,3 +46,29 @@ class Functions:
                 new_pict_bal = old_pict_bal.replace(img, files_replace[img])
                 text = text.replace(old_pict_bal, new_pict_bal)
         return text
+
+    @staticmethod
+    def add_illustration_thumbnails(file):
+        """
+        Build thumbnails pictures
+        :param file: full path of the illustration file
+        """
+        if os.path.isfile(file):
+            try:
+                im = Image.open(file)
+                size = (int(RecipeConfig.photo_in_recipe_width), 1000000)
+                im.thumbnail(size, Image.ANTIALIAS)
+                file_parts = os.path.splitext(file)
+                out_file = file_parts[0] + "_thumb_" + RecipeConfig.photo_in_recipe_width + file_parts[1]
+                im.save(out_file, "JPEG" if file_parts[1].lower() in (".jpg", ".jpeg") else "PNG")
+                if RecipeConfig.photo_in_index_width != RecipeConfig.photo_in_recipe_width:
+                    im = Image.open(file)
+                    size = (int(RecipeConfig.photo_in_index_width), 1000000)
+                    im.thumbnail(size, Image.ANTIALIAS)
+                    file_parts = os.path.splitext(file)
+                    out_file = file_parts[0] + "_thumb_" + RecipeConfig.photo_in_index_width + file_parts[1]
+                    im.save(out_file, "JPEG" if file_parts[1].lower() in (".jpg", ".jpeg") else "PNG")
+            except IOError:
+                Functions.logger.error("Unable to build thumbnails for the picture {0}: IO error".format(file))
+        else:
+            Functions.logger.error("Unable to build thumbnails for the picture {0}: file not found".format(file))

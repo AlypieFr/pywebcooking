@@ -1,5 +1,4 @@
 import os, errno, re, json
-from PIL import Image
 
 from django.utils.translation import ugettext as _
 
@@ -7,7 +6,8 @@ from pywebcooking import settings
 from main.controllers import CRecipe, CIngredientGroup, CInstruction, CEquipment, CProposal
 from main.models import UserProfile, Category, Recipe, IngredientGroup, EquipmentInRecipe, Instruction, Proposal, \
     MediaInRecipe
-from main.config import RecipeConfig
+from main.functions import Functions as MainFunctions
+
 # import the logging library
 import logging
 
@@ -191,7 +191,7 @@ class Functions:
     def __add_media_files(recipe: Recipe, medias: dict, user_url):
         if "main_picture" in medias:
             CRecipe.add_media_file(recipe, medias["main_picture"], "main")
-            Functions.__add_illustration_thumbnails(settings.BASE_DIR + settings.MEDIA_ROOT + user_url + "/" +
+            MainFunctions.add_illustration_thumbnails(settings.BASE_DIR + settings.MEDIA_ROOT + user_url + "/" +
                                                     medias["main_picture"])
         if "other_pictures" in medias and len(medias["other_pictures"]) > 0:
             if type(medias["other_pictures"]) == list:
@@ -241,33 +241,6 @@ class Functions:
                 Functions.logger.error("Unable to tinify the picture {0}: file not found".format(file))
         except ImportError:
             Functions.logger.error("Unable to tinify the picture {0}: tinify module not installed".format(file))
-
-
-    @staticmethod
-    def __add_illustration_thumbnails(file):
-        """
-        Build thumbnails pictures
-        :param file: full path of the illustration file
-        """
-        if os.path.isfile(file):
-            try:
-                im = Image.open(file)
-                size = (int(RecipeConfig.photo_in_recipe_width), 1000000)
-                im.thumbnail(size, Image.ANTIALIAS)
-                file_parts = os.path.splitext(file)
-                out_file = file_parts[0] + "_thumb_" + RecipeConfig.photo_in_recipe_width + file_parts[1]
-                im.save(out_file, "JPEG" if file_parts[1].lower() in (".jpg", ".jpeg") else "PNG")
-                if RecipeConfig.photo_in_index_width != RecipeConfig.photo_in_recipe_width:
-                    im = Image.open(file)
-                    size = (int(RecipeConfig.photo_in_index_width), 1000000)
-                    im.thumbnail(size, Image.ANTIALIAS)
-                    file_parts = os.path.splitext(file)
-                    out_file = file_parts[0] + "_thumb_" + RecipeConfig.photo_in_index_width + file_parts[1]
-                    im.save(out_file, "JPEG" if file_parts[1].lower() in (".jpg", ".jpeg") else "PNG")
-            except IOError:
-                Functions.logger.error("Unable to build thumbnails for the picture {0}: IO error".format(file))
-        else:
-            Functions.logger.error("Unable to build thumbnails for the picture {0}: file not found".format(file))
 
 
     @staticmethod
