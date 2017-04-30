@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-29 17:58+0200\n"
-"PO-Revision-Date: 2017-04-29 17:58+0200\n"
+"POT-Creation-Date: 2017-04-30 16:46+0200\n"
+"PO-Revision-Date: 2017-04-30 16:47+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -18,15 +18,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#: api/functions.py:25 api/functions.py:82
+#: api/functions.py:32 api/functions.py:89
 msgid "Category does not exists: "
 msgstr "La catégorie n'existe pas : "
 
-#: api/functions.py:29
+#: api/functions.py:36
 msgid "User not found. Please contact an administrator"
 msgstr "Utilisateur non trouvé. Veuillez contacter un administrateur"
 
-#: api/functions.py:88
+#: api/functions.py:95
 msgid "Author not found. Please contact an administrator"
 msgstr "Auteur non trouvé. Veuillez contacter un administrateur"
 
@@ -36,7 +36,7 @@ msgstr "Erreur inattendue :"
 
 #. Translators: recipe is the parent tag of a recipe
 #: api/views/RecipeById.py:48 api/views/RecipeList.py:39
-#: templates/website/index.html:20 website/urls.py:20
+#: templates/website/index.html:23 website/urls.py:20
 msgid "recipe"
 msgstr "recette"
 
@@ -163,7 +163,7 @@ msgstr "dernière modification"
 
 #. Translators: author url
 #: main/models/Recipe.py:31 templates/website/recipe.html:5
-#: templates/website/recipe.html:41
+#: templates/website/recipe.html:42
 msgid "author"
 msgstr "auteur"
 
@@ -208,85 +208,90 @@ msgstr "Propulsé par"
 msgid "Copy of text and pictures forbidden, unless you cite us with good visibility"
 msgstr "Copie des textes et des images interdite sans indiquer clairement la source"
 
-#: templates/website/index.html:25 templates/website/index.html:29
-#: templates/website/index.html:33
+#: templates/website/index.html:19
+msgid "No recipes to show"
+msgstr "Aucune recette à afficher"
+
+#: templates/website/index.html:28 templates/website/index.html:32
+#: templates/website/index.html:36
 msgctxt "coup_de_coeur_file"
 msgid "en"
 msgstr "fr"
 
-#: templates/website/index.html:44
-msgctxt "index_times"
-msgid "Prep:"
-msgstr "Préparation :"
-
-#: templates/website/index.html:45
-msgctxt "index_times"
-msgid "Break:"
-msgstr "Repos :"
-
-#: templates/website/index.html:46
-msgctxt "index_times"
-msgid "Cook:"
-msgstr "Cuisson :"
-
-#: templates/website/recipe.html:18 templates/website/recipe.html:20
-#: templates/website/recipe.html:22
+#: templates/website/index.html:28 templates/website/index.html:32
+#: templates/website/index.html:36 templates/website/recipe.html:19
+#: templates/website/recipe.html:21 templates/website/recipe.html:23
 msgctxt "coup_de_coeur"
 msgid "Favorite"
 msgstr "Coup de Coeur"
 
-#: templates/website/recipe.html:18
+#: templates/website/index.html:28 templates/website/recipe.html:19
 msgctxt "coup_de_coeur"
 msgid "Good"
 msgstr "Très bon"
 
-#: templates/website/recipe.html:20
+#: templates/website/index.html:32 templates/website/recipe.html:21
 msgctxt "coup_de_coeur"
 msgid "Very good"
 msgstr "Super bon !"
 
-#: templates/website/recipe.html:22
+#: templates/website/index.html:36 templates/website/recipe.html:23
 msgctxt "coup_de_coeur"
 msgid "Best of"
 msgstr "Une tuerie !"
 
-#: templates/website/recipe.html:24 templates/website/recipe.html:54
+#: templates/website/index.html:47
+msgctxt "index_times"
+msgid "Prep:"
+msgstr "Préparation :"
+
+#: templates/website/index.html:48
+msgctxt "index_times"
+msgid "Break:"
+msgstr "Repos :"
+
+#: templates/website/index.html:49
+msgctxt "index_times"
+msgid "Cook:"
+msgstr "Cuisson :"
+
+#: templates/website/recipe.html:25 templates/website/recipe.html:55
 msgid "Posted on"
 msgstr "Posté le"
 
-#: templates/website/recipe.html:28
+#: templates/website/recipe.html:29
 msgid "By"
 msgstr "Par"
 
-#: templates/website/recipe.html:28
+#: templates/website/recipe.html:29
 msgid "In"
 msgstr "Dans"
 
-#: templates/website/recipe.html:32
+#: templates/website/recipe.html:33
 msgid "Comments"
 msgstr "Commentaires"
 
-#: templates/website/recipe.html:55
+#: templates/website/recipe.html:56
 msgid "at"
 msgstr "à"
 
-#: templates/website/recipe.html:64
+#: templates/website/recipe.html:65
 msgid "Give us your feed back!"
 msgstr "Donnez-nous votre avis !"
 
-#: templates/website/recipe.html:66
+#: templates/website/recipe.html:67
 msgid "Be the first one to post a comment!"
 msgstr "Soyez le premier à donner votre avis !"
 
-#: templates/website/recipe.html:70
+#: templates/website/recipe.html:71
 msgid "Welcome"
 msgstr "Bienvenue"
 
-#: templates/website/recipe.html:77
+#: templates/website/recipe.html:78
 msgid "Error: you have entered an invalid value for the captcha"
 msgstr "Erreur : vous avez entré une valeur incorrecte pour le captcha"
 
-#: templates/website/recipe.html:79
+#: templates/website/recipe.html:80
 msgid "Error: please fill all required fields correctly."
 msgstr "Erreur : les champs sont incorrects ou il manque des champs requis."
 
@@ -326,7 +331,7 @@ msgctxt "author url"
 msgid "author"
 msgstr "auteur"
 
-#: website/views/IndexView.py:31
+#: website/views/IndexView.py:34
 msgid "Author:"
 msgstr "Auteur :"
 

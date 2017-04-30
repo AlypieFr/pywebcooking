@@ -15,11 +15,14 @@
                     <h1 class="header-archive">{{ view.data.archive_header }}</h1>
                 </div>
             {% endif %}
+            {% if view.data.nb_recipes == 0 %}
+                <p>{% trans "No recipes to show" %}.</p>
+            {% endif %}
             {% for recipe in view.data.recipes %}
                 <div class="recipe-item">
                     <a href="/{% trans "recipe" %}/{{ recipe.slug }}">
                         <div class="recipes-index thumbnail">
-                            <img src="{{ view.data.media_root }}/{{ recipe.author.user.username }}/{{ recipe.picture_file }}" />
+                            <img src="{{ view.data.media_root }}/{{ recipe.author.user.username }}/{{ recipe.thumb_file }}" />
                             {% if recipe.coup_de_coeur == 1 %}
                                 <div class="coupDeCoeurLoop" align="right">
                                     <img src="/static/images/coup_de_coeur_1-{% trans "en" context "coup_de_coeur_file" %}.png" alt="Coup de Coeur *" title="{% trans "Favorite" context "coup_de_coeur" %} - {% trans "Good" context "coup_de_coeur" %}" />

@@ -2,8 +2,8 @@ from django.utils.translation import ugettext as _
 
 
 class RecipeConfig:
-    directory_photos = "/Photos/"
     photo_in_recipe_width = "254"
+    photo_in_index_width = "350"
     # Translators: terms used in a recipe
     ingredients_short = _("Ingredients (for %d people):")
     ingredients_short_1p = _("Ingredients (for %d person):")

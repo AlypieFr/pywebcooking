@@ -1,3 +1,5 @@
+import os
+
 from .GenericView import GenericView
 from django.views.generic import TemplateView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -5,6 +7,7 @@ from django.utils.translation import ugettext as _
 
 from pywebcooking.settings import MEDIA_ROOT, POSTS_PER_PAGE
 
+from main.config import RecipeConfig
 from main.models import Recipe, Category, UserProfile
 
 
@@ -45,6 +48,7 @@ class IndexView(TemplateView):
         dat["media_root"] = MEDIA_ROOT #+ recipe.author.user.username
 
         dat["times"] = {}
+        dat["nb_recipes"] = len(page_recipe)
         for recipe in page_recipe:
             dat["times"][recipe.id] = {}
             # Preparation time:
@@ -84,9 +88,11 @@ class IndexView(TemplateView):
                 recipe.tps_cuis = " ".join(tps_cuis)
 
             cats = []
-            print(recipe.category.all().order_by("order"))
             for cat in recipe.category.all().order_by("order"):
                 cats.append(cat.name)
             recipe.cats = ", ".join(cats)
+            pict_file = recipe.picture_file
+            parts = os.path.splitext(pict_file)
+            recipe.thumb_file = parts[0] + "_thumb_" + RecipeConfig.photo_in_index_width + parts[1]
 
         return dat

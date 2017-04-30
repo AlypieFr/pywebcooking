@@ -1,3 +1,8 @@
+import os
+import datetime
+import unicodedata
+import re
+
 from pywebcooking.settings import MEDIA_ROOT
 
 from main.models import Recipe, Category, IngredientInGroup, UserProfile, MediaInRecipe
@@ -11,10 +16,6 @@ from main.controllers.C_Instruction import CInstruction
 from main.controllers.C_Proposal import CProposal
 
 from main.config import RecipeConfig
-
-import datetime
-import unicodedata
-import re
 
 
 class CRecipe:
@@ -421,11 +422,12 @@ class CRecipe:
         html = "<div id='illustration_desc'>"
 
         # Add picture:
-        html += "<div id='illustration'><a href='" + MEDIA_ROOT + recipe.author.user.username + "/" + \
-                recipe.picture_file + "' data-lightbox='illustration' data-title='" + recipe.title.replace("'", "\\'") \
-                + "'><img class='shadow' title='" + recipe.title + "' src='" + MEDIA_ROOT + recipe.author.user.username\
-                + "/" + recipe.picture_file + "' alt='illustration' width='" + RecipeConfig.photo_in_recipe_width + \
-                "' /></a></div>"
+        pict_file = MEDIA_ROOT + recipe.author.user.username + "/" + recipe.picture_file
+        parts = os.path.splitext(pict_file)
+        thumb_file = parts[0] + "_thumb_" + RecipeConfig.photo_in_recipe_width + parts[1]
+        html += "<div id='illustration'><a href='" + pict_file + "' data-lightbox='illustration' data-title='" + \
+                recipe.title.replace("'", "\\'") + "'><img class='shadow' title='" + recipe.title + "' src='" + \
+                thumb_file + "' alt='illustration' width='" + RecipeConfig.photo_in_recipe_width + "' /></a></div>"
 
         # Add description:
         html += "<div id='description'><p>" + recipe.description + "</p></div>"
