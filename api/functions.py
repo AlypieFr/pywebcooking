@@ -223,7 +223,7 @@ class Functions:
         return categories
 
     @staticmethod
-    def __tinify(file):
+    def tinify_pict(file):
         """
         Tinify the giving file (replacing the original file)
         :param file: full path of the input/output file
@@ -263,7 +263,7 @@ class Functions:
             if jpegoptim is not None:
                 os.system(jpegoptim + " -s " + file_path)
         if settings.TINIFY_KEY != "":
-            Functions.__tinify(file_path)
+            Functions.tinify_pict(file_path)
         return filename
 
     @staticmethod
