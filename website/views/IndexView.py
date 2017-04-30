@@ -17,6 +17,8 @@ class IndexView(TemplateView):
 
     template_name = "website/index.html"
 
+    media_root = MEDIA_ROOT
+
     def data(self):
         dat = {"in_archive": False, "page_view_name": "index_page", "additional_kwargs": {}}
         page = 1
@@ -45,7 +47,6 @@ class IndexView(TemplateView):
             page_recipe = paginator.page(1)
         dat["recipes"] = page_recipe
         dat["page"] = page
-        dat["media_root"] = MEDIA_ROOT #+ recipe.author.user.username
 
         dat["times"] = {}
         dat["nb_recipes"] = len(page_recipe)
