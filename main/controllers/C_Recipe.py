@@ -34,7 +34,6 @@ class CRecipe:
         :param nb_people: the number of people for this recipe {int} [REQ]
         :param author: the author of this recipe {User} [REQ]
         :param categories: the list of categories for this recipe {list<Category>} [REQ]
-        :param pub_date: the publication date - if not sent, use current date {datetime} [OPT]
         :param tps_rep: the break ("repos") time {int} [OPT]
         :param tps_cuis: the cooking ("cuisson") time {int} [OPT]
         :param nb_people_max: the number of people for this recipe (max value, if filled, the min value is nb_people)
