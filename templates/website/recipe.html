@@ -40,7 +40,9 @@
                             <div class="comment-body">
                                 {% if comment.authenticated %}
                                     <a href="{% trans "author" %}/{{ comment.author_url }}/">
-                                        <p class="author">{{ comment.pseudo }}</p>
+                                        <p class="author">{{ comment.pseudo }}
+                                            <img src="/static/images/user_authentic.svg" alt="" width="15px"
+                                                 height="15px" style="margin-top:-3px;" title="{% trans "authenticated user" %}"/></p>
                                     </a>
                                 {% else %}
                                     {% if comment.website %}
