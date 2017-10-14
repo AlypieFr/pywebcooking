@@ -1,0 +1,9 @@
+django==1.11.*
+django-copyright
+djangorestframework
+django-simple-captcha
+django-gravatar2
+django-bootstrap-pagination
+django-emoticons
+mysqlclient
+urllib3
