@@ -20,7 +20,8 @@ class TDuplicates(TestCase):
                 CIngredientGroup.add_new("group 2 :", 0, r, 2, [{"name": "salades", "quantity": 2, "unit": "", "nb": 0}])
             self.fail("This test is expected to fail")
         except IntegrityError as e:
-            if "Duplicate entry" not in str(e):
+            if "Duplicate entry" not in str(e) and "UNIQUE constraint failed" not in str(e):
+                # Works only for MySQL and Sqlite, please edit for other DB engines
                 self.fail("django.db.utils.IntegrityError: " + str(e))
 
         # Test 2: for Ingredient in IngredientInGroup:
@@ -29,7 +30,8 @@ class TDuplicates(TestCase):
                 CIngredientGroup.add_new("group 1 :", 1, r, 1, [{"name": "carottes", "quantity": 2, "unit": "", "nb": 0},
                                                                 {"name": "sel", "quantity": 3, "unit": "g", "nb": 1}])
         except IntegrityError as e:
-            if "Duplicate entry" not in str(e):
+            if "Duplicate entry" not in str(e) and "UNIQUE constraint failed" not in str(e):
+                # Works only for MySQL and Sqlite, please edit for other DB engines
                 self.fail("django.db.utils.IntegrityError: " + str(e))
 
         # Test 3: for Instruction in Recipe:
@@ -40,7 +42,8 @@ class TDuplicates(TestCase):
                 CInstruction.add_new("inst 2", 0, r, 1)
             self.fail("This test is expected to fail")
         except IntegrityError as e:
-            if "Duplicate entry" not in str(e):
+            if "Duplicate entry" not in str(e) and "UNIQUE constraint failed" not in str(e):
+                # Works only for MySQL and Sqlite, please edit for other DB engines
                 self.fail("django.db.utils.IntegrityError: " + str(e))
 
         # Test 4: for Proposal in Recipe:
@@ -51,7 +54,8 @@ class TDuplicates(TestCase):
                 CProposal.add_new_to_recipe("cons 2", 0, False, r)
             self.fail("This test is expected to fail")
         except IntegrityError as e:
-            if "Duplicate entry" not in str(e):
+            if "Duplicate entry" not in str(e) and "UNIQUE constraint failed" not in str(e):
+                # Works only for MySQL and Sqlite, please edit for other DB engines
                 self.fail("django.db.utils.IntegrityError: " + str(e))
 
         # Test 5: for Equipment in Recipe:
@@ -62,5 +66,6 @@ class TDuplicates(TestCase):
                 CEquipment.add_new_to_recipe("eq 2", 2, 0, False, r)
             self.fail("This test is expected to fail")
         except IntegrityError as e:
-            if "Duplicate entry" not in str(e):
+            if "Duplicate entry" not in str(e) and "UNIQUE constraint failed" not in str(e):
+                # Works only for MySQL and Sqlite, please edit for other DB engines
                 self.fail("django.db.utils.IntegrityError: " + str(e))
