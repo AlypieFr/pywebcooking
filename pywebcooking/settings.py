@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'copyright',
+    'main.apps.MainAppConfig',
     'website',
     'api',
     'rest_framework',
@@ -46,7 +47,6 @@ INSTALLED_APPS = (
     'captcha',
     'emoticons',
     'bootstrap_pagination',
-    'main.apps.MainAppConfig'
 )
 
 MIDDLEWARE_CLASSES = (
