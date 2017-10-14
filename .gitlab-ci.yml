@@ -1,0 +1,13 @@
+image: python:3.5
+
+all_tests:
+  script:
+   - virtualenv -p python3 test
+   - source test/bin/activate
+   - pip install --upgrade pip
+   - pip install -r requirements.txt
+   - mv photospots/local_settings.py.test photospots/local_settings.py
+   - python3 manage.py migrate
+   - python3 manage.py collectstatic
+   - python3 manage.py test -k
+  when: on_success
