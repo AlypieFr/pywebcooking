@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'copyright',
     'main.apps.MainAppConfig',
     'website',
+    'panel.apps.PanelConfig',
     'api',
     'rest_framework',
     'django_gravatar',
