@@ -12,15 +12,15 @@ from main.models import Recipe, Category, UserProfile
 
 
 class IndexView(TemplateView):
-    categories = GenericView.categories()
-    config = GenericView.config
-
     template_name = "website/index.html"
 
     media_root = MEDIA_ROOT
 
     def data(self):
-        dat = {"in_archive": False, "page_view_name": "index_page", "additional_kwargs": {}}
+        categories = GenericView.categories()
+        config = GenericView.config
+        dat = {"in_archive": False, "page_view_name": "index_page", "additional_kwargs": {}, "categories": categories,
+               "config": config}
         page = 1
         if "page" in self.kwargs:
             page = self.kwargs["page"]

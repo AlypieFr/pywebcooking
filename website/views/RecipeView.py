@@ -14,10 +14,13 @@ import urllib.parse
 
 
 class RecipeView(TemplateView):
-    categories = GenericView.categories()
-    config = GenericView.config
-
     template_name = "website/recipe.html"
+
+    def data(self):
+        categories = GenericView.categories()
+        config = GenericView.config
+        return {"categories": categories,
+                "config": config}
 
     def post(self, request, *args, **kwargs):
         recipe = CRecipe.get_recipe_from_slug(kwargs["slug"])
