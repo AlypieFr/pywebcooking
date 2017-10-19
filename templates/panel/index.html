@@ -1,13 +1,66 @@
 {% extends "panel/base.html" %}
+{% load l10n %}
+{% load i18n %}
 {% block content %}
     <section class="content-header">
-      <h1>
-        Dashboard
-        <small>Version 1.0</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
-      </ol>
+        <h1>
+            Dashboard
+            <small>Version 1.0</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Dashboard</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-yellow-gradient">
+                    <div class="inner">
+                        <h3>{{ nb_recipes }}</h3>
+
+                        <p>{% trans "Recipes" %} ({{ nb_recipes_user }} {% trans "by you" %})</p>
+                    </div>
+                    <a href="#" class="small-box-footer">{% trans "See all" %} <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-green-gradient">
+                    <div class="inner">
+                        <h3>{{ nb_comments }}</h3>
+
+                        <p>{% trans "Comments" %}</p>
+                    </div>
+                    <a href="#" class="small-box-footer">{% trans "See all" %} <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-purple-gradient">
+                    <div class="inner">
+                        <h3>{{ nb_pages }}</h3>
+
+                        <p>{% trans "Pages" %}</p>
+                    </div>
+                    <a href="#" class="small-box-footer">{% trans "See all" %} <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            {% if nb_users > 0 %}
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-gray">
+                        <div class="inner">
+                            <h3>{{ nb_users }}</h3>
+
+                            <p>{% trans "Users" %}</p>
+                        </div>
+                        <a href="#" class="small-box-footer">{% trans "See all" %} <i
+                                class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
     </section>
 {% endblock %}

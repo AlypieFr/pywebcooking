@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-28 21:05+0200\n"
-"PO-Revision-Date: 2017-08-28 21:05+0200\n"
+"POT-Creation-Date: 2017-10-19 22:13+0200\n"
+"PO-Revision-Date: 2017-10-19 22:02+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -195,9 +195,34 @@ msgstr "slug"
 msgid "Recipe"
 msgstr "Recette"
 
-#: main/models/Recipe.py:56
+#: main/models/Recipe.py:56 templates/panel/index.html:23
 msgid "Recipes"
 msgstr "Recettes"
+
+#: panel/views/IndexView.py:21
+msgid "User panel"
+msgstr "Panel utilisateur"
+
+#: templates/panel/index.html:23
+msgid "by you"
+msgstr "par vous"
+
+#: templates/panel/index.html:25 templates/panel/index.html:36
+#: templates/panel/index.html:47 templates/panel/index.html:59
+msgid "See all"
+msgstr "Voir tous"
+
+#: templates/panel/index.html:34 templates/website/recipe.html:33
+msgid "Comments"
+msgstr "Commentaires"
+
+#: templates/panel/index.html:45
+msgid "Pages"
+msgstr "Pages"
+
+#: templates/panel/index.html:57
+msgid "Users"
+msgstr "Utilisateurs"
 
 #: templates/website/footer.html:4
 msgid "Powered by"
@@ -205,8 +230,10 @@ msgstr "Propulsé par"
 
 #. Translators : copyright message
 #: templates/website/footer.html:6
-msgid "Copy of text and pictures forbidden, unless you cite us with good visibility"
-msgstr "Copie des textes et des images interdite sans indiquer clairement la source"
+msgid ""
+"Copy of text and pictures forbidden, unless you cite us with good visibility"
+msgstr ""
+"Copie des textes et des images interdite sans indiquer clairement la source"
 
 #: templates/website/index.html:19
 msgid "No recipes to show"
@@ -267,10 +294,6 @@ msgstr "Par"
 msgid "In"
 msgstr "Dans"
 
-#: templates/website/recipe.html:33
-msgid "Comments"
-msgstr "Commentaires"
-
 #: templates/website/recipe.html:45
 msgid "authenticated user"
 msgstr "utilisateur authentifié"
@@ -309,7 +332,7 @@ msgstr "header-categories-fr.png"
 
 #. Translators: category url
 #: templates/website/sidebar.html:11 website/urls.py:13 website/urls.py:14
-#: website/views/RecipeView.py:69
+#: website/views/RecipeView.py:72
 msgctxt "category url"
 msgid "category"
 msgstr "categorie"
@@ -342,6 +365,26 @@ msgstr "auteur"
 #: website/views/IndexView.py:36
 msgid "Author:"
 msgstr "Auteur :"
+
+#, fuzzy
+#~| msgid "order"
+#~ msgid "Order"
+#~ msgstr "ordre"
+
+#, fuzzy
+#~| msgid "at"
+#~ msgid "Sat"
+#~ msgstr "à"
+
+#, fuzzy
+#~| msgid "url"
+#~ msgid "jul"
+#~ msgstr "url"
+
+#, fuzzy
+#~| msgid "Category does not exists: "
+#~ msgid "\"%(path)s\" does not exist"
+#~ msgstr "La catégorie n'existe pas : "
 
 #~ msgctxt "category verbose name"
 #~ msgid "category"
