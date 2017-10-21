@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-21 14:29+0200\n"
-"PO-Revision-Date: 2017-10-21 14:30+0200\n"
+"POT-Creation-Date: 2017-10-21 15:56+0200\n"
+"PO-Revision-Date: 2017-10-21 15:57+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -195,17 +195,34 @@ msgstr "slug"
 msgid "Recipe"
 msgstr "Recette"
 
-#: main/models/Recipe.py:56 templates/panel/index.html:23
+#: main/models/Recipe.py:56 templates/panel/base.html:232
+#: templates/panel/index.html:23
 msgid "Recipes"
 msgstr "Recettes"
 
-#: panel/views/IndexView.py:21
+#: panel/views/IndexView.py:34
 msgid "User panel"
 msgstr "Panel utilisateur"
 
-#: templates/panel/base.html:50
+#: templates/panel/base.html:52
 msgid "See website"
 msgstr "Voir le site"
+
+#: templates/panel/base.html:231 templates/panel/index.html:11
+msgid "Home"
+msgstr "Accueil"
+
+#: templates/panel/base.html:233
+msgid "Medias"
+msgstr "Médias"
+
+#: templates/panel/base.html:234
+msgid "Page"
+msgstr "Page"
+
+#: templates/panel/index.html:7 templates/panel/index.html:12
+msgid "Dashboard"
+msgstr "Tableau de bord"
 
 #: templates/panel/index.html:23
 msgid "by you"
@@ -227,6 +244,14 @@ msgstr "Pages"
 #: templates/panel/index.html:57
 msgid "Users"
 msgstr "Utilisateurs"
+
+#: templates/panel/index.html:67
+msgid "Latest recipes"
+msgstr "Dernières recettes"
+
+#: templates/panel/index.html:77
+msgid "Latest comments"
+msgstr "Derniers commentaires"
 
 #: templates/website/base.html:23
 msgid "Powered by"

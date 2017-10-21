@@ -13,9 +13,22 @@ class IndexView(View):
         print(request)
         if not self.request.user.is_authenticated:
             return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
-        nb_recipes = Recipe.objects.all().count()
-        nb_recipes_user = Recipe.objects.filter(author__user=self.request.user).count()
-        nb_comments = Comment.objects.filter(published=True).count()
+        recipes = Recipe.objects.all()
+        nb_recipes = recipes.count()
+        recipes_user = Recipe.objects.filter(author__user=self.request.user)
+        last_recipes = recipes_user.order_by("pub_date").reverse()[:5]
+        nb_recipes_user = recipes_user.count()
+        comments = Comment.objects.filter(published=True)
+        latest_comments = comments.filter(recipe__in=recipes_user).order_by("pub_date").reverse()[:5]
+        last_comments = []
+        for comment in latest_comments:
+            last_comments.append({
+                "pseudo": comment.pseudo if comment.pseudo is not None else comment.author.user.username,
+                "comment": comment.content,
+                "pub_date": comment.pub_date,
+                "recipe": comment.recipe
+            })
+        nb_comments = comments.count()
         nb_users = User.objects.all().count()
         context = {
             "title": _("User panel") + " - " + settings.SITE_NAME,
@@ -23,6 +36,8 @@ class IndexView(View):
             "nb_recipes_user": nb_recipes_user,
             "nb_comments": nb_comments,
             "nb_pages": 0,  # TODO: update this when page will be implemented
-            "nb_users": nb_users if request.user.is_staff else 0
+            "nb_users": nb_users if request.user.is_staff else 0,
+            "last_recipes": last_recipes,
+            "last_comments": last_comments,
         }
         return render(request, 'panel/index.html', context)

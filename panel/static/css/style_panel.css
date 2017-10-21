@@ -1,0 +1,5 @@
+.latest-recipe,.latest-comment {
+    background: white;
+    padding: 3px;
+    margin-bottom: 8px;
+}

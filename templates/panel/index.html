@@ -4,12 +4,12 @@
 {% block content %}
     <section class="content-header">
         <h1>
-            Dashboard
+            {% trans "Dashboard" %}
             <small>Version 1.0</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Dashboard</li>
+            <li><a href="#"><i class="fa fa-dashboard"></i> {% trans "Home" %}</a></li>
+            <li class="active">{% trans "Dashboard" %}</li>
         </ol>
     </section>
     <section class="content">
@@ -61,6 +61,28 @@
                     </div>
                 </div>
             {% endif %}
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <h4>{% trans "Latest recipes" %}</h4>
+                {% for recipe in last_recipes %}
+                    <div class="latest-recipe">
+                        <p><strong><a href="#">{{ recipe.title }}</a></strong><br/>
+                            <em>{{ recipe.pub_date }}</em></p>
+                        <p>{{ recipe.description|truncatewords:20 }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-xs-6">
+                <h4>{% trans "Latest comments" %}</h4>
+                {% for comment in last_comments %}
+                    <div class="latest-comment">
+                        <p><strong><a href="#">{{ comment.pseudo }} - dans &laquo;{{ comment.recipe.title }}&raquo;</a></strong><br/>
+                            <em>{{ comment.pub_date }}</em></p>
+                        <p>{{ comment.comment|truncatewords:20 }}</p>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </section>
 {% endblock %}
