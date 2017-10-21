@@ -98,7 +98,7 @@ WSGI_APPLICATION = 'pywebcooking.wsgi.application'
 
 LANGUAGE_CODE = 'fr-fr'
 
-LOCALE_PATHS = ("./locale",)
+LOCALE_PATHS = (BASE_DIR + "/locale",)
 
 TIME_ZONE = 'Europe/Paris'
 
