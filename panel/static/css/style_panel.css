@@ -3,3 +3,12 @@
     padding: 3px;
     margin-bottom: 8px;
 }
+
+div.powered-by {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    color: #B3C2C9;
+    text-align: center;
+    width: 100%;
+}

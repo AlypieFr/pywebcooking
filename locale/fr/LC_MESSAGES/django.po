@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-21 15:56+0200\n"
-"PO-Revision-Date: 2017-10-21 15:57+0200\n"
+"POT-Creation-Date: 2017-10-21 22:12+0200\n"
+"PO-Revision-Date: 2017-10-21 22:13+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -195,30 +195,62 @@ msgstr "slug"
 msgid "Recipe"
 msgstr "Recette"
 
-#: main/models/Recipe.py:56 templates/panel/base.html:232
+#: main/models/Recipe.py:56 templates/panel/base.html:218
 #: templates/panel/index.html:23
 msgid "Recipes"
 msgstr "Recettes"
 
-#: panel/views/IndexView.py:34
+#: panel/views/IndexView.py:35
 msgid "User panel"
 msgstr "Panel utilisateur"
 
-#: templates/panel/base.html:52
+#: templates/panel/base.html:53
 msgid "See website"
 msgstr "Voir le site"
 
-#: templates/panel/base.html:231 templates/panel/index.html:11
+#: templates/panel/base.html:175
+msgid "Member since"
+msgstr "Membre depuis"
+
+#: templates/panel/base.html:181
+msgid "Profile"
+msgstr "Profil utilisateur"
+
+#: templates/panel/base.html:184
+msgid "Sign out"
+msgstr "Se déconnecter"
+
+#: templates/panel/base.html:209
+msgid "Online"
+msgstr "En ligne"
+
+#: templates/panel/base.html:217 templates/panel/index.html:11
 msgid "Home"
 msgstr "Accueil"
 
-#: templates/panel/base.html:233
+#: templates/panel/base.html:219
 msgid "Medias"
 msgstr "Médias"
 
-#: templates/panel/base.html:234
+#: templates/panel/base.html:220
 msgid "Page"
 msgstr "Page"
+
+#: templates/panel/base.html:223
+msgid "Admin"
+msgstr "Admin"
+
+#: templates/panel/base.html:229 templates/panel/index.html:57
+msgid "Users"
+msgstr "Utilisateurs"
+
+#: templates/panel/base.html:230
+msgid "Website parameters"
+msgstr "Paramètres du site"
+
+#: templates/panel/base.html:235 templates/website/base.html:23
+msgid "Powered by"
+msgstr "Propulsé par"
 
 #: templates/panel/index.html:7 templates/panel/index.html:12
 msgid "Dashboard"
@@ -241,10 +273,6 @@ msgstr "Commentaires"
 msgid "Pages"
 msgstr "Pages"
 
-#: templates/panel/index.html:57
-msgid "Users"
-msgstr "Utilisateurs"
-
 #: templates/panel/index.html:67
 msgid "Latest recipes"
 msgstr "Dernières recettes"
@@ -252,10 +280,6 @@ msgstr "Dernières recettes"
 #: templates/panel/index.html:77
 msgid "Latest comments"
 msgstr "Derniers commentaires"
-
-#: templates/website/base.html:23
-msgid "Powered by"
-msgstr "Propulsé par"
 
 #. Translators : copyright message
 #: templates/website/base.html:25

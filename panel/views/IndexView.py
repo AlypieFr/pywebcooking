@@ -5,6 +5,7 @@ from django.utils.translation import ugettext as _
 from pywebcooking.settings import MEDIA_ROOT
 from main.models import Recipe, Comment
 from django.contrib.auth.models import User
+from django_gravatar.helpers import get_gravatar_url
 
 
 class IndexView(View):
@@ -39,5 +40,9 @@ class IndexView(View):
             "nb_users": nb_users if request.user.is_staff else 0,
             "last_recipes": last_recipes,
             "last_comments": last_comments,
+            "staff": request.user.is_staff,
+            "user_name": request.user.first_name + " " + request.user.last_name,
+            "user": request.user,
+            "avatar": get_gravatar_url(request.user.email, size=160)
         }
         return render(request, 'panel/index.html', context)
