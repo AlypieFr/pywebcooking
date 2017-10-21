@@ -1,3 +1,4 @@
+{% extends "website/base.html" %}
 {% load l10n %}
 {% load i18n %}
 {% load gravatar %}
@@ -5,93 +6,86 @@
 {% trans "author" as author %}
 {% load emoticons_tags %}
 
-{% include "website/header.html" %}
-<title>{{ view.recipe.recipe.title }} | {{ view.config.title }}</title>
-</head>
-<body>
-    <div id="body">
-        {% include "website/sidebar.html" %}
-        <article>
-            <h1 id="recipe_title">{{ view.recipe.recipe.title }}</h1>
-            {# Translators: words in subtitle of recipes in RecipeView #}
-            <p id="post_details">
-            {% if view.recipe.recipe.coup_de_coeur == 1 %}
-                <img src="/static/images/coup_de_coeur_1-mini.png" alt="" height="20" title="{% trans "Favorite" context "coup_de_coeur" %} - {% trans "Good" context "coup_de_coeur" %}"/>
-            {% elif view.recipe.recipe.coup_de_coeur == 2 %}
-                <img src="/static/images/coup_de_coeur_2-mini.png" alt="" height="20" title="{% trans "Favorite" context "coup_de_coeur" %} - {% trans "Very good" context "coup_de_coeur" %}"/>
-            {% elif view.recipe.recipe.coup_de_coeur == 3 %}
-                <img src="/static/images/coup_de_coeur_3-mini.png" alt="" height="20" title="{% trans "Favorite" context "coup_de_coeur" %} - {% trans "Best of" context "coup_de_coeur" %}"/>
-            {% endif %}
-                {% trans "Posted on" %}
-                {% localize on %}
-                    {{ view.recipe.date_published }}
-                {% endlocalize %}
-                - {% trans "By" %} <a href="/{{ author }}/{{ view.recipe.recipe.author.url }}">{{ view.recipe.recipe.author.user.first_name }}</a> - {% trans "In" %} {{ view.recipe.categories | safe }}
-            </p>
-            {{ view.recipe.html | safe | emoticons }}
-            <div id="comments">
-                <h3 class="comments">{% trans "Comments" %}</h3>
-                <div id="comments_list">
-                    {% for comment in view.recipe.comments %}
-                        <div class="acomment" id="comm{{ comment.id }}">
-                            <div class="comment-avatar">
-                                {% gravatar comment.email 50 %}
-                            </div>
-                            <div class="comment-body">
-                                {% if comment.authenticated %}
-                                    <a href="{% trans "author" %}/{{ comment.author_url }}/">
-                                        <p class="author">{{ comment.pseudo }}
-                                            <img src="/static/images/user_authentic.svg" alt="" width="15px"
-                                                 height="15px" style="margin-top:-3px;" title="{% trans "authenticated user" %}"/></p>
+{% block title %}{{ view.recipe.recipe.title }} | {{ view.config.title }}{% endblock %}
+{% block content %}
+    <article>
+        <h1 id="recipe_title">{{ view.recipe.recipe.title }}</h1>
+        {# Translators: words in subtitle of recipes in RecipeView #}
+        <p id="post_details">
+        {% if view.recipe.recipe.coup_de_coeur == 1 %}
+            <img src="/static/images/coup_de_coeur_1-mini.png" alt="" height="20" title="{% trans "Favorite" context "coup_de_coeur" %} - {% trans "Good" context "coup_de_coeur" %}"/>
+        {% elif view.recipe.recipe.coup_de_coeur == 2 %}
+            <img src="/static/images/coup_de_coeur_2-mini.png" alt="" height="20" title="{% trans "Favorite" context "coup_de_coeur" %} - {% trans "Very good" context "coup_de_coeur" %}"/>
+        {% elif view.recipe.recipe.coup_de_coeur == 3 %}
+            <img src="/static/images/coup_de_coeur_3-mini.png" alt="" height="20" title="{% trans "Favorite" context "coup_de_coeur" %} - {% trans "Best of" context "coup_de_coeur" %}"/>
+        {% endif %}
+            {% trans "Posted on" %}
+            {% localize on %}
+                {{ view.recipe.date_published }}
+            {% endlocalize %}
+            - {% trans "By" %} <a href="/{%  trans "author" %}/{{ view.recipe.recipe.author.url }}">{{ view.recipe.recipe.author.user.first_name }}</a> - {% trans "In" %} {{ view.recipe.categories | safe }}
+        </p>
+        {{ view.recipe.html | safe | emoticons }}
+        <div id="comments">
+            <h3 class="comments">{% trans "Comments" %}</h3>
+            <div id="comments_list">
+                {% for comment in view.recipe.comments %}
+                    <div class="acomment" id="comm{{ comment.id }}">
+                        <div class="comment-avatar">
+                            {% gravatar comment.email 50 %}
+                        </div>
+                        <div class="comment-body">
+                            {% if comment.authenticated %}
+                                <a href="{% trans "author" %}/{{ comment.author_url }}/">
+                                    <p class="author">{{ comment.pseudo }}
+                                        <img src="/static/images/user_authentic.svg" alt="" width="15px"
+                                             height="15px" style="margin-top:-3px;" title="{% trans "authenticated user" %}"/></p>
+                                </a>
+                            {% else %}
+                                {% if comment.website %}
+                                    <a href="{{ comment.website }}" target="_blank">
+                                        <p class="author">{{ comment.pseudo }}</p>
                                     </a>
                                 {% else %}
-                                    {% if comment.website %}
-                                        <a href="{{ comment.website }}" target="_blank">
-                                            <p class="author">{{ comment.pseudo }}</p>
-                                        </a>
-                                    {% else %}
-                                        <p class="author">{{ comment.pseudo }}</p>
-                                    {% endif %}
+                                    <p class="author">{{ comment.pseudo }}</p>
                                 {% endif %}
-
-                                <p class="comment-date">{% trans "Posted on" %} {{ comment.date.date }}
-                                    {% trans "at" %} {{ comment.date|date:"H \h i" }}</p>
-
-                                <p>{{ comment.content | emoticons }}</p>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-                <h4 id="new-comment-header">
-                    {% if view.recipe.comments %}
-                        {% trans "Give us your feed back!" %}
-                    {% else %}
-                        {% trans "Be the first one to post a comment!" %}
-                    {% endif %}
-                </h4>
-                {% if view.recipe.authenticated %}
-                    <p>{% trans "Welcome" %} {{ view.recipe.username }}</p>
-                {% endif %}
-
-                <form action="#" method="post" id="post-comment">
-                    {% if view.recipe.error %}
-                        <div class="comment-error">
-                            {% if view.recipe.captcha_error %}
-                                {% trans "Error: you have entered an invalid value for the captcha" %}
-                            {% else %}
-                                {% trans "Error: please fill all required fields correctly." %}
                             {% endif %}
+
+                            <p class="comment-date">{% trans "Posted on" %} {{ comment.date.date }}
+                                {% trans "at" %} {{ comment.date|date:"H \h i" }}</p>
+
+                            <p>{{ comment.content | emoticons }}</p>
                         </div>
-                    {% endif %}
-                    {% csrf_token %}
-                    <table>
-                    {{ view.recipe.comment_form }}
-                    </table>
-                    <button type="submit">{% trans "Submit" %}</button>
-                </form>
+                    </div>
+                {% endfor %}
             </div>
-        </article>
-        {% include "website/footer.html" %}
-    </div>
-</body>
-</html>
+            <h4 id="new-comment-header">
+                {% if view.recipe.comments %}
+                    {% trans "Give us your feed back!" %}
+                {% else %}
+                    {% trans "Be the first one to post a comment!" %}
+                {% endif %}
+            </h4>
+            {% if view.recipe.authenticated %}
+                <p>{% trans "Welcome" %} {{ view.recipe.username }}</p>
+            {% endif %}
+
+            <form action="#" method="post" id="post-comment">
+                {% if view.recipe.error %}
+                    <div class="comment-error">
+                        {% if view.recipe.captcha_error %}
+                            {% trans "Error: you have entered an invalid value for the captcha" %}
+                        {% else %}
+                            {% trans "Error: please fill all required fields correctly." %}
+                        {% endif %}
+                    </div>
+                {% endif %}
+                {% csrf_token %}
+                <table>
+                {{ view.recipe.comment_form }}
+                </table>
+                <button type="submit">{% trans "Submit" %}</button>
+            </form>
+        </div>
+    </article>
+{% endblock %}

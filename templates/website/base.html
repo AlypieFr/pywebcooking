@@ -1,8 +1,11 @@
+{% load i18n %}
+{% load copyrighttags %}
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-theme.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
@@ -10,3 +13,17 @@
     <script src="{% static 'js/jquery-3.2.1.min.js' %}" defer></script>
     <script src="{% static 'js/bootstrap.min.js' %}" defer></script>
     <script src="{% static 'js/lightbox.min.js' %}" defer></script>
+</head>
+<body>
+<div id="body">
+    {% include "website/sidebar.html" %}
+    {% block content %}
+    {% endblock %}
+    <footer>
+        <div class="copyright">&#169; Copyright {% getCopyrightYears %} <a href="/">{{ SITE_NAME }}</a> | {% trans "Powered by" %} PyWebCooking</div>
+        {# Translators : copyright message #}
+        <div class="doNotCopy">{%  trans "Copy of text and pictures forbidden, unless you cite us with good visibility" %}.</div>
+    </footer>
+</div>
+</body>
+</html>
