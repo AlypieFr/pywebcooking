@@ -201,9 +201,15 @@ h4#new-comment-header {
 }
 
 .recipes-index {
-    display: table-cell;
-    vertical-align: top;
     width: 50%;
+    vertical-align: top;
+}
+
+@media screen and (max-width: 815px) {
+    .recipes-index {
+        width: 100%;
+        display: block;
+    }
 }
 
 .recipes-index h1 {
@@ -278,6 +284,7 @@ div.pagination {
     background-color: transparent;
     padding: 0;
     border: none;
+    width: 100%;
 }
 
 .coupDeCoeurLoop {

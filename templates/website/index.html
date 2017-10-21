@@ -19,9 +19,11 @@
                 <p>{% trans "No recipes to show" %}.</p>
             {% endif %}
             {% for recipe in view.data.recipes %}
-                <div class="recipe-item">
-                    <a href="/{% trans "recipe" %}/{{ recipe.slug }}">
-                        <div class="recipes-index thumbnail">
+                <a href="/{% trans "recipe" %}/{{ recipe.slug }}">
+                    <div class="recipe-item">
+                    <table>
+                    <tr>
+                        <td class="recipes-index thumbnail">
                             <img src="{{ view.media_root }}/{{ recipe.author.user.username }}/{{ recipe.thumb_file }}" />
                             {% if recipe.coup_de_coeur == 1 %}
                                 <div class="coupDeCoeurLoop" align="right">
@@ -36,8 +38,8 @@
                                     <img src="/static/images/coup_de_coeur_3-{% trans "en" context "coup_de_coeur_file" %}.png" alt="Coup de Coeur ***" title="{% trans "Favorite" context "coup_de_coeur" %} - {% trans "Best of" context "coup_de_coeur" %}" />
                                 </div>
                             {% endif %}
-                        </div>
-                        <div class="recipes-index recipe-description-index">
+                        </td>
+                        <td class="recipes-index recipe-description-index">
                             <h1 class="recipe-title">{{ recipe.title }}</h1>
                             <p class="categories">
                                 {{ recipe.cats }}
@@ -49,9 +51,11 @@
                                 <p class="times">{% if recipe.tps_cuis %}{% trans "Cook:" context "index_times" %} {{ recipe.tps_cuis }}{% endif %}</p>
                             </div>
                             <p class="excerpt">{{ recipe.excerpt }}</p>
-                        </div>
-                    </a>
-                </div>
+                        </td>
+                    </tr>
+                    </table>
+                    </div>
+                </a>
             {% endfor %}
             <div class="pagination">
                 {% bootstrap_paginate view.data.recipes url_view_name=view.data.page_view_name url_extra_kwargs=view.data.additional_kwargs %}
