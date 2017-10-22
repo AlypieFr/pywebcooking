@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-22 16:50+0200\n"
-"PO-Revision-Date: 2017-10-22 16:51+0200\n"
+"POT-Creation-Date: 2017-10-22 20:55+0200\n"
+"PO-Revision-Date: 2017-10-22 20:57+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -36,7 +36,7 @@ msgstr "Erreur inattendue :"
 
 #. Translators: recipe is the parent tag of a recipe
 #: api/views/RecipeById.py:48 api/views/RecipeList.py:39
-#: templates/website/index.html:18 website/urls.py:20
+#: templates/website/index.html:18 website/urls.py:23
 msgid "recipe"
 msgstr "recette"
 
@@ -113,7 +113,7 @@ msgid "Category"
 msgstr "Catégorie"
 
 #: main/models/Category.py:16 templates/panel/base.html:219
-#: templates/website/sidebar.html:9
+#: templates/panel/recipes.html:64 templates/website/sidebar.html:9
 msgid "Categories"
 msgstr "Catégories"
 
@@ -202,7 +202,7 @@ msgstr "Recette"
 msgid "Recipes"
 msgstr "Recettes"
 
-#: panel/views/IndexView.py:34 panel/views/RecipesView.py:38
+#: panel/views/IndexView.py:34 panel/views/RecipesView.py:61
 #: templates/website/header.html:20
 msgid "User panel"
 msgstr "Panel utilisateur"
@@ -334,6 +334,30 @@ msgctxt "verb"
 msgid "Filter"
 msgstr "Filtrer"
 
+#: templates/panel/recipes.html:58
+msgid "Title"
+msgstr "Titre"
+
+#: templates/panel/recipes.html:61
+msgid "Author"
+msgstr "Auteur :"
+
+#: templates/panel/recipes.html:70
+msgid "Date"
+msgstr "Date"
+
+#: templates/panel/recipes.html:73
+msgid "Thumb"
+msgstr "Thumb"
+
+#: templates/panel/recipes.html:99
+msgid "Published"
+msgstr "Publiée"
+
+#: templates/panel/recipes.html:101
+msgid "Draft"
+msgstr "Brouillon"
+
 #. Translators : copyright message
 #: templates/website/base.html:37
 msgid "Copy of text and pictures forbidden, unless you cite us with good visibility"
@@ -390,6 +414,26 @@ msgctxt "index_times"
 msgid "Cook:"
 msgstr "Cuisson :"
 
+#: templates/website/login.html:7 templates/website/login.html:19
+msgid "Login"
+msgstr "Connexion"
+
+#: templates/website/login.html:27
+msgid "Your username and password didn't match."
+msgstr "Votre nom d'utilisateur ou votre mot de passe est incorrect."
+
+#: templates/website/login.html:28
+msgid "Please try again."
+msgstr "Veuillez réessayer."
+
+#: templates/website/login.html:39
+msgid "Username:"
+msgstr "Nom d'utilisateur :"
+
+#: templates/website/login.html:43
+msgid "Password:"
+msgstr "Mot de passe :"
+
 #: templates/website/recipe.html:22 templates/website/recipe.html:54
 msgid "Posted on"
 msgstr "Posté le"
@@ -439,7 +483,7 @@ msgid "header-categories.png"
 msgstr "header-categories-fr.png"
 
 #. Translators: category url
-#: templates/website/sidebar.html:11 website/urls.py:13 website/urls.py:14
+#: templates/website/sidebar.html:11 website/urls.py:16 website/urls.py:17
 #: website/views/RecipeView.py:84
 msgctxt "category url"
 msgid "category"
@@ -461,11 +505,11 @@ msgstr "Site web"
 msgid "Comment"
 msgstr "Commentaire"
 
-#: website/urls.py:12 website/urls.py:14 website/urls.py:17
+#: website/urls.py:15 website/urls.py:17 website/urls.py:20
 msgid "page"
 msgstr "page"
 
-#: website/urls.py:16 website/urls.py:17
+#: website/urls.py:19 website/urls.py:20
 msgctxt "author url"
 msgid "author"
 msgstr "auteur"

@@ -64,7 +64,7 @@ class RecipeView(TemplateView):
             else:
                 data["comment_form"] = CommentFormAuthenticated()
             data["authenticated"] = True
-            data["username"] = User.objects.get(username=self.request.user).first_name
+            data["username"] = self.user.first_name
         else:
             if "text" in self.request.GET.keys():
                 data["comment_form"] = CommentForm(data=self.request.GET)

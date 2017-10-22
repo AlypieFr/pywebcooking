@@ -122,6 +122,6 @@ STATIC_URL = '/static/'
 
 SITE_NAME = "PyWebCooking"
 
-from pywebcooking.local_settings import *
+LOGIN_URL = "/login/"
 
-LOGIN_URL = "/admin/login/"
+from pywebcooking.local_settings import *

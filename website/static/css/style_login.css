@@ -1,0 +1,15 @@
+.error p {
+    background: #dd4628;
+    padding: 5px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+div.submit-row input {
+    background: #417690;
+}
+
+h1#site-name {
+    color: white;
+}

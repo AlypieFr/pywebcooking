@@ -1,0 +1,59 @@
+{% load l10n %}
+{% load i18n %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% trans "Login" %} | {{ site_name }}</title>
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/login.css"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style_login.css' %}"/>
+    <meta name="robots" content="NONE,NOARCHIVE"/>
+</head>
+<body class="login">
+<!-- Container -->
+<div id="container">
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+            <h1 id="site-name">{% trans "Login" %} - {{ site_name }}</h1>
+        </div>
+    </div>
+    <!-- END Header -->
+
+    {% if form.errors %}
+        <div class="error">
+            <p class="label label-danger">
+                {% trans "Your username and password didn't match." %}<br/>
+                {% trans "Please try again." %}
+            </p>
+        </div>
+    {% endif %}
+
+    <!-- Content -->
+    <div id="content" class="colM">
+        <div id="content-main">
+            <form action="" method="post" id="login-form">
+                <div class="form-row">
+                    {% csrf_token %}
+                    <label class="required" for="id_username">{% trans "Username:" %}</label>
+                    <input type="text" name="username" required id="id_username" maxlength="254" autofocus/>
+                </div>
+                <div class="form-row">
+                    <label class="required" for="id_password">{% trans "Password:" %}</label>
+                    <input type="password" name="password" required id="id_password"/>
+                    <input type="hidden" name="next" value="{{ next }}"/>
+                </div>
+
+                <div class="submit-row">
+                    <input type="submit" value="{% trans 'Login' %}"/>
+                </div>
+            </form>
+        </div>
+        <br class="clear"/>
+    </div>
+    <!-- END Content -->
+
+    <div id="footer"></div>
+</div>
+<!-- END Container -->
