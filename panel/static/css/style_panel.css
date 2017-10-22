@@ -12,3 +12,60 @@ div.powered-by {
     text-align: center;
     width: 100%;
 }
+
+.filter-active {
+    font-weight: bold;
+    color: black;
+}
+
+#sel-action {
+    width: 168px;
+}
+
+#sel-filter-month {
+    width: 150px;
+}
+
+#sel-filter-cats {
+    width: 200px;
+}
+
+form.top-actions select, form.top-actions button{
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+form.top-actions select {
+    height: 30px;
+}
+
+form.top-actions button {
+    height: 28px;
+    line-height: 15px;
+}
+
+form.top-actions {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.list-recipes .link-recipe {
+    font-weight: bold;
+}
+
+.list-recipes table tbody tr:nth-child(odd) {
+    background: #fafafa;
+}
+
+.list-recipes table tbody tr:nth-child(even) {
+    background: #eaeaea;
+}
+
+.user-panel p {
+    white-space: normal;
+}
+
+.user-panel .pull-left.image {
+    padding-top: 3px;
+}

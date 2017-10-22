@@ -11,7 +11,6 @@ from django_gravatar.helpers import get_gravatar_url
 class IndexView(View):
 
     def get(self, request):
-        print(request)
         if not self.request.user.is_authenticated:
             return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
         recipes = Recipe.objects.all()
@@ -43,6 +42,7 @@ class IndexView(View):
             "staff": request.user.is_staff,
             "user_name": request.user.first_name + " " + request.user.last_name,
             "user": request.user,
-            "avatar": get_gravatar_url(request.user.email, size=160)
+            "avatar": get_gravatar_url(request.user.email, size=160),
+            "page": "home",
         }
         return render(request, 'panel/index.html', context)

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-22 13:31+0200\n"
-"PO-Revision-Date: 2017-10-22 13:11+0200\n"
+"POT-Creation-Date: 2017-10-22 16:50+0200\n"
+"PO-Revision-Date: 2017-10-22 16:51+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -197,11 +197,13 @@ msgid "Recipe"
 msgstr "Recette"
 
 #: main/models/Recipe.py:56 templates/panel/base.html:218
-#: templates/panel/index.html:23
+#: templates/panel/index.html:23 templates/panel/recipes.html:7
+#: templates/panel/recipes.html:11
 msgid "Recipes"
 msgstr "Recettes"
 
-#: panel/views/IndexView.py:35 templates/website/header.html:20
+#: panel/views/IndexView.py:34 panel/views/RecipesView.py:38
+#: templates/website/header.html:20
 msgid "User panel"
 msgstr "Panel utilisateur"
 
@@ -226,6 +228,7 @@ msgid "Online"
 msgstr "En ligne"
 
 #: templates/panel/base.html:217 templates/panel/index.html:11
+#: templates/panel/recipes.html:10
 msgid "Home"
 msgstr "Accueil"
 
@@ -282,12 +285,59 @@ msgstr "Dernières recettes"
 msgid "Latest comments"
 msgstr "Derniers commentaires"
 
+#: templates/panel/recipes.html:16
+msgctxt "filter-recipes"
+msgid "All"
+msgstr "Toutes"
+
+#: templates/panel/recipes.html:18
+msgctxt "filter-recipes"
+msgid "Mines"
+msgstr "Les miennes"
+
+#: templates/panel/recipes.html:19
+msgctxt "filter-recipes"
+msgid "Published"
+msgstr "Publiées"
+
+#: templates/panel/recipes.html:25
+msgid "Grouped actions"
+msgstr "Actions groupées"
+
+#: templates/panel/recipes.html:26
+msgid "Publish"
+msgstr "Publier"
+
+#: templates/panel/recipes.html:27
+msgid "Unpublish"
+msgstr "Ne plus publier"
+
+#: templates/panel/recipes.html:28
+msgid "Move to trash"
+msgstr "Mettre à la corbeille"
+
+#: templates/panel/recipes.html:30
+msgid "Apply"
+msgstr "Appliquer"
+
+#: templates/panel/recipes.html:34
+msgid "All dates"
+msgstr "Toutes les dates"
+
+#: templates/panel/recipes.html:40
+msgctxt "categories"
+msgid "All"
+msgstr "Toutes"
+
+#: templates/panel/recipes.html:45
+msgctxt "verb"
+msgid "Filter"
+msgstr "Filtrer"
+
 #. Translators : copyright message
 #: templates/website/base.html:37
-msgid ""
-"Copy of text and pictures forbidden, unless you cite us with good visibility"
-msgstr ""
-"Copie des textes et des images interdite sans indiquer clairement la source"
+msgid "Copy of text and pictures forbidden, unless you cite us with good visibility"
+msgstr "Copie des textes et des images interdite sans indiquer clairement la source"
 
 #: templates/website/header.html:132
 msgid "Hello,"
@@ -390,7 +440,7 @@ msgstr "header-categories-fr.png"
 
 #. Translators: category url
 #: templates/website/sidebar.html:11 website/urls.py:13 website/urls.py:14
-#: website/views/RecipeView.py:72
+#: website/views/RecipeView.py:84
 msgctxt "category url"
 msgid "category"
 msgstr "categorie"

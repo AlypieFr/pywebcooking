@@ -1,0 +1,114 @@
+{% extends "panel/base.html" %}
+{% load l10n %}
+{% load i18n %}
+{% block content %}
+    <section class="content-header">
+        <h1>
+            {% trans "Recipes" %}
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/panel/"><i class="fa fa-dashboard"></i> {% trans "Home" %}</a></li>
+            <li class="active">{% trans "Recipes" %}</li>
+        </ol>
+    </section>
+    <section class="content">
+        <!-- Table header -->
+        <p><a href="#" class="show-all filter-active">{% trans "All" context "filter-recipes" %}</a> ({{ nb_recipes }})
+            |
+            <a href="#" class="show-mines">{% trans "Mines" context "filter-recipes" %}</a> ({{ nb_my_recipes }}) |
+            <a href="#" class="show-published">{% trans "Published" context "filter-recipes" %}</a>
+            ({{ nb_recipes_published }})
+        </p>
+        <div class="form-apply-recipes">
+            <form class="grouped-actions top-actions" action="#">
+                <select class="form-control" id="sel-action">
+                    <option>{% trans "Grouped actions" %}</option>
+                    <option>{% trans "Publish" %}</option>
+                    <option>{% trans "Unpublish" %}</option>
+                    <option>{% trans "Move to trash" %}</option>
+                </select>
+                <button>{% trans "Apply" %}</button>
+            </form>
+            <form class="filter-actions top-actions" id="sel-filters">
+                <select class="form-control" id="sel-filter-month">
+                    <option>{% trans "All dates" %}</option>
+                    {% for date in all_dates %}
+                        <option>{{ date.1 }} {{ date.2 }}</option>
+                    {% endfor %}
+                </select>
+                <select class="form-control" id="sel-filter-cats">
+                    <option>{% trans "All" context "categories" %}</option>
+                    {% for categorie in categories %}
+                        <option>{{ categorie.name }}</option>
+                    {% endfor %}
+                </select>
+                <button>{% trans "Filter" context "verb" %}</button>
+            </form>
+        </div>
+
+        <!-- Table -->
+        <div class="table-responsive list-recipes">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            <input type="checkbox" class="select-all"/>
+                        </th>
+                        <th>
+                            {% trans "Title" %}
+                        </th>
+                        <th>
+                            {% trans "Author" %}
+                        </th>
+                        <th>
+                            {% trans "Categories" %}
+                        </th>
+                        <th>
+                            <i class="fa fa-comment" aria-hidden="true"></i>
+                        </th>
+                        <th>
+                            {% trans "Date" %}
+                        </th>
+                        <th>
+                            {% trans "Thumb" %}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for recipe in recipes %}
+                        <tr>
+                            <td>
+                                {% if staff or recipe.author_id == user.id %}
+                                    <input type="checkbox" class="select-recipe">
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a class="link-recipe" href="#">{{ recipe.title }}</a>
+                            </td>
+                            <td>
+                                {{ recipe.author }}
+                            </td>
+                            <td>
+                                {{ recipe.categories }}
+                            </td>
+                            <td>
+                                {{ recipe.nb_comments }}
+                            </td>
+                            <td>
+                                {% if recipe.published %}
+                                    {% trans "Published" %}
+                                {% else %}
+                                    {% trans "Draft" %}
+                                {% endif %}
+                                <br/><em>{{ recipe.pub_date }}</em>
+                            </td>
+                            <td>
+                                <img src="{{ recipe.thumb }}" height="50px" alt="" />
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+{% endblock %}
