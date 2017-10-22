@@ -18,7 +18,9 @@ class LoginView(FormView):
             user = form.login()
             if user is not None:
                 login(request, user)
-                return redirect(request.POST["next"] if request.POST["next"] != "" else "/")
+                response = redirect(request.POST["next"] if request.POST["next"] != "" else "/")
+                response.delete_cookie("csrftoken")
+                return response
         else:
             return render(request, 'website/login.html', {'form': form, "site_name": SITE_NAME,
                                                           "next": request.POST['next']
