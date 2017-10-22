@@ -2,10 +2,12 @@ import os
 
 from .GenericView import GenericView
 from django.views.generic import TemplateView
+
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.translation import ugettext as _
+from django_gravatar.helpers import get_gravatar_url
 
-from pywebcooking.settings import MEDIA_ROOT, POSTS_PER_PAGE
+from pywebcooking.settings import MEDIA_ROOT, POSTS_PER_PAGE, SITE_NAME
 
 from main.config import RecipeConfig
 from main.models import Recipe, Category, UserProfile
@@ -15,12 +17,24 @@ class IndexView(TemplateView):
     template_name = "website/index.html"
 
     media_root = MEDIA_ROOT
+    site_name = SITE_NAME
+
+    user = None
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        c = super(IndexView, self).get_context_data(**kwargs)
+        self.user = self.request.user
+        return c
 
     def data(self):
         categories = GenericView.categories()
         config = GenericView.config
         dat = {"in_archive": False, "page_view_name": "index_page", "additional_kwargs": {}, "categories": categories,
-               "config": config}
+               "config": config, "user": self.user if self.user.is_authenticated else None}
+        if self.user.is_authenticated:
+            dat["avatar"] = get_gravatar_url(self.user.email, size=160)
+            dat["user_name"] = self.user.first_name
         page = 1
         if "page" in self.kwargs:
             page = self.kwargs["page"]

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-21 22:12+0200\n"
-"PO-Revision-Date: 2017-10-21 22:13+0200\n"
+"POT-Creation-Date: 2017-10-22 13:31+0200\n"
+"PO-Revision-Date: 2017-10-22 13:11+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -112,7 +112,8 @@ msgstr "ordre"
 msgid "Category"
 msgstr "Catégorie"
 
-#: main/models/Category.py:16 templates/website/sidebar.html:9
+#: main/models/Category.py:16 templates/panel/base.html:219
+#: templates/website/sidebar.html:9
 msgid "Categories"
 msgstr "Catégories"
 
@@ -200,7 +201,7 @@ msgstr "Recette"
 msgid "Recipes"
 msgstr "Recettes"
 
-#: panel/views/IndexView.py:35
+#: panel/views/IndexView.py:35 templates/website/header.html:20
 msgid "User panel"
 msgstr "Panel utilisateur"
 
@@ -208,15 +209,15 @@ msgstr "Panel utilisateur"
 msgid "See website"
 msgstr "Voir le site"
 
-#: templates/panel/base.html:175
+#: templates/panel/base.html:175 templates/website/header.html:142
 msgid "Member since"
 msgstr "Membre depuis"
 
-#: templates/panel/base.html:181
+#: templates/panel/base.html:181 templates/website/header.html:148
 msgid "Profile"
 msgstr "Profil utilisateur"
 
-#: templates/panel/base.html:184
+#: templates/panel/base.html:184 templates/website/header.html:151
 msgid "Sign out"
 msgstr "Se déconnecter"
 
@@ -228,27 +229,27 @@ msgstr "En ligne"
 msgid "Home"
 msgstr "Accueil"
 
-#: templates/panel/base.html:219
+#: templates/panel/base.html:220
 msgid "Medias"
 msgstr "Médias"
 
-#: templates/panel/base.html:220
+#: templates/panel/base.html:221
 msgid "Page"
 msgstr "Page"
 
-#: templates/panel/base.html:223
+#: templates/panel/base.html:224
 msgid "Admin"
 msgstr "Admin"
 
-#: templates/panel/base.html:229 templates/panel/index.html:57
+#: templates/panel/base.html:230 templates/panel/index.html:57
 msgid "Users"
 msgstr "Utilisateurs"
 
-#: templates/panel/base.html:230
+#: templates/panel/base.html:231
 msgid "Website parameters"
 msgstr "Paramètres du site"
 
-#: templates/panel/base.html:235 templates/website/base.html:23
+#: templates/panel/base.html:236 templates/website/base.html:35
 msgid "Powered by"
 msgstr "Propulsé par"
 
@@ -282,9 +283,15 @@ msgid "Latest comments"
 msgstr "Derniers commentaires"
 
 #. Translators : copyright message
-#: templates/website/base.html:25
-msgid "Copy of text and pictures forbidden, unless you cite us with good visibility"
-msgstr "Copie des textes et des images interdite sans indiquer clairement la source"
+#: templates/website/base.html:37
+msgid ""
+"Copy of text and pictures forbidden, unless you cite us with good visibility"
+msgstr ""
+"Copie des textes et des images interdite sans indiquer clairement la source"
+
+#: templates/website/header.html:132
+msgid "Hello,"
+msgstr "Salutations,"
 
 #: templates/website/index.html:15
 msgid "No recipes to show"
@@ -413,7 +420,7 @@ msgctxt "author url"
 msgid "author"
 msgstr "auteur"
 
-#: website/views/IndexView.py:36
+#: website/views/IndexView.py:50
 msgid "Author:"
 msgstr "Auteur :"
 

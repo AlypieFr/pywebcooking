@@ -4,23 +4,35 @@ from django.http import Http404
 from django.utils.translation import pgettext
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
+from django_gravatar.helpers import get_gravatar_url
 
 from website.forms import CommentForm, CommentFormAuthenticated
 
 from main.controllers import CRecipe, CComment
 from main.models import UserProfile
-
-import urllib.parse
+from pywebcooking.settings import SITE_NAME
 
 
 class RecipeView(TemplateView):
     template_name = "website/recipe.html"
+    site_name = SITE_NAME
+
+    user = None
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        c = super(RecipeView, self).get_context_data(**kwargs)
+        self.user = self.request.user
+        return c
 
     def data(self):
         categories = GenericView.categories()
         config = GenericView.config
-        return {"categories": categories,
-                "config": config}
+        dat = {"categories": categories, "config": config, "user": self.user if self.user.is_authenticated else None}
+        if self.user.is_authenticated:
+            dat["avatar"] = get_gravatar_url(self.user.email, size=160)
+            dat["user_name"] = self.user.first_name
+        return dat
 
     def post(self, request, *args, **kwargs):
         recipe = CRecipe.get_recipe_from_slug(kwargs["slug"])

@@ -13,8 +13,20 @@
     <script src="{% static 'js/jquery-3.2.1.min.js' %}" defer></script>
     <script src="{% static 'js/bootstrap.min.js' %}" defer></script>
     <script src="{% static 'js/lightbox.min.js' %}" defer></script>
+    {% if view.data.user %}
+        <!-- Font Awesome -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
+        <!-- Theme style -->
+        <link rel="stylesheet" type="text/css" href="{% static 'adminlte/css/AdminLTE.min.css' %}">
+        <!-- AdminLTE skin -->
+        <link rel="stylesheet" type="text/css" href="{% static 'adminlte/css/skins/skin-red.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/website-style-admin.css' %}">
+    {% endif %}
 </head>
-<body>
+<body class="{% if view.data.user %}hold-transition skin-red sidebar-mini{% endif %}">
+{% if view.data.user %}
+    {% include "website/header.html" %}
+{% endif %}
 <div id="body">
     {% include "website/sidebar.html" %}
     {% block content %}

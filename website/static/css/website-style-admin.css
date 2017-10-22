@@ -1,0 +1,50 @@
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.main-header, a.logo, .navbar .navbar-static-top {
+    height: 35px !important;
+}
+
+a.logo {
+    line-height: 35px !important;
+}
+
+.main-header .navbar {
+    min-height: 35px !important;
+}
+
+.navbar-inner {
+    min-height: 0px !important;
+}
+
+.navbar-brand,
+.navbar-nav li a {
+    line-height: 35px !important;
+    height: 35px !important;
+    padding-top: 0 !important;
+}
+
+.navbar-nav>.user-menu .user-image {
+    margin-top: 5px !important;
+}
+
+.main-header .navbar .nav>li>a>.label {
+    top: 4px !important;
+}
+
+#body {
+    margin-top: 35px;
+}
+
+@media screen and (max-width: 768px) {
+    #body {
+        margin-top: 35px;
+    }
+    .main-header {
+    position: inherit;
+}
+}
