@@ -299,3 +299,11 @@ div.pagination {
 .coupDeCoeurLoop img {
     border-bottom: 0px none;
 }
+
+#login-form input {
+    margin-bottom: 5px;
+}
+
+#login-form .login-input {
+    width: 100%;
+}

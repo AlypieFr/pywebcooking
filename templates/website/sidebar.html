@@ -12,4 +12,25 @@
         {% endfor %}
         <img src="{{ base_url }}/images/footer-categories.png" alt="---" />
     </nav>
+    {% if not view.data.user.is_authenticated %}
+        <div class="login">
+            <h4>{% trans "Login" %}</h4>
+            <form action="/login/" method="post" id="login-form">
+                <div class="form-row">
+                    {% csrf_token %}
+                    <label class="required" for="id_username">{% trans "Username:" %}</label><br/>
+                    <input type="text" name="username" required id="id_username" maxlength="254" class="login-input"/>
+                </div>
+                <div class="form-row">
+                    <label class="required" for="id_password">{% trans "Password:" %}</label><br/>
+                    <input type="password" name="password" required id="id_password" class="login-input"/>
+                    <input type="hidden" name="next" value="{{ next }}"/>
+                </div>
+
+                <div class="submit-row">
+                    <input type="submit" value="{% trans 'Login me' %}"/>
+                </div>
+            </form>
+        </div>
+    {% endif %}
 </div>
