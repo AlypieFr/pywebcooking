@@ -15,9 +15,9 @@
             <p>{% trans "No recipes to show" %}.</p>
         {% endif %}
         {% for recipe in view.data.recipes %}
-            <a href="/{% trans "recipe" %}/{{ recipe.slug }}">
+            <a href="/{% trans "recipe" %}/{{ recipe.slug }}" class="link-recipe-index">
                 <div class="recipe-item">
-                <table>
+                <table class="list-recipes">
                 <tr>
                     <td class="recipes-index thumbnail">
                         <img src="{{ view.media_root }}/{{ recipe.author.user.username }}/{{ recipe.thumb_file }}" />

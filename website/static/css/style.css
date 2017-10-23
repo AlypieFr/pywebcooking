@@ -307,3 +307,7 @@ div.pagination {
 #login-form .login-input {
     width: 100%;
 }
+
+a.link-recipe-index:hover {
+    text-decoration: none !important;
+}
