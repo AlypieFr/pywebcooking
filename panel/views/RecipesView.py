@@ -4,9 +4,8 @@ from django.shortcuts import render, redirect
 from pywebcooking import settings
 from django.utils.translation import ugettext as _
 from pywebcooking.settings import MEDIA_ROOT, LOCALE
-from main.models import Recipe, Comment
+from main.models import Recipe, UserProfile
 from main.config import RecipeConfig
-from django.contrib.auth.models import User
 from django_gravatar.helpers import get_gravatar_url
 from .GenericView import GenericView
 import locale
@@ -28,6 +27,16 @@ class RecipesView(View):
         nb_my_recipes = recipes_user.count()
         nb_recipes_published = recipes.filter(published=True).count()
         locale.setlocale(locale.LC_TIME, LOCALE)
+        user_slug = UserProfile.objects.get(user=request.user).url
+        kwargs = {}
+        select = "all"
+        if "user" in request.GET:
+            recipes = recipes.filter(author__url=request.GET["user"])
+            if request.GET["user"] == user_slug:
+                select = "mines"
+        elif "published" in request.GET and request.GET["published"] == "1":
+            recipes = recipes.filter(published=True)
+            select = "published"
         all_dates = set()
         show_recipes = []
         paginator = Paginator(recipes, 15)
@@ -68,6 +77,7 @@ class RecipesView(View):
             "staff": request.user.is_staff,
             "user_name": request.user.first_name + " " + request.user.last_name,
             "user": request.user,
+            "user_slug": user_slug,
             "avatar": get_gravatar_url(request.user.email, size=160),
             "page": "recipes",
             "nb_recipes": nb_recipes,
@@ -77,6 +87,7 @@ class RecipesView(View):
             "categories": GenericView.categories(),
             "recipes": show_recipes,
             "page_recipe": page_recipe,
-            "additionnal_kwargs": {},
+            "additionnal_kwargs": kwargs,
+            "select": select,
         }
         return render(request, 'panel/recipes.html', context)

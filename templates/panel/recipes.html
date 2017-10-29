@@ -14,10 +14,13 @@
     </section>
     <section class="content">
         <!-- Table header -->
-        <p><a href="#" class="show-all filter-active">{% trans "All" context "filter-recipes" %}</a> ({{ nb_recipes }})
+        <p><a href="/panel/recipes/" class="show-all {% if select == "all" %}filter-active{% endif %}">
+            {% trans "All" context "filter-recipes" %}</a> ({{ nb_recipes }})
             |
-            <a href="#" class="show-mines">{% trans "Mines" context "filter-recipes" %}</a> ({{ nb_my_recipes }}) |
-            <a href="#" class="show-published">{% trans "Published" context "filter-recipes" %}</a>
+            <a href="?user={{ user_slug }}" class="show-mines {% if select == "mines" %}filter-active{% endif %}">
+                {% trans "Mines" context "filter-recipes" %}</a> ({{ nb_my_recipes }}) |
+            <a href="?published=1" class="show-published  {% if select == "published" %}filter-active{% endif %}">
+                {% trans "Published" context "filter-recipes" %}</a>
             ({{ nb_recipes_published }})
         </p>
         <div class="form-apply-recipes">
