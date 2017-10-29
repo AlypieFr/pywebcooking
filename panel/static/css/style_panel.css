@@ -82,10 +82,41 @@ form.top-actions {
     background: #eaeaea;
 }
 
-.user-panel p {
+.user-panel1 p {
+    display: inline-block;
     white-space: normal;
+    color: white;
+    font-weight: bold;
+    font-size: 12pt;
+    margin-bottom: 0;
 }
 
-.user-panel .pull-left.image {
+.user-panel1 img {
+    width: 45px;
+    margin: 10px;
+}
+
+.user-panel1 .info {
+    width: calc(100% - 70px);
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.user-panel1 .pull-left.image {
     padding-top: 3px;
+}
+
+.user-panel1 .info, .user-panel1 .image {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.user-panel1 .subtitle {
+    display: block;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+.user-panel1 .subtitle i {
+    padding-right: 3px;
 }
