@@ -5,8 +5,14 @@ import unicodedata
 from PIL import Image
 from main.config import RecipeConfig
 
+# import the logging library
+import logging
+
 
 class Functions:
+
+    # Get an instance of a logger
+    logger = logging.getLogger(__name__)
 
     @staticmethod
     def remove_accents(input_str):

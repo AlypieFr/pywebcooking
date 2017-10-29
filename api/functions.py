@@ -36,7 +36,7 @@ class Functions:
             return -1, _("User not found. Please contact an administrator")
 
         # Save uploaded files:
-        files_saved, files_renamed = Functions.__save_files(files, user_url)
+        files_saved, files_renamed, files_path = Functions.__save_files(files, user_url)
         try:
             coup_de_coeur = int(data["coup_de_coeur"]) if "coup_de_coeur" in data else 0
             recipe = CRecipe.add_new(title=data["title"], description=data["description"], tps_prep=int(data["tps_prep"]),
@@ -49,7 +49,7 @@ class Functions:
                             categories=cats, precision=data["precision"] if "precision" in data else "",
                             published=data["published"]=="1", coup_de_coeur=coup_de_coeur)
         except Exception as e:
-            for group, files in files_saved.items():
+            for group, files in files_path.items():
                 if type(files) == str:
                     os.remove(files)
                 else:
@@ -57,7 +57,7 @@ class Functions:
                         os.remove(file)
             return -2, str(e)
 
-        Functions.__add_media_files(recipe, files_saved, user_url)
+        Functions.__add_media_files(recipe, files_path)
 
         # Complete recipe:
         try:
@@ -95,7 +95,7 @@ class Functions:
                 return -1, _("Author not found. Please contact an administrator")
 
         # Save uploaded files:
-        files_saved, files_renamed = Functions.__save_files(files, user_url)
+        files_saved, files_renamed, files_path = Functions.__save_files(files, user_url)
         try:
             recipe = CRecipe.update(recipe=recipe, title=data["title"], description=data["description"],
                                     tps_prep=int(data["tps_prep"]), tps_cuis=int(data["tps_cuis"]) if "tps_cuis" in
@@ -108,7 +108,7 @@ class Functions:
                                     precision=data["precision"] if "precision" in data else "",
                                     published=data["published"]=="1")
         except Exception as e:
-            for group, files in files_saved.items():
+            for group, files in files_path.items():
                 if type(files) == str:
                     os.remove(files)
                 else:
@@ -116,8 +116,7 @@ class Functions:
                         os.remove(file)
             return -2, str(e)
 
-        Functions.__add_media_files(recipe, files_saved, user_url)  # Note: add is ignored if already exists: that's
-        # all ok
+        Functions.__add_media_files(recipe, files_path)  # Note: add is ignored if already exists: that's all ok
 
         # Complete recipe:
         try:
@@ -188,11 +187,10 @@ class Functions:
         return pictures
 
     @staticmethod
-    def __add_media_files(recipe: Recipe, medias: dict, user_url):
+    def __add_media_files(recipe: Recipe, medias: dict):
         if "main_picture" in medias:
             CRecipe.add_media_file(recipe, medias["main_picture"], "main")
-            MainFunctions.add_illustration_thumbnails(settings.BASE_DIR + settings.MEDIA_ROOT + user_url + "/" +
-                                                    medias["main_picture"])
+            MainFunctions.add_illustration_thumbnails(medias["main_picture"])
         if "other_pictures" in medias and len(medias["other_pictures"]) > 0:
             if type(medias["other_pictures"]) == list:
                 for media in medias["other_pictures"]:
@@ -264,28 +262,32 @@ class Functions:
                 os.system(jpegoptim + " -s " + file_path)
         if settings.TINIFY_KEY != "":
             Functions.tinify_pict(file_path)
-        return filename
+        return filename, file_path
 
     @staticmethod
     def __save_files(files, user_url):
         files_saved = {}
+        files_path = {}
         files_renamed = {}
         for f in files:
             files_list = files.getlist(f)
             if len(files_list) > 1:
                 files_saved[f] = []
+                files_path[f] = []
                 for file in files_list:
-                    filename = Functions.__save_file(file, user_url)
+                    filename, file_path = Functions.__save_file(file, user_url)
                     files_saved[f].append(filename)
+                    files_path[f].append(file_path)
                     if file.name != filename:
                         files_renamed[file.name] = filename
             else :
-                filename = Functions.__save_file(files_list[0], user_url)
+                filename, file_path = Functions.__save_file(files_list[0], user_url)
                 files_saved[f] = filename
+                files_path[f] = file_path
                 if files_list[0].name != filename:
                     files_renamed[files_list[0].name] = filename
 
-        return files_saved, files_renamed
+        return files_saved, files_renamed, files_path
 
     @staticmethod
     def get_data_dict(data: dict):
