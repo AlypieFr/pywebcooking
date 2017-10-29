@@ -1,6 +1,7 @@
 {% extends "panel/base.html" %}
 {% load l10n %}
 {% load i18n %}
+{% load bootstrap_pagination %}
 {% block content %}
     <section class="content-header">
         <h1>
@@ -44,6 +45,10 @@
                 </select>
                 <button>{% trans "Filter" context "verb" %}</button>
             </form>
+
+            <div class="pagination top">
+                {% bootstrap_paginate page_recipe url_view_name="recipes_page" url_extra_kwargs=additionnal_kwargs range=4 %}
+            </div>
         </div>
 
         <!-- Table -->
@@ -109,6 +114,22 @@
                     {% endfor %}
                 </tbody>
             </table>
+        </div>
+
+        <div class="form-apply-recipes">
+            <form class="grouped-actions top-actions" action="#">
+                <select class="form-control" id="sel-action">
+                    <option>{% trans "Grouped actions" %}</option>
+                    <option>{% trans "Publish" %}</option>
+                    <option>{% trans "Unpublish" %}</option>
+                    <option>{% trans "Move to trash" %}</option>
+                </select>
+                <button>{% trans "Apply" %}</button>
+            </form>
+
+            <div class="pagination">
+                {% bootstrap_paginate page_recipe url_view_name="recipes_page" url_extra_kwargs=additionnal_kwargs range=4 %}
+            </div>
         </div>
     </section>
 {% endblock %}

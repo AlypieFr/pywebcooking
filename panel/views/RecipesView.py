@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from django_gravatar.helpers import get_gravatar_url
 from .GenericView import GenericView
 import locale
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 class RecipesView(View):
@@ -18,7 +19,7 @@ class RecipesView(View):
     def __sort_dates(a):
         return a[0] + a[2]
 
-    def get(self, request):
+    def get(self, request, page=1):
         if not self.request.user.is_authenticated:
             return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
         recipes = Recipe.objects.all().order_by("pub_date").reverse()
@@ -29,7 +30,12 @@ class RecipesView(View):
         locale.setlocale(locale.LC_TIME, LOCALE)
         all_dates = set()
         show_recipes = []
-        for recipe in recipes:
+        paginator = Paginator(recipes, 15)
+        try:
+            page_recipe = paginator.page(page)
+        except (PageNotAnInteger, EmptyPage):
+            page_recipe = paginator.page(1)
+        for recipe in page_recipe:
             month_int = recipe.pub_date.month
             month = recipe.pub_date.strftime("%B")
             year = recipe.pub_date.year
@@ -70,5 +76,7 @@ class RecipesView(View):
             "all_dates": all_dates,
             "categories": GenericView.categories(),
             "recipes": show_recipes,
+            "page_recipe": page_recipe,
+            "additionnal_kwargs": {},
         }
         return render(request, 'panel/recipes.html', context)

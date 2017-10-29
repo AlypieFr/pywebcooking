@@ -30,7 +30,27 @@ div.powered-by {
     width: 200px;
 }
 
-form.top-actions select, form.top-actions button{
+div.pagination {
+    float: right;
+    margin: 0;
+    height: 30px;
+}
+
+ul.pagination {
+    margin: 0;
+}
+
+div.list-recipes table {
+    margin-bottom: 10px;
+}
+
+@media screen and (max-width: 1180px) {
+    div.pagination.top {
+        float: none !important;
+    }
+}
+
+form.top-actions select, form.top-actions button, div.pagination{
     display: inline-block;
     vertical-align: middle;
     margin-right: 5px;

@@ -10,4 +10,5 @@ favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^recipes/$', RecipesView.as_view(), name='recipes'),
+    url(r'^recipes/' + _("page") + '/(?P<page>\d+)$', RecipesView.as_view(), name='recipes_page'),
 ]

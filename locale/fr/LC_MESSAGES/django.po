@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-22 21:58+0200\n"
-"PO-Revision-Date: 2017-10-22 21:59+0200\n"
+"POT-Creation-Date: 2017-10-29 12:02+0100\n"
+"PO-Revision-Date: 2017-10-29 12:03+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -340,7 +340,7 @@ msgstr "Titre"
 
 #: templates/panel/recipes.html:61
 msgid "Author"
-msgstr "Auteur :"
+msgstr "Auteur"
 
 #: templates/panel/recipes.html:70
 msgid "Date"
@@ -415,7 +415,7 @@ msgid "Cook:"
 msgstr "Cuisson :"
 
 #: templates/website/login.html:7 templates/website/login.html:19
-#: templates/website/login.html:49 templates/website/sidebar.html:16
+#: templates/website/login.html:49 templates/website/sidebar.html:17
 msgid "Login"
 msgstr "Connexion"
 
@@ -427,11 +427,11 @@ msgstr "Votre nom d'utilisateur ou votre mot de passe est incorrect."
 msgid "Please try again."
 msgstr "Veuillez réessayer."
 
-#: templates/website/login.html:39 templates/website/sidebar.html:20
+#: templates/website/login.html:39 templates/website/sidebar.html:21
 msgid "Username:"
 msgstr "Nom d'utilisateur :"
 
-#: templates/website/login.html:43 templates/website/sidebar.html:24
+#: templates/website/login.html:43 templates/website/sidebar.html:25
 msgid "Password:"
 msgstr "Mot de passe :"
 
@@ -490,7 +490,7 @@ msgctxt "category url"
 msgid "category"
 msgstr "categorie"
 
-#: templates/website/sidebar.html:30
+#: templates/website/sidebar.html:31
 msgid "Login me"
 msgstr "Se connecter"
 
