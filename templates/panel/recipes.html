@@ -33,20 +33,21 @@
                 </select>
                 <button>{% trans "Apply" %}</button>
             </form>
-            <form class="filter-actions top-actions" id="sel-filters">
-                <select class="form-control" id="sel-filter-month">
-                    <option>{% trans "All dates" %}</option>
+            <form class="filter-actions top-actions" id="sel-filters" action="" method="POST">
+                {% csrf_token %}
+                <select class="form-control" id="sel-filter-month" name="filter-month">
+                    <option value="0">{% trans "All dates" %}</option>
                     {% for date in all_dates %}
-                        <option>{{ date.1 }} {{ date.2 }}</option>
+                        <option {% if filter_date.0 == date.1 and filter_date.1 == date.2 %}selected{% endif %}>{{ date.1 }} {{ date.2 }}</option>
                     {% endfor %}
                 </select>
-                <select class="form-control" id="sel-filter-cats">
-                    <option>{% trans "All" context "categories" %}</option>
+                <select class="form-control" id="sel-filter-cats", name="filter-cat">
+                    <option value="0">{% trans "All" context "categories" %}</option>
                     {% for categorie in categories %}
-                        <option>{{ categorie.name }}</option>
+                        <option {% if filter_cat == categorie.name %}selected{% endif %}>{{ categorie.name }}</option>
                     {% endfor %}
                 </select>
-                <button>{% trans "Filter" context "verb" %}</button>
+                <button type="submit">{% trans "Filter" context "verb" %}</button>
             </form>
 
             <div class="pagination top">

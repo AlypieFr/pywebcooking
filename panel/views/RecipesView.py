@@ -1,6 +1,6 @@
 import os
 from django.views.generic import View
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse, HttpResponseRedirect
 from pywebcooking import settings
 from django.utils.translation import ugettext as _
 from pywebcooking.settings import MEDIA_ROOT, LOCALE
@@ -9,7 +9,9 @@ from main.config import RecipeConfig
 from django_gravatar.helpers import get_gravatar_url
 from .GenericView import GenericView
 import locale
+import dateparser
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+import urllib.parse
 
 
 class RecipesView(View):
@@ -17,6 +19,15 @@ class RecipesView(View):
     @staticmethod
     def __sort_dates(a):
         return a[0] + a[2]
+
+    def post(self, request, page=1):
+        args = dict(request.GET)
+        post_args = dict(request.POST)
+        del post_args["csrfmiddlewaretoken"]
+        args.update(post_args)
+        params = urllib.parse.urlencode(args, doseq=1)
+        url = reverse("recipes")
+        return HttpResponseRedirect(url + "?%s" % params)
 
     def get(self, request, page=1):
         if not self.request.user.is_authenticated:
@@ -30,6 +41,12 @@ class RecipesView(View):
         user_slug = UserProfile.objects.get(user=request.user).url
         kwargs = {}
         select = "all"
+        all_dates = set()
+        for recipe in recipes:
+            month_int = recipe.pub_date.month
+            month = recipe.pub_date.strftime("%B")
+            year = recipe.pub_date.year
+            all_dates.add((month_int, month, year))
         if "user" in request.GET:
             recipes = recipes.filter(author__url=request.GET["user"])
             if request.GET["user"] == user_slug:
@@ -37,7 +54,18 @@ class RecipesView(View):
         elif "published" in request.GET and request.GET["published"] == "1":
             recipes = recipes.filter(published=True)
             select = "published"
-        all_dates = set()
+        filter_date = ["all", "all"]
+        filter_cat = "all"
+        if "filter-month" in request.GET and request.GET["filter-month"] != "0":
+            filter_date = request.GET["filter-month"]
+            parsed_date = dateparser.parse(filter_date)
+            filter_date = filter_date.split(" ")
+            filter_date[1] = int(filter_date[1])
+            recipes = recipes.filter(pub_date__month=parsed_date.month, pub_date__year=parsed_date.year)
+        if "filter-cat" in request.GET and request.GET["filter-cat"] != "0":
+            filter_cat = request.GET["filter-cat"]
+            recipes = recipes.filter(category__name=filter_cat)
+
         show_recipes = []
         paginator = Paginator(recipes, 15)
         try:
@@ -45,11 +73,6 @@ class RecipesView(View):
         except (PageNotAnInteger, EmptyPage):
             page_recipe = paginator.page(1)
         for recipe in page_recipe:
-            month_int = recipe.pub_date.month
-            month = recipe.pub_date.strftime("%B")
-            year = recipe.pub_date.year
-            all_dates.add((month_int, month, year))
-
             categories = []
             for category in recipe.category.all():
                 categories.append(category.name)
@@ -89,5 +112,7 @@ class RecipesView(View):
             "page_recipe": page_recipe,
             "additionnal_kwargs": kwargs,
             "select": select,
+            "filter_date": filter_date,
+            "filter_cat": filter_cat,
         }
         return render(request, 'panel/recipes.html', context)
