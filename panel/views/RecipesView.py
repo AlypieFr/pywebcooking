@@ -9,7 +9,6 @@ from main.config import RecipeConfig
 from django_gravatar.helpers import get_gravatar_url
 from .GenericView import GenericView
 import locale
-import dateparser
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import urllib.parse
 
@@ -21,10 +20,12 @@ class RecipesView(View):
         return a[0] + a[2]
 
     def post(self, request, page=1):
+        post_params = ["filter-month", "filter-cat"]
         args = dict(request.GET)
         post_args = dict(request.POST)
-        del post_args["csrfmiddlewaretoken"]
-        args.update(post_args)
+        for post_param in post_params:
+            if post_param in post_args:
+                args[post_param] = post_args[post_param]
         params = urllib.parse.urlencode(args, doseq=1)
         url = reverse("recipes")
         return HttpResponseRedirect(url + "?%s" % params)
@@ -58,10 +59,8 @@ class RecipesView(View):
         filter_cat = "all"
         if "filter-month" in request.GET and request.GET["filter-month"] != "0":
             filter_date = request.GET["filter-month"]
-            parsed_date = dateparser.parse(filter_date)
-            filter_date = filter_date.split(" ")
-            filter_date[1] = int(filter_date[1])
-            recipes = recipes.filter(pub_date__month=parsed_date.month, pub_date__year=parsed_date.year)
+            filter_date = list(map(int, filter_date.split("-")))
+            recipes = recipes.filter(pub_date__month=filter_date[0], pub_date__year=filter_date[1])
         if "filter-cat" in request.GET and request.GET["filter-cat"] != "0":
             filter_cat = request.GET["filter-cat"]
             recipes = recipes.filter(category__name=filter_cat)

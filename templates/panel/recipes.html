@@ -38,7 +38,7 @@
                 <select class="form-control" id="sel-filter-month" name="filter-month">
                     <option value="0">{% trans "All dates" %}</option>
                     {% for date in all_dates %}
-                        <option {% if filter_date.0 == date.1 and filter_date.1 == date.2 %}selected{% endif %}>{{ date.1 }} {{ date.2 }}</option>
+                        <option value="{{ date.0 }}-{{ date.2 }}" {% if filter_date.0 == date.0 and filter_date.1 == date.2 %}selected{% endif %}>{{ date.1 }} {{ date.2 }}</option>
                     {% endfor %}
                 </select>
                 <select class="form-control" id="sel-filter-cats", name="filter-cat">
