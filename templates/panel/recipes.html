@@ -1,7 +1,15 @@
 {% extends "panel/base.html" %}
+{% load staticfiles %}
 {% load l10n %}
 {% load i18n %}
 {% load bootstrap_pagination %}
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'js/panel.recipes.js' %}" defer></script>
+{% endblock %}
+{% block onload %}
+    panel.recipes.init();
+{% endblock %}
 {% block content %}
     <section class="content-header">
         <h1>
@@ -117,6 +125,31 @@
                         </tr>
                     {% endfor %}
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th>
+                            <input type="checkbox" class="select-all"/>
+                        </th>
+                        <th>
+                            {% trans "Title" %}
+                        </th>
+                        <th>
+                            {% trans "Author" %}
+                        </th>
+                        <th>
+                            {% trans "Categories" %}
+                        </th>
+                        <th>
+                            <i class="fa fa-comment" aria-hidden="true"></i>
+                        </th>
+                        <th>
+                            {% trans "Date" %}
+                        </th>
+                        <th>
+                            {% trans "Thumb" %}
+                        </th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
 
