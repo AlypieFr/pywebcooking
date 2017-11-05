@@ -92,6 +92,13 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% if recipes|length == 0 %}
+                        <tr>
+                        <td class="no-recipes" colspan="7">
+                            {% trans "There is no recipes!" %}
+                        </td>
+                        </tr>
+                    {% endif %}
                     {% for recipe in recipes %}
                         <tr>
                             <td>
