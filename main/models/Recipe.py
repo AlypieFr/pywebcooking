@@ -35,6 +35,7 @@ class Recipe(models.Model):
     excerpt = models.TextField(verbose_name=_("excerpt"))
     enable_comments = models.BooleanField(default=True, verbose_name=_("enable comments"))
     published = models.BooleanField(default=True, verbose_name=_("published"))
+    trash = models.BooleanField(default=False, verbose_name=_("trash"))
     slug = models.CharField(max_length=255, verbose_name=_("slug"), unique=True)
     html = models.TextField(null=True, default=None)
     coup_de_coeur = models.IntegerField(choices=((0, __("coup_de_coeur", "Not favorite")),

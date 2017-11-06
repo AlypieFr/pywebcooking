@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-05 15:16+0100\n"
-"PO-Revision-Date: 2017-11-05 15:16+0100\n"
+"POT-Creation-Date: 2017-11-05 19:26+0100\n"
+"PO-Revision-Date: 2017-11-05 19:27+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -113,7 +113,7 @@ msgid "Category"
 msgstr "Catégorie"
 
 #: main/models/Category.py:16 templates/panel/base.html:222
-#: templates/panel/recipes.html:81 templates/panel/recipes.html:147
+#: templates/panel/recipes.html:94 templates/panel/recipes.html:160
 #: templates/website/sidebar.html:9
 msgid "Categories"
 msgstr "Catégories"
@@ -189,17 +189,21 @@ msgstr "activer les commentaires"
 msgid "published"
 msgstr "publié"
 
-#: main/models/Recipe.py:38
+#: main/models/Recipe.py:38 panel/urls.py:14 templates/panel/recipes.html:34
+msgid "trash"
+msgstr "corbeille"
+
+#: main/models/Recipe.py:39
 msgid "slug"
 msgstr "slug"
 
-#: main/models/Recipe.py:55
+#: main/models/Recipe.py:56
 msgid "Recipe"
 msgstr "Recette"
 
-#: main/models/Recipe.py:56 templates/panel/base.html:221
-#: templates/panel/index.html:23 templates/panel/recipes.html:16
-#: templates/panel/recipes.html:20
+#: main/models/Recipe.py:57 templates/panel/base.html:221
+#: templates/panel/index.html:23 templates/panel/recipes.html:17
+#: templates/panel/recipes.html:21
 msgid "Recipes"
 msgstr "Recettes"
 
@@ -207,7 +211,17 @@ msgstr "Recettes"
 msgid "page"
 msgstr "page"
 
-#: panel/views/IndexView.py:34 panel/views/RecipesView.py:98
+#: panel/urls.py:15 templates/panel/recipes.html:29
+msgctxt "url"
+msgid "mine"
+msgstr "moi"
+
+#: panel/urls.py:17 templates/panel/recipes.html:31
+msgctxt "url"
+msgid "published"
+msgstr "publie"
+
+#: panel/views/IndexView.py:34 panel/views/RecipesView.py:112
 #: templates/website/header.html:20
 msgid "User panel"
 msgstr "Panel utilisateur"
@@ -237,7 +251,7 @@ msgid "Editor"
 msgstr "Éditeur"
 
 #: templates/panel/base.html:220 templates/panel/index.html:11
-#: templates/panel/recipes.html:19
+#: templates/panel/recipes.html:20
 msgid "Home"
 msgstr "Accueil"
 
@@ -294,80 +308,96 @@ msgstr "Dernières recettes"
 msgid "Latest comments"
 msgstr "Derniers commentaires"
 
-#: templates/panel/recipes.html:26
+#: templates/panel/recipes.html:27
 msgctxt "filter-recipes"
 msgid "All"
 msgstr "Toutes"
 
-#: templates/panel/recipes.html:29
+#: templates/panel/recipes.html:30
 msgctxt "filter-recipes"
-msgid "Mines"
+msgid "Mine"
 msgstr "Les miennes"
 
-#: templates/panel/recipes.html:31
+#: templates/panel/recipes.html:32
 msgctxt "filter-recipes"
 msgid "Published"
 msgstr "Publiées"
 
-#: templates/panel/recipes.html:37 templates/panel/recipes.html:166
+#: templates/panel/recipes.html:35
+msgid "Trash"
+msgstr "Corbeille"
+
+#: templates/panel/recipes.html:41 templates/panel/recipes.html:179
 msgid "Grouped actions"
 msgstr "Actions groupées"
 
-#: templates/panel/recipes.html:38 templates/panel/recipes.html:167
+#: templates/panel/recipes.html:43 templates/panel/recipes.html:181
 msgid "Publish"
 msgstr "Publier"
 
-#: templates/panel/recipes.html:39 templates/panel/recipes.html:168
+#: templates/panel/recipes.html:44 templates/panel/recipes.html:182
 msgid "Unpublish"
 msgstr "Ne plus publier"
 
-#: templates/panel/recipes.html:40 templates/panel/recipes.html:169
+#: templates/panel/recipes.html:45 templates/panel/recipes.html:183
 msgid "Move to trash"
 msgstr "Mettre à la corbeille"
 
-#: templates/panel/recipes.html:42 templates/panel/recipes.html:171
+#: templates/panel/recipes.html:47 templates/panel/recipes.html:185
+msgid "Restore"
+msgstr "Rétablir"
+
+#: templates/panel/recipes.html:48 templates/panel/recipes.html:186
+msgid "Delete definitively"
+msgstr "Supprimer définitivement"
+
+#: templates/panel/recipes.html:51 templates/panel/recipes.html:189
 msgid "Apply"
 msgstr "Appliquer"
 
-#: templates/panel/recipes.html:47
+#: templates/panel/recipes.html:57
 msgid "All dates"
 msgstr "Toutes les dates"
 
-#: templates/panel/recipes.html:53
+#: templates/panel/recipes.html:63
 msgctxt "categories"
 msgid "All"
 msgstr "Toutes"
 
-#: templates/panel/recipes.html:58
+#: templates/panel/recipes.html:68
 msgctxt "verb"
 msgid "Filter"
 msgstr "Filtrer"
 
-#: templates/panel/recipes.html:75 templates/panel/recipes.html:141
+#: templates/panel/recipes.html:71
+msgid "Empty trash"
+msgstr "Vider la corbeille"
+
+#: templates/panel/recipes.html:88 templates/panel/recipes.html:154
 msgid "Title"
 msgstr "Titre"
 
-#: templates/panel/recipes.html:78 templates/panel/recipes.html:144
+#: templates/panel/recipes.html:91 templates/panel/recipes.html:157
 msgid "Author"
 msgstr "Auteur"
 
-#: templates/panel/recipes.html:87 templates/panel/recipes.html:153
+#: templates/panel/recipes.html:100 templates/panel/recipes.html:166
 msgid "Date"
 msgstr "Date"
 
-#: templates/panel/recipes.html:90 templates/panel/recipes.html:156
+#: templates/panel/recipes.html:103 templates/panel/recipes.html:169
 msgid "Thumb"
 msgstr "Thumb"
 
-#: templates/panel/recipes.html:98
+#: templates/panel/recipes.html:111
 msgid "There is no recipes!"
 msgstr "Aucune recette trouvée !"
 
-#: templates/panel/recipes.html:123
+#: templates/panel/recipes.html:136
 msgid "Published"
 msgstr "Publiée"
 
-#: templates/panel/recipes.html:125
+#: templates/panel/recipes.html:138
 msgid "Draft"
 msgstr "Brouillon"
 

@@ -8,6 +8,7 @@
     <script src="{% static 'js/panel.recipes.js' %}" defer></script>
 {% endblock %}
 {% block onload %}
+    {{ block.super }}
     panel.recipes.init();
 {% endblock %}
 {% block content %}
@@ -25,41 +26,61 @@
         <p><a href="/panel/recipes/" class="show-all {% if select == "all" %}filter-active{% endif %}">
             {% trans "All" context "filter-recipes" %}</a> ({{ nb_recipes }})
             |
-            <a href="?user={{ user_slug }}" class="show-mines {% if select == "mines" %}filter-active{% endif %}">
-                {% trans "Mines" context "filter-recipes" %}</a> ({{ nb_my_recipes }}) |
-            <a href="?published=1" class="show-published  {% if select == "published" %}filter-active{% endif %}">
-                {% trans "Published" context "filter-recipes" %}</a>
-            ({{ nb_recipes_published }})
+            <a href="/panel/recipes/{% trans 'mine' context 'url' %}/" class="show-mines {% if select == "mine" %}filter-active{% endif %}">
+                {% trans "Mine" context "filter-recipes" %}</a> ({{ nb_my_recipes }}) |
+            <a href="/panel/recipes/{% trans 'published' context 'url' %}/" class="show-published {% if select == "published" %}filter-active{% endif %}">
+                {% trans "Published" context "filter-recipes" %}</a> ({{ nb_recipes_published }})
+            {% if nb_trash > 0 %}
+                | <a href="/panel/recipes/{% trans 'trash' %}/" class="show-trash {% if select == "trash" %}filter-active{% endif %}">
+                {% trans "Trash" %}</a> ({{ nb_trash }})
+            {% endif %}
         </p>
         <div class="form-apply-recipes">
             <form class="grouped-actions top-actions" action="#">
-                <select class="form-control" id="sel-action">
-                    <option>{% trans "Grouped actions" %}</option>
-                    <option>{% trans "Publish" %}</option>
-                    <option>{% trans "Unpublish" %}</option>
-                    <option>{% trans "Move to trash" %}</option>
+                <select class="form-control {% if select == 'trash' %}trash{% endif %}" id="sel-action">
+                    <option value="0">{% trans "Grouped actions" %}</option>
+                    {% if select != "trash" %}
+                        <option value="1">{% trans "Publish" %}</option>
+                        <option value="2">{% trans "Unpublish" %}</option>
+                        <option value="3">{% trans "Move to trash" %}</option>
+                    {% else %}
+                        <option value="4">{% trans "Restore" %}</option>
+                        <option value="5">{% trans "Delete definitively" %}</option>
+                    {% endif %}
                 </select>
                 <button>{% trans "Apply" %}</button>
             </form>
-            <form class="filter-actions top-actions" id="sel-filters" action="" method="POST">
-                {% csrf_token %}
-                <select class="form-control" id="sel-filter-month" name="filter-month">
-                    <option value="0">{% trans "All dates" %}</option>
-                    {% for date in all_dates %}
-                        <option value="{{ date.0 }}-{{ date.2 }}" {% if filter_date.0 == date.0 and filter_date.1 == date.2 %}selected{% endif %}>{{ date.1 }} {{ date.2 }}</option>
-                    {% endfor %}
-                </select>
-                <select class="form-control" id="sel-filter-cats", name="filter-cat">
-                    <option value="0">{% trans "All" context "categories" %}</option>
-                    {% for categorie in categories %}
-                        <option {% if filter_cat == categorie.name %}selected{% endif %}>{{ categorie.name }}</option>
-                    {% endfor %}
-                </select>
-                <button type="submit">{% trans "Filter" context "verb" %}</button>
-            </form>
+            {% if select != "trash" %}
+                <form class="filter-actions top-actions" id="sel-filters" action="#">
+                    {% csrf_token %}
+                    <select class="form-control" id="sel-filter-month" name="filter-month">
+                        <option value="0">{% trans "All dates" %}</option>
+                        {% for date in all_dates %}
+                            <option value="{{ date.0 }}-{{ date.2 }}" {% if filter_date.0 == date.0 and filter_date.1 == date.2 %}selected{% endif %}>{{ date.1 }} {{ date.2 }}</option>
+                        {% endfor %}
+                    </select>
+                    <select class="form-control" id="sel-filter-cats", name="filter-cat">
+                        <option value="0">{% trans "All" context "categories" %}</option>
+                        {% for categorie in categories %}
+                            <option {% if filter_cat == categorie.name %}selected{% endif %}>{{ categorie.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">{% trans "Filter" context "verb" %}</button>
+                </form>
+            {% else %}
+                <button class="top-actions" id="empty-trash">{% trans "Empty trash" %}</button>
+            {% endif %}
 
             <div class="pagination top">
-                {% bootstrap_paginate page_recipe url_view_name="recipes_page" url_extra_kwargs=additionnal_kwargs range=4 %}
+                {% if select == "mine" %}
+                    {% bootstrap_paginate page_recipe url_view_name="recipes_mine_page" url_extra_kwargs=additionnal_kwargs range=4 %}
+                {% elif select == "published" %}
+                    {% bootstrap_paginate page_recipe url_view_name="recipes_published_page" url_extra_kwargs=additionnal_kwargs range=4 %}
+                {% elif select == "trash" %}
+                    {% bootstrap_paginate page_recipe url_view_name="recipes_trash_page" url_extra_kwargs=additionnal_kwargs range=4 %}
+                {% else %}
+                    {% bootstrap_paginate page_recipe url_view_name="recipes_page" url_extra_kwargs=additionnal_kwargs range=4 %}
+                {% endif %}
             </div>
         </div>
 
@@ -103,7 +124,7 @@
                         <tr>
                             <td>
                                 {% if staff or recipe.author_id == user.id %}
-                                    <input type="checkbox" class="select-recipe">
+                                    <input type="checkbox" class="select-recipe" value="{{ recipe.id }}">
                                 {% endif %}
                             </td>
                             <td>
@@ -162,11 +183,16 @@
 
         <div class="form-apply-recipes">
             <form class="grouped-actions top-actions" action="#">
-                <select class="form-control" id="sel-action">
+                <select class="form-control {% if select == 'trash' %}trash{% endif %}" id="sel-action">
                     <option>{% trans "Grouped actions" %}</option>
-                    <option>{% trans "Publish" %}</option>
-                    <option>{% trans "Unpublish" %}</option>
-                    <option>{% trans "Move to trash" %}</option>
+                    {% if select != "trash" %}
+                        <option value="1">{% trans "Publish" %}</option>
+                        <option value="2">{% trans "Unpublish" %}</option>
+                        <option value="3">{% trans "Move to trash" %}</option>
+                    {% else %}
+                        <option value="4">{% trans "Restore" %}</option>
+                        <option value="5">{% trans "Delete definitively" %}</option>
+                    {% endif %}
                 </select>
                 <button>{% trans "Apply" %}</button>
             </form>

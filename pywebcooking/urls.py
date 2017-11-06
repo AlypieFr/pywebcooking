@@ -15,6 +15,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
+from django.views.i18n import JavaScriptCatalog
 from django.views.static import serve
 
 urlpatterns = [
@@ -22,6 +23,7 @@ urlpatterns = [
     url(r'^api/', include('api.urls')),
     url(r'^captcha/', include('captcha.urls')),
     url(r'^panel/', include('panel.urls')),
+    url(r'^jsi18n/$', JavaScriptCatalog.as_view(), name='javascript-catalog'),
     url(r'^', include('website.urls'))
 ]
 

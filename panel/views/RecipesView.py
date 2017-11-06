@@ -19,42 +19,53 @@ class RecipesView(View):
     def __sort_dates(a):
         return a[0] + a[2]
 
-    def post(self, request, page=1):
-        post_params = ["filter-month", "filter-cat"]
-        args = dict(request.GET)
-        post_args = dict(request.POST)
-        for post_param in post_params:
-            if post_param in post_args:
-                args[post_param] = post_args[post_param]
-        params = urllib.parse.urlencode(args, doseq=1)
-        url = reverse("recipes")
-        return HttpResponseRedirect(url + "?%s" % params)
-
-    def get(self, request, page=1):
+    def get(self, request, page=1, mine=False, published=False, trash=False):
+        """
+        Rendre list of recipes
+        :param request: request object
+        :param page: page to show
+        :param mines: if True, show only my recipes
+        :param published: if True, show only published recipes
+        :param trash: if True, show trash
+        :return:
+        """
+        print(page)
         if not self.request.user.is_authenticated:
             return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
         recipes = Recipe.objects.all().order_by("pub_date").reverse()
-        nb_recipes = recipes.count()
-        recipes_user = Recipe.objects.filter(author__user=self.request.user)
-        nb_my_recipes = recipes_user.count()
-        nb_recipes_published = recipes.filter(published=True).count()
+        select = "all"
+        nb_recipes = recipes.filter(trash=False).count()
+        nb_my_recipes = recipes.filter(author__user=self.request.user, trash=False).count()
+        nb_recipes_published = recipes.filter(published=True, trash=False).count()
+        if not request.user.is_staff:
+            nb_trash = recipes.filter(trash=True, author__user=request.user).count()
+        else:
+            nb_trash = recipes.filter(trash=True).count()
+        if not trash:
+            recipes = recipes.filter(trash=False)
+        else:
+            select = "trash"
+            recipes = recipes.filter(trash=True)
+            if not request.user.is_staff:
+                recipes = recipes.filter(author__user=request.user)
+            if len(recipes) == 0:
+                return HttpResponseRedirect(reverse("recipes"))
+        if not trash:  # Must be done here to not affect previous counts
+            if mine:
+                recipes = recipes.filter(author__user=request.user)
+                select = "mine"
+            elif published:
+                recipes = recipes.filter(published=True)
+                select = "published"
         locale.setlocale(locale.LC_TIME, LOCALE)
         user_slug = UserProfile.objects.get(user=request.user).url
         kwargs = {}
-        select = "all"
         all_dates = set()
         for recipe in recipes:
             month_int = recipe.pub_date.month
             month = recipe.pub_date.strftime("%B")
             year = recipe.pub_date.year
             all_dates.add((month_int, month, year))
-        if "user" in request.GET:
-            recipes = recipes.filter(author__url=request.GET["user"])
-            if request.GET["user"] == user_slug:
-                select = "mines"
-        elif "published" in request.GET and request.GET["published"] == "1":
-            recipes = recipes.filter(published=True)
-            select = "published"
         filter_date = ["all", "all"]
         filter_cat = "all"
         if "filter-month" in request.GET and request.GET["filter-month"] != "0":
@@ -66,7 +77,7 @@ class RecipesView(View):
             recipes = recipes.filter(category__name=filter_cat)
 
         show_recipes = []
-        paginator = Paginator(recipes, 15)
+        paginator = Paginator(recipes, 25)
         try:
             page_recipe = paginator.page(page)
         except (PageNotAnInteger, EmptyPage):
@@ -89,6 +100,7 @@ class RecipesView(View):
                 "pub_date": recipe.pub_date,
                 "nb_comments": recipe.comment_set.count(),
                 "thumb": thumb_file,
+                "id": recipe.id
             }
             show_recipes.append(show_recipe)
         all_dates = list(all_dates)
@@ -105,6 +117,7 @@ class RecipesView(View):
             "nb_recipes": nb_recipes,
             "nb_my_recipes": nb_my_recipes,
             "nb_recipes_published": nb_recipes_published,
+            "nb_trash": nb_trash,
             "all_dates": all_dates,
             "categories": GenericView.categories(),
             "recipes": show_recipes,

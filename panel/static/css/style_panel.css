@@ -22,6 +22,10 @@ div.powered-by {
     width: 168px;
 }
 
+#sel-action.trash {
+    width: 205px;
+}
+
 #sel-filter-month {
     width: 150px;
 }
@@ -60,9 +64,14 @@ form.top-actions select {
     height: 32px;
 }
 
-form.top-actions button {
+form.top-actions button, button.top-actions {
     height: 31px;
     line-height: 15px;
+}
+
+button#empty-trash {
+    vertical-align: middle;
+    margin-left: 10px;
 }
 
 form.top-actions {

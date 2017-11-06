@@ -26,7 +26,7 @@
     <!-- main style -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/style_panel.css' %}">
 </head>
-<body class="hold-transition skin-red sidebar-mini" onload="{% block onload %}{% endblock %}">
+<body class="hold-transition skin-red sidebar-mini" onload='{% block onload %}panel.init("{{ csrf_token }}");{% endblock %}'>
 <div class="wrapper">
 <!-- Main Header -->
 <header class="main-header">
@@ -250,6 +250,7 @@
 </div>
 
 {% block scripts %}
+    <script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
     <!--jQuery 3 -->
     <script src="{% static 'js/jquery-3.2.1.min.js' %}" type="text/javascript"></script>
     <!--jQuery UI 1.11.4 -->
