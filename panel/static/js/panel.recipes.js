@@ -21,6 +21,13 @@ panel.recipes.init_events = function () {
         panel.recipes.submit_filter_form();
     });
     $("button#empty-trash").click(panel.recipes.empty_trash);
+    let list_recipes = $("div.list-recipes");
+    list_recipes.find("table").find("tr").mouseover(function() {
+        $(this).find(".actions-a-recipe").show();
+    });
+    list_recipes.find("table").find("tr").mouseout(function() {
+        $(this).find(".actions-a-recipe").hide();
+    });
 };
 
 panel.recipes.check_all = function (check) {

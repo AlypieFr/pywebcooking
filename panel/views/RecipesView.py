@@ -99,7 +99,8 @@ class RecipesView(View):
                 "pub_date": recipe.pub_date,
                 "nb_comments": recipe.comment_set.count(),
                 "thumb": thumb_file,
-                "id": recipe.id
+                "id": recipe.id,
+                "slug": recipe.slug
             }
             show_recipes.append(show_recipe)
         all_dates = list(all_dates)

@@ -129,3 +129,12 @@ form.top-actions {
 .user-panel1 .subtitle i {
     padding-right: 3px;
 }
+
+.actions-a-recipe {
+    margin-top: 5px;
+    display: none;
+}
+
+.actions-a-recipe .trash {
+    color: #aa0000;
+}

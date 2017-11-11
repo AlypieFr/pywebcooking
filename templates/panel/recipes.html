@@ -129,6 +129,18 @@
                             </td>
                             <td>
                                 <a class="link-recipe" href="#">{{ recipe.title }}</a>
+                                <div class="actions-a-recipe">
+                                    <a href="/{% trans 'recipe' %}/{{ recipe.slug }}">{% trans "Show" %}</a>
+                                    {% if staff or recipe.author_id == user.id %}
+                                        |
+                                        {% if recipe.published %}
+                                            <a href="#" class="publish">{% trans "Publish" %}</a>
+                                        {% else %}
+                                            <a href="#" class="unpublish">{% trans "Unpublish" %}</a>
+                                        {% endif %}
+                                        | <a href="#" class="trash">{% trans "Move to trash" %}</a>
+                                    {% endif %}
+                                </div>
                             </td>
                             <td>
                                 {{ recipe.author }}
