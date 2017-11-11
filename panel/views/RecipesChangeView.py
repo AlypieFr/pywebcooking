@@ -10,7 +10,6 @@ class RecipesChangeView(View):
 
     def post(self, request):
         # Check data:
-        print(request.POST)
         allowed_actions = ['1', '2', '3', '4', '5', 'empty_trash']
         if "action" not in request.POST or ("action" in request.POST and request.POST["action"] not in allowed_actions)\
                 or ("selection[]" not in request.POST and request.POST["action"] != "empty_trash"):

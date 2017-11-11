@@ -29,7 +29,6 @@ class RecipesView(View):
         :param trash: if True, show trash
         :return:
         """
-        print(page)
         if not self.request.user.is_authenticated:
             return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
         recipes = Recipe.objects.all().order_by("pub_date").reverse()
