@@ -28,6 +28,22 @@ panel.recipes.init_events = function () {
     list_recipes.find("table").find("tr").mouseout(function() {
         $(this).find(".actions-a-recipe").hide();
     });
+    list_recipes.find(".actions-a-recipe").find("a.publish,a.unpublish,a.trash,a.restore,a.delete").click(function() {
+        let all_actions = {"publish": "1", "unpublish": "2", "trash": "3", "restore": "4", "delete": "5"};
+        let action = null;
+        for (let action_title in all_actions) {
+            if ($(this).hasClass(action_title)) {
+                action = all_actions[action_title];
+                break;
+            }
+        }
+        panel.recipes.apply_action_to_recipe(this, action);
+    })
+};
+
+panel.recipes.apply_action_to_recipe = function (link, action) {
+    let id_recipe = $(link).closest("tr").find("input.select-recipe").val();
+    panel.recipes.submit_grouped_actions(action, [id_recipe])
 };
 
 panel.recipes.check_all = function (check) {
@@ -35,17 +51,18 @@ panel.recipes.check_all = function (check) {
         "div.list-recipes table tr th:first-child input[type=checkbox]").prop("checked", check);
 };
 
-panel.recipes.submit_grouped_actions = function (action) {
+panel.recipes.submit_grouped_actions = function (action, selected=[]) {
     if (action === 0) {
         alert(django.gettext("Please select an action to do!"))
     }
     else {
         // Get selected recipes:
-        let selection = $("div.list-recipes table tbody tr td:first-child input[type=checkbox]:checked");
-        let selected = [];
-        selection.each(function () {
-            selected.push(parseInt(this.value));
-        });
+        if (selected.length === 0) {
+            let selection = $("div.list-recipes table tbody tr td:first-child input[type=checkbox]:checked");
+            selection.each(function () {
+                selected.push(parseInt(this.value));
+            });
+        }
         $.post("/panel/" + django.gettext("recipes") + "/change/",
             {
                 selection: selected,

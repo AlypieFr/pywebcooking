@@ -135,6 +135,6 @@ form.top-actions {
     display: none;
 }
 
-.actions-a-recipe .trash {
+.actions-a-recipe .trash, .actions-a-recipe .delete {
     color: #aa0000;
 }

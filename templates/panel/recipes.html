@@ -130,15 +130,20 @@
                             <td>
                                 <a class="link-recipe" href="#">{{ recipe.title }}</a>
                                 <div class="actions-a-recipe">
-                                    <a href="/{% trans 'recipe' %}/{{ recipe.slug }}">{% trans "Show" %}</a>
-                                    {% if staff or recipe.author_id == user.id %}
-                                        |
-                                        {% if recipe.published %}
-                                            <a href="#" class="publish">{% trans "Publish" %}</a>
-                                        {% else %}
-                                            <a href="#" class="unpublish">{% trans "Unpublish" %}</a>
+                                    {% if not recipe.trash %}
+                                        <a href="/{% trans 'recipe' %}/{{ recipe.slug }}">{% trans "Show" %}</a>
+                                        {% if staff or recipe.author_id == user.id %}
+                                            |
+                                            {% if recipe.published %}
+                                                <a href="#" class="unpublish">{% trans "Unpublish" %}</a>
+                                            {% else %}
+                                                <a href="#" class="publish">{% trans "Publish" %}</a>
+                                            {% endif %}
+                                            | <a href="#" class="trash">{% trans "Move to trash" %}</a>
                                         {% endif %}
-                                        | <a href="#" class="trash">{% trans "Move to trash" %}</a>
+                                    {% elif staff or recipe.author_id == user.id %}
+                                        <a href="#" class="restore">{% trans "Restore" %}</a> |
+                                        <a href="#" class="delete">{% trans "Delete definitively" %}</a>
                                     {% endif %}
                                 </div>
                             </td>
