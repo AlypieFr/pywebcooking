@@ -23,15 +23,15 @@
     </section>
     <section class="content">
         <!-- Table header -->
-        <p><a href="/panel/recipes/" class="show-all {% if select == "all" %}filter-active{% endif %}">
+        <p><a href="{% url "recipes" %}" class="show-all {% if select == "all" %}filter-active{% endif %}">
             {% trans "All" context "filter-recipes" %}</a> ({{ nb_recipes }})
             |
-            <a href="/panel/recipes/{% trans 'mine' context 'url' %}/" class="show-mines {% if select == "mine" %}filter-active{% endif %}">
+            <a href="{% url "recipes_mine" %}" class="show-mines {% if select == "mine" %}filter-active{% endif %}">
                 {% trans "Mine" context "filter-recipes" %}</a> ({{ nb_my_recipes }}) |
-            <a href="/panel/recipes/{% trans 'published' context 'url' %}/" class="show-published {% if select == "published" %}filter-active{% endif %}">
+            <a href="{% url "recipes_published" %}" class="show-published {% if select == "published" %}filter-active{% endif %}">
                 {% trans "Published" context "filter-recipes" %}</a> ({{ nb_recipes_published }})
             {% if nb_trash > 0 %}
-                | <a href="/panel/recipes/{% trans 'trash' %}/" class="show-trash {% if select == "trash" %}filter-active{% endif %}">
+                | <a href="{% url "recipes_trash" %}" class="show-trash {% if select == "trash" %}filter-active{% endif %}">
                 {% trans "Trash" %}</a> ({{ nb_trash }})
             {% endif %}
         </p>

@@ -39,7 +39,7 @@ panel.recipes.submit_grouped_actions = function (action) {
         selection.each(function () {
             selected.push(parseInt(this.value));
         });
-        $.post("/panel/recipes/change/",
+        $.post("/panel/" + django.gettext("recipes") + "/change/",
             {
                 selection: selected,
                 action: action,
