@@ -10,7 +10,6 @@ from django_gravatar.helpers import get_gravatar_url
 from .GenericView import GenericView
 import locale
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-import urllib.parse
 
 
 class RecipesView(View):
@@ -48,7 +47,7 @@ class RecipesView(View):
             if not request.user.is_staff:
                 recipes = recipes.filter(author__user=request.user)
             if len(recipes) == 0:
-                return HttpResponseRedirect(reverse("recipes"))
+                return HttpResponseRedirect(reverse("panel_recipes"))
         if not trash:  # Must be done here to not affect previous counts
             if mine:
                 recipes = recipes.filter(author__user=request.user)

@@ -8,33 +8,34 @@ from .views import IndexView, RecipesView, RecipesChangeView
 favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
 
 urlpatterns = [
-    url(r'^$', IndexView.as_view(), name='index'),
+    url(r'^$', IndexView.as_view(), name='panel_index'),
 
     #####################
     # Recipes view URLs #
     #####################
 
     # Main recipes URL:
-    url(r'^' + _("recipes") + '/$', RecipesView.as_view(), name='recipes'),
-    url(r'^' + _("recipes") + '/' + _("page") + '/(?P<page>\d+)$', RecipesView.as_view(), name='recipes_page'),
+    url(r'^' + _("recipes") + '/$', RecipesView.as_view(), name='panel_recipes'),
+    url(r'^' + _("recipes") + '/' + _("page") + '/(?P<page>\d+)$', RecipesView.as_view(), name='panel_recipes_page'),
 
     # Trash:
-    url(r'^' + _("recipes") + '/' + _("trash") + '/$', RecipesView.as_view(), name='recipes_trash', kwargs={"trash": True}),
+    url(r'^' + _("recipes") + '/' + _("trash") + '/$', RecipesView.as_view(), name='panel_recipes_trash',
+        kwargs={"trash": True}),
     url(r'^' + _("recipes") + '/' + _("trash") + '/' + _("page") + '/(?P<page>\d+)$', RecipesView.as_view(),
-        name='recipes_trash_page', kwargs={"trash": True}),
+        name='panel_recipes_trash_page', kwargs={"trash": True}),
 
     # Mine:
-    url(r'^' + _("recipes") + '/' + pgettext("url", "mine") + '/$', RecipesView.as_view(), name='recipes_mine',
+    url(r'^' + _("recipes") + '/' + pgettext("url", "mine") + '/$', RecipesView.as_view(), name='panel_recipes_mine',
         kwargs={"mine": True}),
     url(r'^' + _("recipes") + '/' + pgettext("url", "mine") + '/' + _("page") + '/(?P<page>\d+)$', RecipesView.as_view(),
-        name='recipes_mine_page', kwargs={"mine": True}),
+        name='panel_recipes_mine_page', kwargs={"mine": True}),
 
     # Published
-    url(r'^' + _("recipes") + '/' + pgettext("url", "published") + '/$', RecipesView.as_view(), name='recipes_published',
-        kwargs={"published": True}),
+    url(r'^' + _("recipes") + '/' + pgettext("url", "published") + '/$', RecipesView.as_view(),
+        name='panel_recipes_published', kwargs={"published": True}),
     url(r'^' + _("recipes") + '/' + pgettext("url", "published") + '/' + _("page") + '/(?P<page>\d+)$', RecipesView.as_view(),
-        name='recipes_published_page', kwargs={"published": True}),
+        name='panel_recipes_published_page', kwargs={"published": True}),
 
     # Change:
-    url(r'^' + _("recipes") + '/change/', RecipesChangeView.as_view(), name='recipes_change')
+    url(r'^' + _("recipes") + '/change/', RecipesChangeView.as_view(), name='panel_recipes_change'),
 ]

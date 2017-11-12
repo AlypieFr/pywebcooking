@@ -1,0 +1,10 @@
+{% load bootstrap_pagination %}
+{% if select == "mine" %}
+    {% bootstrap_paginate page_recipe url_view_name="panel_recipes_mine_page" url_extra_kwargs=additionnal_kwargs range=4 %}
+{% elif select == "published" %}
+    {% bootstrap_paginate page_recipe url_view_name="panel_recipes_published_page" url_extra_kwargs=additionnal_kwargs range=4 %}
+{% elif select == "trash" %}
+    {% bootstrap_paginate page_recipe url_view_name="panel_recipes_trash_page" url_extra_kwargs=additionnal_kwargs range=4 %}
+{% else %}
+    {% bootstrap_paginate page_recipe url_view_name="panel_recipes_page" url_extra_kwargs=additionnal_kwargs range=4 %}
+{% endif %}

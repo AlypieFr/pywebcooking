@@ -218,7 +218,7 @@
             <li class="header">MENU</li>
             <!-- Optionally, you can add icons to the links -->
             <li class="{% if page == 'home' %}active{% endif %}"><a href="/panel/"><i class="fa fa-home"></i> <span>{% trans "Home" %}</span></a></li>
-            <li class="{% if page == 'recipes' %}active{% endif %}"><a href="{% url "recipes" %}"><i class="fa fa-book"></i> <span>{% trans "Recipes" %}</span></a></li>
+            <li class="{% if page == 'recipes' %}active{% endif %}"><a href="{% url "panel_recipes" %}"><i class="fa fa-book"></i> <span>{% trans "Recipes" %}</span></a></li>
             <li><a href="#"><i class="fa fa-bookmark"></i> <span>{% trans "Categories" %}</span></a></li>
             <li><a href="#"><i class="fa fa-picture-o"></i> <span>{% trans "Medias" %}</span></a></li>
             <li><a href="#"><i class="fa fa-pagelines"></i> <span>{% trans "Page" %}</span></a></li>
