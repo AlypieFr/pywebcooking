@@ -4,7 +4,7 @@ panel.init = function(csrftoken) {
     panel.csrftoken = csrftoken;
 };
 
-panel.notify = function(message, delay=5000, type="info", url=null) {
+panel.notify = function(message, type="info", delay=5000, url=null) {
     $.notify({
             message: message,
             url: url,
@@ -20,5 +20,7 @@ panel.notify = function(message, delay=5000, type="info", url=null) {
                 enter: 'animated fadeInDown',
                 exit: 'animated fadeOutUp'
             },
+            offset: 55,
+            newest_on_top: true,
         })
 };

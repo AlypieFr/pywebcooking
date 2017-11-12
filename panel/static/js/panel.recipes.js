@@ -41,7 +41,7 @@ panel.recipes.init_events = function () {
     });
     $("input.add-new-recipe").click(function() {
         panel.notify(django.gettext("To add a new recipe, please use the <b>QRecipeWriter software</b>!<br/>Available for Windows and Linux (click here to install)"),
-            0, "info", "https://gite.flo-art.fr/cooking/qrecipewriter");
+            "info", 0, "https://gite.flo-art.fr/cooking/qrecipewriter");
     })
 };
 
@@ -57,7 +57,7 @@ panel.recipes.check_all = function (check) {
 
 panel.recipes.submit_grouped_actions = function (action, selected=[]) {
     if (action === 0) {
-        alert(django.gettext("Please select an action to do!"))
+        panel.notify(django.gettext("Please select an action to do!"), "warning", 1000)
     }
     else {
         // Get selected recipes:
@@ -78,7 +78,7 @@ panel.recipes.submit_grouped_actions = function (action, selected=[]) {
                     location.reload();
                 }
                 else {
-                    alert("message" in data ? data["message"] : "An error has occurred!")
+                    panel.notify("message" in data ? data["message"] : django.gettext("An error has occurred!"), "error")
                 }
             })
     }
@@ -101,7 +101,7 @@ panel.recipes.empty_trash = function () {
                 window.location.href = "/panel/recipes/"
             }
             else {
-                alert("message" in data ? data["message"] : "An error has occurred!")
+                panel.notify("message" in data ? data["message"] : django.gettext("An error has occurred!"), "error")
             }
         });
 };
