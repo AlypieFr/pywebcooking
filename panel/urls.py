@@ -3,7 +3,7 @@ from django.utils.translation import ugettext as _
 from django.utils.translation import pgettext
 from django.views.generic.base import RedirectView
 
-from .views import IndexView, RecipesView, RecipesChangeView
+from .views import IndexView, RecipesView, RecipesChangeView, RecipeView
 
 favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
 
@@ -38,4 +38,11 @@ urlpatterns = [
 
     # Change:
     url(r'^' + _("recipes") + '/change/', RecipesChangeView.as_view(), name='panel_recipes_change'),
+
+    ########################
+    # One Recipe view URLs #
+    ########################
+
+    # Main recipe URL:
+    url(r'^' + _("recipe") + "/(?P<slug>\w+)$", RecipeView.as_view(), name='panel_recipe'),
 ]

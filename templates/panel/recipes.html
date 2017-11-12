@@ -119,7 +119,7 @@
                                 {% endif %}
                             </td>
                             <td>
-                                <a class="link-recipe" href="#">{{ recipe.title }}</a>
+                                <a class="link-recipe" href="{% url "panel_recipe" slug=recipe.slug %}">{{ recipe.title }}</a>
                                 <div class="actions-a-recipe">
                                     {% if not recipe.trash %}
                                         <a href="{% url "website_recipe" slug=recipe.slug %}">{% trans "Show" %}</a>

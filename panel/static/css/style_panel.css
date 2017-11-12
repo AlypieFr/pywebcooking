@@ -138,3 +138,84 @@ form.top-actions {
 .actions-a-recipe .trash, .actions-a-recipe .delete {
     color: #aa0000;
 }
+
+/*
+Edit a recipe style
+ */
+
+form#recipe-form table td {
+    padding-bottom: 10px !important;
+    vertical-align: middle;
+}
+
+form#recipe-form table td:first-child {
+    padding-right: 10px;
+}
+
+form#recipe-form input[type=text],
+form#recipe-form div.categories,
+form#recipe-form textarea,
+form#recipe-form .input-with-icon-group {
+    width: 600px;
+}
+
+form#recipe-form select {
+    height: 35px;
+    line-height: 35px;
+}
+
+form#recipe-form .input-with-icon-group input {
+    width: 100%;
+}
+
+@media screen and (max-width: 950px) {
+    form#recipe-form input[type=text],
+    form#recipe-form div.categories,
+    form#recipe-form textarea,
+    form#recipe-form .input-with-icon-group{
+        width: 100%;
+    }
+}
+
+form#recipe-form input[type=text] {
+    height: 35px;
+    line-height: 35px;
+}
+
+form#recipe-form div.categories div {
+    display: inline-block;
+    margin-right: 10px;
+    width: 187px;
+}
+
+.align-top {
+    vertical-align: top !important;
+}
+
+form#recipe-form textarea {
+    height: 200px;
+    resize: vertical;
+}
+
+form#recipe-form label.category {
+    font-weight: normal;
+}
+
+form#recipe-form input.time-details {
+    width: 100px;
+    display: inline-block;
+}
+
+form#recipe-form span.label-time {
+    display: inline-block;
+    min-width: 60px;
+    text-align: center;
+}
+
+h2.subtitle-recipe {
+    margin-top: 5px;
+}
+
+div.subtitle-recipe {
+    margin-bottom: 30px;
+}
