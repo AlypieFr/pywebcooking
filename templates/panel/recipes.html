@@ -13,7 +13,7 @@
 {% block content %}
     <section class="content-header">
         <h1>
-            {% trans "Recipes" %}
+            {% trans "Recipes" %} <input type="button" class="add-new-recipe" value="{% trans "Add new" %}" />
         </h1>
         <ol class="breadcrumb">
             <li><a href="{% url "panel_index" %}"><i class="fa fa-dashboard"></i> {% trans "Home" %}</a></li>

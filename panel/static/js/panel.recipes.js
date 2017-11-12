@@ -38,6 +38,10 @@ panel.recipes.init_events = function () {
             }
         }
         panel.recipes.apply_action_to_recipe(this, action);
+    });
+    $("input.add-new-recipe").click(function() {
+        panel.notify(django.gettext("To add a new recipe, please use the <b>QRecipeWriter software</b>!<br/>Available for Windows and Linux (click here to install)"),
+            0, "info", "https://gite.flo-art.fr/cooking/qrecipewriter");
     })
 };
 

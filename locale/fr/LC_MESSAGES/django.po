@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-12 21:59+0100\n"
-"PO-Revision-Date: 2017-11-12 21:59+0100\n"
+"POT-Creation-Date: 2017-11-12 22:26+0100\n"
+"PO-Revision-Date: 2017-11-12 22:27+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -350,6 +350,10 @@ msgstr "logiciel QRecipeWriter"
 #: templates/panel/recipe.html:138
 msgid "(available for Windows and Linux)"
 msgstr "(disponible pour Windows et Linux)"
+
+#: templates/panel/recipes.html:16
+msgid "Add new"
+msgstr "Ajouter une nouvelle"
 
 #: templates/panel/recipes.html:26
 msgctxt "filter-recipes"

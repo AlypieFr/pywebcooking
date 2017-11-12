@@ -219,3 +219,9 @@ h2.subtitle-recipe {
 div.subtitle-recipe {
     margin-bottom: 30px;
 }
+
+input[type=button].add-new-recipe {
+    margin-left: 20px;
+    font-size: 15pt;
+    line-height: 30px;
+}
