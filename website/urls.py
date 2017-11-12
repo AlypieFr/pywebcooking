@@ -8,17 +8,17 @@ from .views import IndexView, RecipeView, LoginView, LogoutView
 favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
 
 urlpatterns = [
-    url(r'^$', IndexView.as_view(), name='index'),
+    url(r'^$', IndexView.as_view(), name='website_index'),
     url(r'^login/', LoginView.as_view(), name='login'),
     url(r'^logout/', LogoutView.as_view(), name='logout'),
-    url(r'^' + _("page") + '/(?P<page>\d+)$', IndexView.as_view(), name='index_page'),
-    url(r'^' + pgettext("category url", "category") + "/(?P<cat>[\w-]+)$", IndexView.as_view(), name='category'),
+    url(r'^' + _("page") + '/(?P<page>\d+)$', IndexView.as_view(), name='website_index_page'),
+    url(r'^' + pgettext("category url", "category") + "/(?P<cat>[\w-]+)$", IndexView.as_view(), name='website_category'),
     url(r'^' + pgettext("category url", "category") + "/(?P<cat>[\w-]+)/" + _("page") + '/(?P<page>\d+)$',
-        IndexView.as_view(), name='category_page'),
-    url(r'^' + pgettext("author url", "author") + "/(?P<author>[\w-]+)$", IndexView.as_view(), name='author'),
+        IndexView.as_view(), name='website_category_page'),
+    url(r'^' + pgettext("author url", "author") + "/(?P<author>[\w-]+)$", IndexView.as_view(), name='website_author'),
     url(r'^' + pgettext("author url", "author") + "/(?P<author>[\w-]+)/" + _("page") + '/(?P<page>\d+)$',
-        IndexView.as_view(), name='author_page'),
+        IndexView.as_view(), name='website_author_page'),
     # Translators: recipe is the parent tag of a recipe
-    url(r'^' + _("recipe") + '/(?P<slug>\w+)$', RecipeView.as_view(), name='recipe'),
+    url(r'^' + _("recipe") + '/(?P<slug>\w+)$', RecipeView.as_view(), name='website_recipe'),
     url(r'^favicon\.ico$', favicon_view),
 ]

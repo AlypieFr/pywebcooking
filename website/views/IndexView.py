@@ -30,7 +30,7 @@ class IndexView(TemplateView):
     def data(self):
         categories = GenericView.categories()
         config = GenericView.config
-        dat = {"in_archive": False, "page_view_name": "index_page", "additional_kwargs": {}, "categories": categories,
+        dat = {"in_archive": False, "page_view_name": "website_index_page", "additional_kwargs": {}, "categories": categories,
                "config": config, "user": self.user if self.user.is_authenticated else None}
         if self.user.is_authenticated:
             dat["avatar"] = get_gravatar_url(self.user.email, size=160)
@@ -40,13 +40,13 @@ class IndexView(TemplateView):
             page = self.kwargs["page"]
         if "cat" in self.kwargs:
             dat["in_archive"] = True
-            dat["page_view_name"] = "category_page"
+            dat["page_view_name"] = "website_category_page"
             dat["archive_header"] = Category.objects.get(url=self.kwargs["cat"]).name
             dat["additional_kwargs"] = {"cat": self.kwargs["cat"]}
             recipes = Recipe.objects.filter(category__url=self.kwargs["cat"]).order_by("-pub_date")
         elif "author" in self.kwargs:
             dat["in_archive"] = True
-            dat["page_view_name"] = "author_page"
+            dat["page_view_name"] = "website_author_page"
             dat["archive_header"] = _("Author:") + " " + \
                 UserProfile.objects.get(url=self.kwargs["author"]).user.first_name
             dat["additional_kwargs"] = {"author": self.kwargs["author"]}
