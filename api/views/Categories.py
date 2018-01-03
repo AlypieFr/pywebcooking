@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
-from main.models import Category
+from main.models.Category import Category
 
 
 class Categories(APIView):

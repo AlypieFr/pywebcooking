@@ -1,4 +1,6 @@
-from main.models import Comment, Recipe, UserProfile
+from main.models.Comment import Comment
+from main.models.Recipe import Recipe
+from main.models.UserProfile import UserProfile
 from main.functions.exceptions import RequiredParameterException
 
 

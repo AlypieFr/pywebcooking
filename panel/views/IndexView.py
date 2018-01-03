@@ -3,7 +3,10 @@ from django.shortcuts import render, redirect
 from pywebcooking import settings
 from django.utils.translation import ugettext as _
 from pywebcooking.settings import MEDIA_ROOT
-from main.models import Recipe, Comment
+
+from main.models.Recipe import Recipe
+from main.models.Comment import Comment
+
 from django.contrib.auth.models import User
 from django_gravatar.helpers import get_gravatar_url
 

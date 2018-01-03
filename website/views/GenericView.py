@@ -1,4 +1,4 @@
-from main.models import Category
+from main.models.Category import Category
 from website.config import MainConfig
 
 

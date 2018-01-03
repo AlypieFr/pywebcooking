@@ -10,7 +10,10 @@ from django_gravatar.helpers import get_gravatar_url
 from pywebcooking.settings import MEDIA_ROOT, POSTS_PER_PAGE, SITE_NAME
 
 from main.config import RecipeConfig
-from main.models import Recipe, Category, UserProfile
+
+from main.models.Recipe import Recipe
+from main.models.Category import Category
+from main.models.UserProfile import UserProfile
 
 
 class IndexView(TemplateView):

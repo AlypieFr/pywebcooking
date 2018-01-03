@@ -4,7 +4,10 @@ from django.db import transaction
 
 from main.tests import TModels
 
-from main.controllers import CIngredientGroup, CInstruction, CProposal, CEquipment
+from main.controllers.C_IngredientGroup import CIngredientGroup
+from main.controllers.C_Instruction import CInstruction
+from main.controllers.C_Proposal import CProposal
+from main.controllers.C_Equipment import CEquipment
 
 
 class TDuplicates(TestCase):

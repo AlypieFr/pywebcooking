@@ -1,7 +1,10 @@
 import django
-from main.models import IngredientGroup, IngredientInGroup, Ingredient, Recipe
+from main.models.IngredientGroup import IngredientGroup
+from main.models.IngredientInGroup import IngredientInGroup
+from main.models.Ingredient import Ingredient
+from main.models.Recipe import Recipe
 
-from main.functions import Functions
+from main.functions.functions import Functions
 from main.functions.exceptions import RequiredParameterException, MissingKeyException
 
 

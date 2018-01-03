@@ -7,8 +7,8 @@ from django.utils.translation import ugettext as _
 
 from api.functions import Functions
 
-from main.controllers import CRecipe
-from main.models import UserProfile
+from main.controllers.C_Recipe import CRecipe
+from main.models.UserProfile import UserProfile
 
 
 class RecipeList(APIView):

@@ -5,6 +5,7 @@ from django.utils.translation import ugettext as _, pgettext as __
 from .Category import Category
 from .Equipment import Equipment
 from .UserProfile import UserProfile
+from .EquipmentInRecipe import EquipmentInRecipe
 from django.conf import settings
 
 from django.db.models.signals import post_delete

@@ -2,7 +2,9 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import Category, Recipe, UserProfile
+from .models.Category import Category
+from .models.Recipe import Recipe
+from .models.UserProfile import UserProfile
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -15,8 +17,10 @@ class RecipeAdmin(admin.ModelAdmin):
     def has_add_permission(self, request, obj=None):
         return False
 
+
 class UserProfileAdmin(admin.ModelAdmin):
     fields = ["user", "url"]
+
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Recipe, RecipeAdmin)

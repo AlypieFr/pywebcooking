@@ -1,6 +1,7 @@
-from main.models import Proposal, Recipe
+from main.models.Proposal import Proposal
+from main.models.Recipe import Recipe
 from main.functions.exceptions import RequiredParameterException, MissingKeyException, UnknownKeyException
-from main.functions import Functions
+from main.functions.functions import Functions
 
 
 class CProposal:

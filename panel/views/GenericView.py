@@ -1,4 +1,4 @@
-from main.models import Category
+from main.models.Category import Category
 
 
 class GenericView:

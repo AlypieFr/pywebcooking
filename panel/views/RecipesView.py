@@ -4,7 +4,10 @@ from django.shortcuts import render, redirect, reverse, HttpResponseRedirect
 from pywebcooking import settings
 from django.utils.translation import ugettext as _
 from pywebcooking.settings import MEDIA_ROOT, LOCALE
-from main.models import Recipe, UserProfile
+
+from main.models.Recipe import Recipe
+from main.models.UserProfile import UserProfile
+
 from main.config import RecipeConfig
 from django_gravatar.helpers import get_gravatar_url
 from .GenericView import GenericView

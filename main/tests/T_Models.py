@@ -1,11 +1,26 @@
 from django.test import TestCase
 
-from main.models import Category, Recipe, IngredientGroup, IngredientInGroup, Instruction, Equipment, \
-    EquipmentInRecipe, Proposal, Comment, UserProfile
+# Models:
+from main.models.Category import Category
+from main.models.Recipe import Recipe
+from main.models.IngredientGroup import IngredientGroup
+from main.models.IngredientInGroup import IngredientInGroup
+from main.models.Instruction import Instruction
+from main.models.Equipment import Equipment
+from main.models.EquipmentInRecipe import EquipmentInRecipe
+from main.models.Proposal import Proposal
+from main.models.Comment import Comment
+from main.models.UserProfile import UserProfile
 
 from django.contrib.auth.models import User
 
-from main.controllers import CRecipe, CIngredientGroup, CInstruction, CEquipment, CProposal, CComment
+# Controllers:
+from main.controllers.C_Recipe import CRecipe
+from main.controllers.C_IngredientGroup import CIngredientGroup
+from main.controllers.C_Instruction import CInstruction
+from main.controllers.C_Equipment import CEquipment
+from main.controllers.C_Proposal import CProposal
+from main.controllers.C_Comment import CComment
 
 from main.functions.exceptions import *
 

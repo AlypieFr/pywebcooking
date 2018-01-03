@@ -5,7 +5,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from django.core.exceptions import ObjectDoesNotExist
 from api.exceptions import RecipeNotFound
 
-from main.controllers import CRecipe
+from main.controllers.C_Recipe import CRecipe
 
 
 class RecipeBySlug(APIView):

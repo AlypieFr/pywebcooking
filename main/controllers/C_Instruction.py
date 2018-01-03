@@ -1,6 +1,7 @@
-from main.models import Recipe, Instruction
+from main.models.Recipe import Recipe
+from main.models.Instruction import Instruction
 from main.functions.exceptions import RequiredParameterException
-from main.functions import Functions
+from main.functions.functions import Functions
 
 
 class CInstruction:

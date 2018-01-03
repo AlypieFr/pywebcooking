@@ -3,10 +3,25 @@ import os, errno, re, json
 from django.utils.translation import ugettext as _
 
 from pywebcooking import settings
-from main.controllers import CRecipe, CIngredientGroup, CInstruction, CEquipment, CProposal
-from main.models import UserProfile, Category, Recipe, IngredientGroup, EquipmentInRecipe, Instruction, Proposal, \
-    MediaInRecipe
-from main.functions import Functions as MainFunctions
+
+# Controllers:
+from main.controllers.C_Recipe import CRecipe
+from main.controllers.C_IngredientGroup import CIngredientGroup
+from main.controllers.C_Instruction import CInstruction
+from main.controllers.C_Equipment import CEquipment
+from main.controllers.C_Proposal import CProposal
+
+# Models:
+from main.models.UserProfile import UserProfile
+from main.models.Category import Category
+from main.models.Recipe import Recipe
+from main.models.IngredientGroup import IngredientGroup
+from main.models.EquipmentInRecipe import EquipmentInRecipe
+from main.models.Instruction import Instruction
+from main.models.Proposal import Proposal
+from main.models.MediaInRecipe import MediaInRecipe
+
+from main.functions.functions import Functions as MainFunctions
 
 # import the logging library
 import logging

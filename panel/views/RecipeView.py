@@ -1,7 +1,10 @@
 from django.views.generic import View
 from django.shortcuts import render, redirect
 from pywebcooking import settings
-from main.models import Recipe, Category
+
+from main.models.Recipe import Recipe
+from main.models.Category import Category
+
 from django_gravatar.helpers import get_gravatar_url
 from django.utils.translation import ugettext as _
 

@@ -8,8 +8,11 @@ from django_gravatar.helpers import get_gravatar_url
 
 from website.forms import CommentForm, CommentFormAuthenticated
 
-from main.controllers import CRecipe, CComment
-from main.models import UserProfile
+from main.controllers.C_Recipe import CRecipe
+from main.controllers.C_Comment import CComment
+
+from main.models.UserProfile import UserProfile
+
 from pywebcooking.settings import SITE_NAME
 
 

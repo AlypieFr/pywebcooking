@@ -1,4 +1,6 @@
-from main.models import Equipment, Recipe, EquipmentInRecipe
+from main.models.Equipment import Equipment
+from main.models.Recipe import Recipe
+from main.models.EquipmentInRecipe import EquipmentInRecipe
 from main.functions.exceptions import RequiredParameterException, MissingKeyException, UnknownKeyException
 
 

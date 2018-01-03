@@ -5,7 +5,12 @@ import re
 
 from pywebcooking.settings import MEDIA_ROOT
 
-from main.models import Recipe, Category, IngredientInGroup, UserProfile, MediaInRecipe
+from main.models.Recipe import Recipe
+from main.models.Category import Category
+from main.models.IngredientInGroup import IngredientInGroup
+from main.models.UserProfile import UserProfile
+from main.models.MediaInRecipe import MediaInRecipe
+
 from django.contrib.auth.models import User
 
 from main.functions.exceptions import RequiredParameterException, BadParameterException

@@ -7,8 +7,9 @@ from api.exceptions import RecipeNotFound
 
 from api.functions import Functions
 
-from main.controllers import CRecipe
-from main.models import Recipe, UserProfile
+from main.controllers.C_Recipe import CRecipe
+from main.models.Recipe import Recipe
+from main.models.UserProfile import UserProfile
 
 from django.utils.translation import ugettext as _
 
