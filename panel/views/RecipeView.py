@@ -5,6 +5,8 @@ from pywebcooking import settings
 from main.models.Recipe import Recipe
 from main.models.Category import Category
 
+from panel.forms import RecipeForm
+
 from django_gravatar.helpers import get_gravatar_url
 from django.utils.translation import ugettext as _
 
@@ -43,5 +45,6 @@ class RecipeView(View):
             "tps_break_min": recipe.tps_rep % 60,
             "tps_cook_h": int(recipe.tps_cuis / 60),
             "tps_cook_min": recipe.tps_cuis % 60,
+            "form": RecipeForm()
         }
         return render(request, 'panel/recipe.html', context)
