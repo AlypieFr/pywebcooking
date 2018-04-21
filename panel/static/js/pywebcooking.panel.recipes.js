@@ -1,26 +1,26 @@
-if (!panel) {
+if (!pywebcooking || !pywebcooking.panel) {
     throw "panel was not included!"
 }
 
-panel.recipes = {};
+pywebcooking.panel.recipes = {};
 
-panel.recipes.init = function () {
-    panel.recipes.init_events();
+pywebcooking.panel.recipes.init = function () {
+    pywebcooking.panel.recipes.init_events();
 };
 
-panel.recipes.init_events = function () {
+pywebcooking.panel.recipes.init_events = function () {
     $("div.list-recipes table thead tr th:first-child input[type=checkbox], div.list-recipes table tfoot tr th:first-child input[type=checkbox]").click(function () {
-        panel.recipes.check_all(this.checked);
+        pywebcooking.panel.recipes.check_all(this.checked);
     });
     $("div.form-apply-recipes form.grouped-actions").submit(function(e) {
         e.preventDefault();
-        panel.recipes.submit_grouped_actions(parseInt($(this).find("select").val()));
+        pywebcooking.panel.recipes.submit_grouped_actions(parseInt($(this).find("select").val()));
     });
     $("div.form-apply-recipes form#sel-filters").submit(function(e) {
         e.preventDefault();
-        panel.recipes.submit_filter_form();
+        pywebcooking.panel.recipes.submit_filter_form();
     });
-    $("button#empty-trash").click(panel.recipes.empty_trash);
+    $("button#empty-trash").click(pywebcooking.panel.recipes.empty_trash);
     let list_recipes = $("div.list-recipes");
     list_recipes.find("table").find("tr").mouseover(function() {
         $(this).find(".actions-a-recipe").show();
@@ -37,27 +37,27 @@ panel.recipes.init_events = function () {
                 break;
             }
         }
-        panel.recipes.apply_action_to_recipe(this, action);
+        pywebcooking.panel.recipes.apply_action_to_recipe(this, action);
     });
     $("input.add-new-recipe").click(function() {
-        panel.notify(django.gettext("To add a new recipe, please use the <b>QRecipeWriter software</b>!<br/>Available for Windows and Linux (click here to install)"),
+        pywebcooking.panel.notify(django.gettext("To add a new recipe, please use the <b>QRecipeWriter software</b>!<br/>Available for Windows and Linux (click here to install)"),
             "info", 0, "https://gite.flo-art.fr/cooking/qrecipewriter");
     })
 };
 
-panel.recipes.apply_action_to_recipe = function (link, action) {
+pywebcooking.panel.recipes.apply_action_to_recipe = function (link, action) {
     let id_recipe = $(link).closest("tr").find("input.select-recipe").val();
-    panel.recipes.submit_grouped_actions(action, [id_recipe])
+    pywebcooking.panel.recipes.submit_grouped_actions(action, [id_recipe])
 };
 
-panel.recipes.check_all = function (check) {
+pywebcooking.panel.recipes.check_all = function (check) {
     $("div.list-recipes table tr td:first-child input[type=checkbox]," +
         "div.list-recipes table tr th:first-child input[type=checkbox]").prop("checked", check);
 };
 
-panel.recipes.submit_grouped_actions = function (action, selected=[]) {
+pywebcooking.panel.recipes.submit_grouped_actions = function (action, selected=[]) {
     if (action === 0) {
-        panel.notify(django.gettext("Please select an action to do!"), "warning", 1000)
+        pywebcooking.panel.notify(django.gettext("Please select an action to do!"), "warning", 1000)
     }
     else {
         // Get selected recipes:
@@ -71,37 +71,37 @@ panel.recipes.submit_grouped_actions = function (action, selected=[]) {
             {
                 selection: selected,
                 action: action,
-                csrfmiddlewaretoken: panel.csrftoken
+                csrfmiddlewaretoken: pywebcooking.panel.csrftoken
             },
             function(data, status) {
                 if (data["success"]) {
                     location.reload();
                 }
                 else {
-                    panel.notify("message" in data ? data["message"] : django.gettext("An error has occurred!"), "error")
+                    pywebcooking.panel.notify("message" in data ? data["message"] : django.gettext("An error has occurred!"), "error")
                 }
             })
     }
 };
 
-panel.recipes.submit_filter_form = function() {
+pywebcooking.panel.recipes.submit_filter_form = function() {
     let filter_month = $("#sel-filter-month").val();
     let filter_cat = $("#sel-filter-cats").val();
     window.location.href = `?filter-month=${filter_month}&filter-cat=${filter_cat}`
 };
 
-panel.recipes.empty_trash = function () {
+pywebcooking.panel.recipes.empty_trash = function () {
     $.post("/panel/recipes/change/",
         {
             action: "empty_trash",
-            csrfmiddlewaretoken: panel.csrftoken
+            csrfmiddlewaretoken: pywebcooking.panel.csrftoken
         },
         function (data, status) {
             if (data["success"]) {
                 window.location.href = "/panel/recipes/"
             }
             else {
-                panel.notify("message" in data ? data["message"] : django.gettext("An error has occurred!"), "error")
+                pywebcooking.panel.notify("message" in data ? data["message"] : django.gettext("An error has occurred!"), "error")
             }
         });
 };

@@ -4,11 +4,11 @@
 {% load i18n %}
 {% block scripts %}
     {{ block.super }}
-    <script src="{% static 'js/panel.recipe.js' %}" defer></script>
+    <script src="{% static 'js/pywebcooking.panel.recipe.js' %}" defer></script>
 {% endblock %}
 {% block onload %}
     {{ block.super }}
-    panel.recipe.init("{{ lang }}");
+    pywebcooking.init("panel-recipe", "{{ lang }}");
 {% endblock %}
 {% block content %}
     <section class="content-header">
@@ -26,9 +26,9 @@
             <h2 class="subtitle-recipe">
                 {{ recipe.title }}
             </h2>
-            <a href="{% url "website_recipe" slug=recipe.slug %}" target="show-recipe">{% trans "Show recipe" %}</a>
+            <a href="{% url "website_recipe" slug=recipe.slug %}" target="show-recipe" class="show-recipe">{% trans "Show recipe" %}</a>
         </div>
-        <form id="recipe-form">
+        <form id="recipe-form" action="">
             <table>
                 <tbody>
                     <tr>
@@ -132,6 +132,9 @@
                     </tr>
                 </tbody>
             </table>
+            <input type="button" id="save-and-quit" value="{% trans "Save & Quit" %}">
+            <input type="button" id="save" value="{% trans "Save" %}">
+            <input type="button" id="cancel" value="{% trans "Cancel" %}">
         </form>
         <p>{% trans "Want to edit the full recipe? Please use the" %}
             <a href="https://gite.flo-art.fr/cooking/qrecipewriter" target="qrecipewriter">{% trans "QRecipeWriter software" %}</a>

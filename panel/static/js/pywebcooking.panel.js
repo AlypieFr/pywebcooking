@@ -1,10 +1,14 @@
-panel = {};
+if (!pywebcooking) {
+    throw "pywebcooking was not included!"
+}
 
-panel.init = function(csrftoken) {
-    panel.csrftoken = csrftoken;
+pywebcooking.panel = {};
+
+pywebcooking.panel.init = function(csrftoken) {
+    pywebcooking.panel.csrftoken = csrftoken;
 };
 
-panel.notify = function(message, type="info", delay=5000, url=null) {
+pywebcooking.panel.notify = function(message, type="info", delay=5000, url=null) {
     $.notify({
             message: message,
             url: url,

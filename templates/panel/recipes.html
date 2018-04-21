@@ -4,11 +4,11 @@
 {% load i18n %}
 {% block scripts %}
     {{ block.super }}
-    <script src="{% static 'js/panel.recipes.js' %}" defer></script>
+    <script src="{% static 'js/pywebcooking.panel.recipes.js' %}" defer></script>
 {% endblock %}
 {% block onload %}
     {{ block.super }}
-    panel.recipes.init();
+    pywebcooking.init("panel-recipes");
 {% endblock %}
 {% block content %}
     <section class="content-header">

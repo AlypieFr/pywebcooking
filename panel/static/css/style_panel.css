@@ -225,3 +225,18 @@ input[type=button].add-new-recipe {
     font-size: 15pt;
     line-height: 30px;
 }
+
+form#recipe-form table {
+    margin-bottom: 15px;
+}
+
+form#recipe-form {
+    margin-bottom: 10px;
+}
+
+a.show-recipe {
+    background-color: #00a65a;
+    color: #ffffff;
+    padding: 5px;
+    margin-left: 3px;
+}
