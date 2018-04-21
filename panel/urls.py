@@ -3,7 +3,10 @@ from django.utils.translation import ugettext as _
 from django.utils.translation import pgettext
 from django.views.generic.base import RedirectView
 
-from .views import IndexView, RecipesView, RecipesChangeView, RecipeView
+from .views.IndexView import IndexView
+from .views.RecipesView import RecipesView
+from .views.RecipesChangeView import RecipesChangeView
+from .views.RecipeView import RecipeView
 
 favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
 

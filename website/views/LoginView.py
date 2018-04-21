@@ -2,7 +2,7 @@ from django.views.generic import FormView
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from pywebcooking.settings import SITE_NAME
-from website.forms import LoginForm
+from website.forms.LoginForm import LoginForm
 
 
 class LoginView(FormView):

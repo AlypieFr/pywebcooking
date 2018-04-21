@@ -1,13 +1,17 @@
 from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
-from api import views
 from django.conf.urls import include
 
+from .views.RecipeList import RecipeList
+from .views.RecipeById import RecipeById
+from .views.RecipeBySlug import RecipeBySlug
+from .views.Categories import Categories
+
 urlpatterns = [
-    url(r'^$', views.RecipeList.as_view()),
-    url(r'^recipe/by-id/([0-9]+)$', views.RecipeById.as_view()),
-    url(r'^recipe/by-slug/([\w_]+)$', views.RecipeBySlug.as_view()),
-    url(r'^categories/', views.Categories.as_view()),
+    url(r'^$', RecipeList.as_view()),
+    url(r'^recipe/by-id/([0-9]+)$', RecipeById.as_view()),
+    url(r'^recipe/by-slug/([\w_]+)$', RecipeBySlug.as_view()),
+    url(r'^categories/', Categories.as_view()),
     url(r'^auth/', include('rest_framework.urls',
                                namespace='rest_framework')),
 ]

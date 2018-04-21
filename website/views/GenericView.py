@@ -1,5 +1,5 @@
 from main.models.Category import Category
-from website.config import MainConfig
+from website.config.MainConfig import MainConfig
 
 
 class GenericView:

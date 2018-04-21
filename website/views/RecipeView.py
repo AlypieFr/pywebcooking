@@ -6,7 +6,8 @@ from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from django_gravatar.helpers import get_gravatar_url
 
-from website.forms import CommentForm, CommentFormAuthenticated
+from website.forms.CommentForm import CommentForm
+from website.forms.CommentForm import CommentFormAuthenticated
 
 from main.controllers.C_Recipe import CRecipe
 from main.controllers.C_Comment import CComment
