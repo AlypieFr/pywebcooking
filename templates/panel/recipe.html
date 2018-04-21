@@ -28,7 +28,8 @@
             </h2>
             <a href="{% url "website_recipe" slug=recipe.slug %}" target="show-recipe">{% trans "Show recipe" %}</a>
         </div>
-        <form id="recipe-form">
+        <form id="recipe-form" action="{{ request.path }}/submit/" method="post">
+            {% csrf_token %}
             <table>
                 <tbody>
                     <tr>
@@ -36,7 +37,7 @@
                             <label for="recipe-title">{% trans "Title" %}</label>
                         </td>
                         <td>
-                            <input type="text" id="recipe-title" class="form-control" value="{{ recipe.title }}" />
+                            <input type="text" id="recipe-title" name="title" class="form-control" value="{{ recipe.title }}" />
                         </td>
                     </tr>
                     <tr>
@@ -44,7 +45,7 @@
                             <label for="recipe-slug">{% trans "Slug" %}</label>
                         </td>
                         <td>
-                            <input type="text" id="recipe-slug" class="form-control" value="{{ recipe.slug }}">
+                            <input type="text" id="recipe-slug" name="slug" class="form-control" value="{{ recipe.slug }}">
                         </td>
                     </tr>
                     <tr>
@@ -56,7 +57,7 @@
                                 {% for category in categories %}
                                     <div>
                                         <label class="category">
-                                            <input type="checkbox" value="{{ category.url }}" {% if category.url in r_cats %}checked{% endif %}/> {{ category.name }}
+                                            <input type="checkbox" name="categories" value="{{ category.url }}" {% if category.url in r_cats %}checked{% endif %}/> {{ category.name }}
                                         </label>
                                     </div>
                                 {% endfor %}
@@ -68,9 +69,11 @@
                             <label for="recipe-prep-time-hr">{% trans "Prep:" %}</label>
                         </td>
                         <td>
-                            <input type="number" class="form-control time-details" id="recipe-prep-time-hr" min="0" max="24" value="{{ tps_prep_h }}" />
+                            <input type="number" class="form-control time-details" id="recipe-prep-time-hr"
+                                   name="prep-time-hr" min="0" max="24" value="{{ tps_prep_h }}" />
                             <span class="label-time">{% trans "hours" %}</span>
-                            <input type="number" class="form-control time-details" id="recipe-prep-time-min" min="0" max="59" value="{{ tps_prep_min }}" />
+                            <input type="number" class="form-control time-details" id="recipe-prep-time-min"
+                                   name="prep-time-min" min="0" max="59" value="{{ tps_prep_min }}" />
                             <span class="label-time">{% trans "minutes" %}</span>
                         </td>
                     </tr>
@@ -79,11 +82,14 @@
                             <label for="recipe-prep-time-hr">{% trans "Break:" %}</label>
                         </td>
                         <td>
-                            <input type="number" class="form-control time-details" id="recipe-break-time-d" min="0" max="7" value="{{ tps_break_j }}" />
+                            <input type="number" class="form-control time-details" id="recipe-break-time-d"
+                                   name="break-time-d" min="0" max="7" value="{{ tps_break_j }}" />
                             <span class="label-time">{% trans "days" %}</span>
-                            <input type="number" class="form-control time-details" id="recipe-break-time-hr" min="0" max="23" value="{{ tps_break_h }}" />
+                            <input type="number" class="form-control time-details" id="recipe-break-time-hr"
+                                   name="break-time-hr" min="0" max="23" value="{{ tps_break_h }}" />
                             <span class="label-time">{% trans "hours" %}</span>
-                            <input type="number" class="form-control time-details" id="recipe-break-time-min" min="0" max="59" value="{{ tps_break_min }}" />
+                            <input type="number" class="form-control time-details" id="recipe-break-time-min"
+                                   name="break-time-min" min="0" max="59" value="{{ tps_break_min }}" />
                             <span class="label-time">{% trans "minutes" %}</span>
                         </td>
                     </tr>
@@ -92,9 +98,11 @@
                             <label for="recipe-prep-time-hr">{% trans "Cook:" %}</label>
                         </td>
                         <td>
-                            <input type="number" class="form-control time-details" id="recipe-cook-time-hr" min="0" max="24" value="{{ tps_cook_h }}" />
+                            <input type="number" class="form-control time-details" id="recipe-cook-time-hr"
+                                   name="cook-time-hr" min="0" max="24" value="{{ tps_cook_h }}" />
                             <span class="label-time">{% trans "hours" %}</span>
-                            <input type="number" class="form-control time-details" id="recipe-cook-time-min" min="0" max="59" value="{{ tps_cook_min }}" />
+                            <input type="number" class="form-control time-details" id="recipe-cook-time-min"
+                                   name="cook-time-min" min="0" max="59" value="{{ tps_cook_min }}" />
                             <span class="label-time">{% trans "minutes" %}</span>
                         </td>
                     </tr>
@@ -103,7 +111,7 @@
                             <label for="recipe-desc">{% trans "Description" %}</label>
                         </td>
                         <td class="align-top">
-                            <textarea id="recipe-desc" class="form-control">{{ recipe.description }}</textarea>
+                            <textarea id="recipe-desc" name="description" class="form-control">{{ recipe.description }}</textarea>
                         </td>
                     </tr>
                     <tr>
@@ -115,7 +123,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input type="text" id="recipe-pub-date" class="form-control datemask datepicker" value="{{ recipe.pub_date | date:"d/m/y h:i" }}" />
+                                <input type="text" id="recipe-pub-date" name="pub-date" class="form-control datemask datepicker" value="{{ recipe.pub_date | date:"d/m/y h:i" }}" />
                             </div>
                         </td>
                     </tr>
@@ -124,7 +132,7 @@
                             <label for="recipe-status">{% trans "Status" %}</label>
                         </td>
                         <td>
-                            <select id="recipe-status" class="form-control">
+                            <select id="recipe-status" class="form-control" name="status">
                                 <option value="published" {% if recipe.published %}selected{% endif %}>{% trans "Published" context "singular" %}</option>
                                 <option value="draft" {% if not recipe.published %}selected{% endif %}>{% trans "Draft" %}</option>
                             </select>
@@ -132,8 +140,12 @@
                     </tr>
                 </tbody>
             </table>
+        <p class="submit">
+            <button type="submit">{% trans "Save" %}</button>
+            <button type="submit">{% trans "Cancel" %}</button>
+        </p>
         </form>
-        <p>{% trans "Want to edit the full recipe? Please use the" %}
+        <p class="foot-notes">{% trans "Want to edit the full recipe? Please use the" %}
             <a href="https://gite.flo-art.fr/cooking/qrecipewriter" target="qrecipewriter">{% trans "QRecipeWriter software" %}</a>
             {% trans "(available for Windows and Linux)" %}.
         </p>

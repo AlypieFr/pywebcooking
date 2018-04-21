@@ -225,3 +225,7 @@ input[type=button].add-new-recipe {
     font-size: 15pt;
     line-height: 30px;
 }
+
+p.foot-notes, p.submit {
+    margin-top: 15px;
+}

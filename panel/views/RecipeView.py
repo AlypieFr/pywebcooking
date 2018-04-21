@@ -19,6 +19,7 @@ class RecipeView(View):
         return cats
 
     def get(self, request, slug):
+
         if not self.request.user.is_authenticated:
             return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
         recipe = Recipe.objects.get(slug=slug)

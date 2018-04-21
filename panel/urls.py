@@ -7,6 +7,8 @@ from .views.IndexView import IndexView
 from .views.RecipesView import RecipesView
 from .views.RecipesChangeView import RecipesChangeView
 from .views.RecipeView import RecipeView
+from .views.RecipeEditView import RecipeEditView
+
 
 favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
 
@@ -48,4 +50,7 @@ urlpatterns = [
 
     # Main recipe URL:
     url(r'^' + _("recipe") + "/(?P<slug>\w+)$", RecipeView.as_view(), name='panel_recipe'),
+
+    # Submit form:
+    url(r'^' + _("recipe") + "/(?P<slug>\w+)/submit/$", RecipeEditView.as_view(), name='panel_recipe_edit'),
 ]

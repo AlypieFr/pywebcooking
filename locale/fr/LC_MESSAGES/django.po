@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-12 22:26+0100\n"
-"PO-Revision-Date: 2017-11-12 22:27+0100\n"
+"POT-Creation-Date: 2018-04-21 12:36+0200\n"
+"PO-Revision-Date: 2018-04-21 12:38+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -18,24 +18,24 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#: api/functions.py:32 api/functions.py:89
+#: api/functions.py:47 api/functions.py:104
 msgid "Category does not exists: "
 msgstr "La catégorie n'existe pas : "
 
-#: api/functions.py:36
+#: api/functions.py:51
 msgid "User not found. Please contact an administrator"
 msgstr "Utilisateur non trouvé. Veuillez contacter un administrateur"
 
-#: api/functions.py:95
+#: api/functions.py:110
 msgid "Author not found. Please contact an administrator"
 msgstr "Auteur non trouvé. Veuillez contacter un administrateur"
 
-#: api/views/RecipeById.py:46
+#: api/views/RecipeById.py:47
 msgid "Unexpected error: "
 msgstr "Erreur inattendue :"
 
 #. Translators: recipe is the parent tag of a recipe
-#: api/views/RecipeById.py:48 api/views/RecipeList.py:39 panel/urls.py:47
+#: api/views/RecipeById.py:49 api/views/RecipeList.py:39 panel/urls.py:47
 #: templates/website/index.html:18 website/urls.py:22
 msgid "recipe"
 msgstr "recette"
@@ -87,11 +87,11 @@ msgstr "Conseils&#8239;:"
 msgid "Prep:"
 msgstr "Temps de préparation&#8239;:"
 
-#: main/config/RecipeConfig.py:18 templates/panel/recipe.html:92
+#: main/config/RecipeConfig.py:18 templates/panel/recipe.html:97
 msgid "Cook:"
 msgstr "Temps de cuisson&#8239;:"
 
-#: main/config/RecipeConfig.py:19 templates/panel/recipe.html:79
+#: main/config/RecipeConfig.py:19 templates/panel/recipe.html:81
 msgid "Break:"
 msgstr "Temps de repos&#8239;:"
 
@@ -119,89 +119,89 @@ msgid "Categories"
 msgstr "Catégories"
 
 #. Translators : recipe fields
-#: main/models/Recipe.py:15
+#: main/models/Recipe.py:16
 msgid "title"
 msgstr "titre"
 
-#: main/models/Recipe.py:16
+#: main/models/Recipe.py:17
 msgid "description"
 msgstr "description"
 
-#: main/models/Recipe.py:17
+#: main/models/Recipe.py:18
 msgid "prep time"
 msgstr "temps de préparation"
 
-#: main/models/Recipe.py:18
+#: main/models/Recipe.py:19
 msgid "break time"
 msgstr "temps de repos"
 
-#: main/models/Recipe.py:20
+#: main/models/Recipe.py:21
 msgid "cook time"
 msgstr "temps de cuisson"
 
-#: main/models/Recipe.py:21
+#: main/models/Recipe.py:22
 msgid "Picture file"
 msgstr "fichier d'illustration"
 
-#: main/models/Recipe.py:23
+#: main/models/Recipe.py:24
 msgid "number of people"
 msgstr "nombre de personnes"
 
-#: main/models/Recipe.py:24
+#: main/models/Recipe.py:25
 msgid "max number of people"
 msgstr "nombre de personnes max"
 
-#: main/models/Recipe.py:27
+#: main/models/Recipe.py:28
 msgid "precision"
 msgstr "précision"
 
-#: main/models/Recipe.py:29
+#: main/models/Recipe.py:30
 msgid "publication date"
 msgstr "date de publication"
 
-#: main/models/Recipe.py:30
+#: main/models/Recipe.py:31
 msgid "last modification"
 msgstr "dernière modification"
 
 #. Translators: author url
-#: main/models/Recipe.py:31 templates/website/recipe.html:6
+#: main/models/Recipe.py:32 templates/website/recipe.html:6
 #: templates/website/recipe.html:26 templates/website/recipe.html:39
 msgid "author"
 msgstr "auteur"
 
-#: main/models/Recipe.py:32
+#: main/models/Recipe.py:33
 msgid "category"
 msgstr "catégorie"
 
-#: main/models/Recipe.py:34
+#: main/models/Recipe.py:35
 msgid "equipment"
 msgstr "Matériel nécessaire"
 
-#: main/models/Recipe.py:35
+#: main/models/Recipe.py:36
 msgid "excerpt"
 msgstr "résumé"
 
-#: main/models/Recipe.py:36
+#: main/models/Recipe.py:37
 msgid "enable comments"
 msgstr "activer les commentaires"
 
-#: main/models/Recipe.py:37
+#: main/models/Recipe.py:38
 msgid "published"
 msgstr "publié"
 
-#: main/models/Recipe.py:38 panel/urls.py:22 panel/urls.py:24
+#: main/models/Recipe.py:39 panel/urls.py:22 panel/urls.py:24
 msgid "trash"
 msgstr "corbeille"
 
-#: main/models/Recipe.py:39
+#: main/models/Recipe.py:40
 msgid "slug"
 msgstr "slug"
 
-#: main/models/Recipe.py:56 templates/panel/recipe.html:16
+#: main/models/Recipe.py:57 templates/panel/recipe.html:16
 msgid "Recipe"
 msgstr "Recette"
 
-#: main/models/Recipe.py:57 templates/panel/index.html:23
+#: main/models/Recipe.py:58 templates/panel/index.html:23
 #: templates/panel/recipe.html:20 templates/panel/recipes.html:16
 #: templates/panel/recipes.html:20 templates/panel/sidebar.html:30
 msgid "Recipes"
@@ -228,12 +228,12 @@ msgctxt "url"
 msgid "published"
 msgstr "publie"
 
-#: panel/views/IndexView.py:34 panel/views/RecipesView.py:110
+#: panel/views/IndexView.py:37 panel/views/RecipesView.py:113
 #: templates/website/header.html:20
 msgid "User panel"
 msgstr "Panel utilisateur"
 
-#: panel/views/RecipeView.py:34
+#: panel/views/RecipeView.py:37
 msgid "Edit"
 msgstr "Éditer"
 
@@ -304,50 +304,58 @@ msgstr "Titre"
 msgid "Slug"
 msgstr "Permalien"
 
-#: templates/panel/recipe.html:72 templates/panel/recipe.html:85
-#: templates/panel/recipe.html:96
+#: templates/panel/recipe.html:73 templates/panel/recipe.html:89
+#: templates/panel/recipe.html:102
 msgid "hours"
 msgstr "heures"
 
-#: templates/panel/recipe.html:74 templates/panel/recipe.html:87
-#: templates/panel/recipe.html:98
+#: templates/panel/recipe.html:76 templates/panel/recipe.html:92
+#: templates/panel/recipe.html:105
 msgid "minutes"
 msgstr "minutes"
 
-#: templates/panel/recipe.html:83
+#: templates/panel/recipe.html:86
 msgid "days"
 msgstr "jours"
 
-#: templates/panel/recipe.html:103
+#: templates/panel/recipe.html:110
 msgid "Description"
 msgstr "Description"
 
-#: templates/panel/recipe.html:111
+#: templates/panel/recipe.html:118
 msgid "Publication date"
 msgstr "Date de publication"
 
-#: templates/panel/recipe.html:124
+#: templates/panel/recipe.html:131
 msgid "Status"
 msgstr "Statut"
 
-#: templates/panel/recipe.html:128
+#: templates/panel/recipe.html:135
 msgctxt "singular"
 msgid "Published"
 msgstr "Publié"
 
-#: templates/panel/recipe.html:129 templates/panel/recipes.html:154
+#: templates/panel/recipe.html:136 templates/panel/recipes.html:154
 msgid "Draft"
 msgstr "Brouillon"
 
-#: templates/panel/recipe.html:136
+#: templates/panel/recipe.html:143
+msgid "Save"
+msgstr "Enregistrer"
+
+#: templates/panel/recipe.html:144
+msgid "Cancel"
+msgstr "Annuler"
+
+#: templates/panel/recipe.html:147
 msgid "Want to edit the full recipe? Please use the"
 msgstr "Vous souhaitez éditer la recette complète ? Veuillez utiliser le"
 
-#: templates/panel/recipe.html:137
+#: templates/panel/recipe.html:148
 msgid "QRecipeWriter software"
 msgstr "logiciel QRecipeWriter"
 
-#: templates/panel/recipe.html:138
+#: templates/panel/recipe.html:149
 msgid "(available for Windows and Linux)"
 msgstr "(disponible pour Windows et Linux)"
 
@@ -604,7 +612,7 @@ msgstr "header-categories-fr.png"
 
 #. Translators: category url
 #: templates/website/sidebar.html:11 website/urls.py:15 website/urls.py:16
-#: website/views/RecipeView.py:84
+#: website/views/RecipeView.py:87
 msgctxt "category url"
 msgid "category"
 msgstr "categorie"
@@ -634,7 +642,7 @@ msgctxt "author url"
 msgid "author"
 msgstr "auteur"
 
-#: website/views/IndexView.py:50
+#: website/views/IndexView.py:53
 msgid "Author:"
 msgstr "Auteur :"
 
