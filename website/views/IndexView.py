@@ -46,18 +46,18 @@ class IndexView(TemplateView):
             dat["page_view_name"] = "website_category_page"
             dat["archive_header"] = Category.objects.get(url=self.kwargs["cat"]).name
             dat["additional_kwargs"] = {"cat": self.kwargs["cat"]}
-            recipes = Recipe.objects.filter(category__url=self.kwargs["cat"]).order_by("-pub_date")
+            recipes = Recipe.objects.filter(category__url=self.kwargs["cat"])
         elif "author" in self.kwargs:
             dat["in_archive"] = True
             dat["page_view_name"] = "website_author_page"
             dat["archive_header"] = _("Author:") + " " + \
                 UserProfile.objects.get(url=self.kwargs["author"]).user.first_name
             dat["additional_kwargs"] = {"author": self.kwargs["author"]}
-            recipes = Recipe.objects.filter(author__url=self.kwargs["author"]).order_by("-pub_date")
+            recipes = Recipe.objects.filter(author__url=self.kwargs["author"])
         else:
-            recipes = Recipe.objects.all().order_by("-pub_date")
+            recipes = Recipe.objects.all()
 
-        recipes =recipes.filter(published=True)
+        recipes =recipes.filter(published=True).order_by("-pub_date")
 
         paginator = Paginator(recipes, POSTS_PER_PAGE)
         try:
