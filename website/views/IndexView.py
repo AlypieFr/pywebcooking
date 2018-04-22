@@ -53,9 +53,11 @@ class IndexView(TemplateView):
             dat["archive_header"] = _("Author:") + " " + \
                 UserProfile.objects.get(url=self.kwargs["author"]).user.first_name
             dat["additional_kwargs"] = {"author": self.kwargs["author"]}
-            recipes = Recipe.objects.filter(author__url=self.kwargs["author"])
+            recipes = Recipe.objects.filter(author__url=self.kwargs["author"]).order_by("-pub_date")
         else:
             recipes = Recipe.objects.all().order_by("-pub_date")
+
+        recipes =recipes.filter(published=True)
 
         paginator = Paginator(recipes, POSTS_PER_PAGE)
         try:
