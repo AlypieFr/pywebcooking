@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-07 19:17+0100\n"
-"PO-Revision-Date: 2018-01-07 19:18+0100\n"
+"POT-Creation-Date: 2018-04-22 16:05+0200\n"
+"PO-Revision-Date: 2018-04-22 16:05+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -35,8 +35,8 @@ msgid "Unexpected error: "
 msgstr "Erreur inattendue :"
 
 #. Translators: recipe is the parent tag of a recipe
-#: api/views/RecipeById.py:49 api/views/RecipeList.py:39 panel/urls.py:47
-#: templates/website/index.html:18 website/urls.py:22
+#: api/views/RecipeById.py:49 api/views/RecipeList.py:39 panel/urls.py:50
+#: templates/website/index.html:18 website/urls.py:25
 msgid "recipe"
 msgstr "recette"
 
@@ -83,15 +83,15 @@ msgstr "Préparation&#8239;:"
 msgid "Proposals:"
 msgstr "Conseils&#8239;:"
 
-#: main/config/RecipeConfig.py:17 templates/panel/recipe.html:68
+#: main/config/RecipeConfig.py:17
 msgid "Prep:"
 msgstr "Temps de préparation&#8239;:"
 
-#: main/config/RecipeConfig.py:18 templates/panel/recipe.html:92
+#: main/config/RecipeConfig.py:18
 msgid "Cook:"
 msgstr "Temps de cuisson&#8239;:"
 
-#: main/config/RecipeConfig.py:19 templates/panel/recipe.html:79
+#: main/config/RecipeConfig.py:19
 msgid "Break:"
 msgstr "Temps de repos&#8239;:"
 
@@ -112,7 +112,7 @@ msgstr "ordre"
 msgid "Category"
 msgstr "Catégorie"
 
-#: main/models/Category.py:16 templates/panel/recipe.html:52
+#: main/models/Category.py:16 panel/forms.py:23 templates/panel/recipe.html:52
 #: templates/panel/recipes.html:93 templates/panel/recipes.html:176
 #: templates/panel/sidebar.html:31 templates/website/sidebar.html:9
 msgid "Categories"
@@ -189,7 +189,7 @@ msgstr "activer les commentaires"
 msgid "published"
 msgstr "publié"
 
-#: main/models/Recipe.py:39 panel/urls.py:22 panel/urls.py:24
+#: main/models/Recipe.py:39 panel/urls.py:25 panel/urls.py:27
 msgid "trash"
 msgstr "corbeille"
 
@@ -207,23 +207,60 @@ msgstr "Recette"
 msgid "Recipes"
 msgstr "Recettes"
 
-#: panel/urls.py:18 panel/urls.py:19 panel/urls.py:22 panel/urls.py:24
-#: panel/urls.py:28 panel/urls.py:30 panel/urls.py:34 panel/urls.py:36
-#: panel/urls.py:40
+#: panel/forms.py:20 templates/panel/recipes.html:87
+#: templates/panel/recipes.html:170
+msgid "Title"
+msgstr "Titre"
+
+#: panel/forms.py:21
+msgid "Slug"
+msgstr "Permalien"
+
+#: panel/forms.py:27 panel/forms.py:30 panel/forms.py:32
+msgid "hours"
+msgstr "heures"
+
+#: panel/forms.py:28 panel/forms.py:31 panel/forms.py:33
+msgid "minutes"
+msgstr "minutes"
+
+#: panel/forms.py:29
+msgid "days"
+msgstr "jours"
+
+#: panel/forms.py:34
+msgid "Description"
+msgstr "Description"
+
+#: panel/forms.py:35
+msgid "Publication date"
+msgstr "Date de publication"
+
+#: panel/forms.py:38
+msgid "Status"
+msgstr "Statut"
+
+#: panel/forms.py:39 templates/panel/recipes.html:154
+msgid "Draft"
+msgstr "Brouillon"
+
+#: panel/urls.py:21 panel/urls.py:22 panel/urls.py:25 panel/urls.py:27
+#: panel/urls.py:31 panel/urls.py:33 panel/urls.py:37 panel/urls.py:39
+#: panel/urls.py:43
 msgid "recipes"
 msgstr "recettes"
 
-#: panel/urls.py:19 panel/urls.py:24 panel/urls.py:30 panel/urls.py:36
-#: website/urls.py:14 website/urls.py:16 website/urls.py:19
+#: panel/urls.py:22 panel/urls.py:27 panel/urls.py:33 panel/urls.py:39
+#: website/urls.py:17 website/urls.py:19 website/urls.py:22
 msgid "page"
 msgstr "page"
 
-#: panel/urls.py:28 panel/urls.py:30
+#: panel/urls.py:31 panel/urls.py:33
 msgctxt "url"
 msgid "mine"
 msgstr "moi"
 
-#: panel/urls.py:34 panel/urls.py:36
+#: panel/urls.py:37 panel/urls.py:39
 msgctxt "url"
 msgid "published"
 msgstr "publie"
@@ -233,7 +270,7 @@ msgstr "publie"
 msgid "User panel"
 msgstr "Panel utilisateur"
 
-#: panel/views/RecipeView.py:37
+#: panel/views/RecipeView.py:56
 msgid "Edit"
 msgstr "Éditer"
 
@@ -295,71 +332,39 @@ msgstr "Derniers commentaires"
 msgid "Show recipe"
 msgstr "Afficher la recette"
 
-#: templates/panel/recipe.html:36 templates/panel/recipes.html:87
-#: templates/panel/recipes.html:170
-msgid "Title"
-msgstr "Titre"
+#: templates/panel/recipe.html:66
+msgid "Prep"
+msgstr "Temps de préparation"
 
-#: templates/panel/recipe.html:44
-msgid "Slug"
-msgstr "Permalien"
+#: templates/panel/recipe.html:75
+msgid "Break"
+msgstr "Temps de repos"
 
-#: templates/panel/recipe.html:72 templates/panel/recipe.html:85
-#: templates/panel/recipe.html:96
-msgid "hours"
-msgstr "heures"
+#: templates/panel/recipe.html:85
+msgid "Cook"
+msgstr "Temps de cuisson"
 
-#: templates/panel/recipe.html:74 templates/panel/recipe.html:87
-#: templates/panel/recipe.html:98
-msgid "minutes"
-msgstr "minutes"
-
-#: templates/panel/recipe.html:83
-msgid "days"
-msgstr "jours"
-
-#: templates/panel/recipe.html:103
-msgid "Description"
-msgstr "Description"
-
-#: templates/panel/recipe.html:111
-msgid "Publication date"
-msgstr "Date de publication"
-
-#: templates/panel/recipe.html:124
-msgid "Status"
-msgstr "Statut"
-
-#: templates/panel/recipe.html:128
-msgctxt "singular"
-msgid "Published"
-msgstr "Publié"
-
-#: templates/panel/recipe.html:129 templates/panel/recipes.html:154
-msgid "Draft"
-msgstr "Brouillon"
-
-#: templates/panel/recipe.html:135
+#: templates/panel/recipe.html:123
 msgid "Save & Quit"
 msgstr "Enregistrer & Quitter"
 
-#: templates/panel/recipe.html:136
+#: templates/panel/recipe.html:124
 msgid "Save"
 msgstr "Enregistrer"
 
-#: templates/panel/recipe.html:137
+#: templates/panel/recipe.html:125
 msgid "Cancel"
 msgstr "Annuler"
 
-#: templates/panel/recipe.html:139
+#: templates/panel/recipe.html:127
 msgid "Want to edit the full recipe? Please use the"
 msgstr "Vous souhaitez éditer la recette complète ? Veuillez utiliser le"
 
-#: templates/panel/recipe.html:140
+#: templates/panel/recipe.html:128
 msgid "QRecipeWriter software"
 msgstr "logiciel QRecipeWriter"
 
-#: templates/panel/recipe.html:141
+#: templates/panel/recipe.html:129
 msgid "(available for Windows and Linux)"
 msgstr "(disponible pour Windows et Linux)"
 
@@ -615,8 +620,8 @@ msgid "header-categories.png"
 msgstr "header-categories-fr.png"
 
 #. Translators: category url
-#: templates/website/sidebar.html:11 website/urls.py:15 website/urls.py:16
-#: website/views/RecipeView.py:87
+#: templates/website/sidebar.html:11 website/urls.py:18 website/urls.py:19
+#: website/views/RecipeView.py:88
 msgctxt "category url"
 msgid "category"
 msgstr "categorie"
@@ -641,7 +646,7 @@ msgstr "Site web"
 msgid "Comment"
 msgstr "Commentaire"
 
-#: website/urls.py:18 website/urls.py:19
+#: website/urls.py:21 website/urls.py:22
 msgctxt "author url"
 msgid "author"
 msgstr "auteur"
@@ -649,6 +654,10 @@ msgstr "auteur"
 #: website/views/IndexView.py:53
 msgid "Author:"
 msgstr "Auteur :"
+
+#~ msgctxt "singular"
+#~ msgid "Published"
+#~ msgstr "Publié"
 
 #~ msgid "Online"
 #~ msgstr "En ligne"

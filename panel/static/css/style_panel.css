@@ -197,13 +197,19 @@ form#recipe-form textarea {
     resize: vertical;
 }
 
-form#recipe-form label.category {
+form#recipe-form div.categories label {
     font-weight: normal;
 }
 
-form#recipe-form input.time-details {
+form#recipe-form td.time input {
     width: 100px;
     display: inline-block;
+}
+
+form#recipe-form td.time label {
+    min-width: 60px;
+    text-align: center;
+    font-weight: normal;
 }
 
 form#recipe-form span.label-time {
