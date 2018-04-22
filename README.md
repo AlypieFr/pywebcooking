@@ -23,4 +23,4 @@ Optionnal requirements:
 - tinify python module (to optimize pictures)
 
 Still in development state, contact us for more informations:
-https://www.flo-art.fr/#!p=contact
+https://www.flo-art.fr/contact
