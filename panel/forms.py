@@ -1,5 +1,6 @@
 from django import forms
 from django.utils.translation import ugettext as _, pgettext as __
+from django.db.utils import OperationalError
 from main.models.Category import Category
 
 
@@ -19,11 +20,18 @@ class BaseForm(forms.Form):
 class RecipeForm(BaseForm):
     title = forms.CharField(label=_('Title'), max_length=255, required=True)
     slug = forms.CharField(label=_("Slug"), max_length=255, required=True)
-    categories = forms.MultipleChoiceField(
-        label=_('Categories'),
-        choices=[(cat.id, cat.name) for cat in Category.objects.order_by('order')],
-        widget=forms.CheckboxSelectMultiple
-    )
+    try:
+        categories = forms.MultipleChoiceField(
+            label=_('Categories'),
+            choices=[(cat.id, cat.name) for cat in Category.objects.order_by('order')],
+            widget=forms.CheckboxSelectMultiple
+        )
+    except OperationalError:
+        categories = forms.MultipleChoiceField(
+            label=_('Categories'),
+            choices=[],
+            widget=forms.CheckboxSelectMultiple
+        )
     tps_prep_hr = forms.IntegerField(label=_("hours"), min_value=0)
     tps_prep_min = forms.IntegerField(label=_("minutes"), min_value=0, max_value=59, required=True)
     tps_break_j = forms.IntegerField(label=_("days"), min_value=0)
