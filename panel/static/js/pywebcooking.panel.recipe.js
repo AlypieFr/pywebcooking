@@ -24,17 +24,32 @@ pywebcooking.panel.recipe.init_events = function (lang) {
     });
 
     // Save & quit:
+    $("form#recipe-form input[type=button]#save-and-quit").click(function() {
+        pywebcooking.panel.recipe.save(true);
+    });
 
     // Save:
+    $("form#recipe-form input[type=button]#save").click(function() {
+        pywebcooking.panel.recipe.save(false);
+    });
 
     // Cancel:
     $("form#recipe-form input[type=button]#cancel").click(pywebcooking.panel.recipe.exit);
 };
 
 pywebcooking.panel.recipe.exit = function () {
-    window.location.href = "/panel/" + django.gettext("recipes")
+    window.location.href = "/panel/" + django.gettext("recipes");
 };
 
 pywebcooking.panel.recipe.save = function(exit=true) {
-
+    if ($("#recipe-form").validate()) {
+        $.ajax({
+            url: window.location.href,
+            type: "post",
+            data: $("#recipe-form").serialize(),
+            success: function (data) {
+                console.log(data);
+            }
+        });
+    }
 };

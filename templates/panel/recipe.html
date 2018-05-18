@@ -5,6 +5,7 @@
 {% block scripts %}
     {{ block.super }}
     <script src="{% static 'js/pywebcooking.panel.recipe.js' %}" defer></script>
+    <script src="{% static 'js/jquery.validate.min.js' %}" defer></script>
 {% endblock %}
 {% block onload %}
     {{ block.super }}
@@ -29,6 +30,7 @@
             <a href="{% url "website_recipe" slug=recipe.slug %}" target="show-recipe" class="show-recipe">{% trans "Show recipe" %}</a>
         </div>
         <form id="recipe-form" action="">
+            {% csrf_token %}
             <table>
                 <tbody>
                 <tr>

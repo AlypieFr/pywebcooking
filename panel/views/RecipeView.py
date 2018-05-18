@@ -1,5 +1,6 @@
 from django.views.generic import View
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from pywebcooking import settings
 
 from main.models.Recipe import Recipe
@@ -54,3 +55,9 @@ class RecipeView(View):
             "form": form
         }
         return render(request, 'panel/recipe.html', context)
+
+    def post(self, request, slug):
+        print(request, slug)
+        return JsonResponse({
+            "success": True
+        })

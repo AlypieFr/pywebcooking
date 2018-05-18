@@ -24,13 +24,15 @@ class RecipeForm(BaseForm):
         categories = forms.MultipleChoiceField(
             label=_('Categories'),
             choices=[(cat.id, cat.name) for cat in Category.objects.order_by('order')],
-            widget=forms.CheckboxSelectMultiple
+            widget=forms.CheckboxSelectMultiple,
+            required=True
         )
     except OperationalError:
         categories = forms.MultipleChoiceField(
             label=_('Categories'),
             choices=[],
-            widget=forms.CheckboxSelectMultiple
+            widget=forms.CheckboxSelectMultiple,
+            required=True
         )
     tps_prep_hr = forms.IntegerField(label=_("hours"), min_value=0)
     tps_prep_min = forms.IntegerField(label=_("minutes"), min_value=0, max_value=59, required=True)
@@ -38,12 +40,13 @@ class RecipeForm(BaseForm):
     tps_break_hr = forms.IntegerField(label=_("hours"), min_value=0, max_value=23)
     tps_break_min = forms.IntegerField(label=_("minutes"), min_value=0, max_value=59)
     tps_cook_hr = forms.IntegerField(label=_("hours"), min_value=0)
-    tps_cook_min = forms.IntegerField(label=_("minutes"), min_value=0, max_value=59, required=True)
-    description = forms.CharField(label=_("Description"), widget=forms.Textarea())
+    tps_cook_min = forms.IntegerField(label=_("minutes"), min_value=0, max_value=59)
+    description = forms.CharField(label=_("Description"), widget=forms.Textarea(), required=True)
     pub_date = forms.CharField(label=_("Publication date"),
-                               widget=forms.TextInput(attrs={"class": "datemask datepicker"}))
+                               widget=forms.TextInput(attrs={"class": "datemask datepicker"}), required=True)
     status = forms.MultipleChoiceField(
         label=_('Status'),
         choices=[(1, __("singular", "Published")), (0, _("Draft"))],
-        widget=forms.Select
+        widget=forms.Select,
+        required=True
     )
