@@ -4,6 +4,8 @@ A web server CMS to propulse a cooking website or blog.
 
 Written in Python3, using Django
 
+We recommend using of Python >= 3.5
+
 Install requirements:
 - pip3 install django==1.11.*
 - pip3 install django-copyright
