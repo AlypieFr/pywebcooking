@@ -26,3 +26,5 @@ Optionnal requirements:
 
 Still in development state, contact us for more informations:
 https://www.flo-art.fr/contact
+
+Distributed into GNU GPL v3 licence.
