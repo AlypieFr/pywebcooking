@@ -23,14 +23,16 @@ class IndexView(TemplateView):
     site_name = SITE_NAME
 
     user = None
+    data = None
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         c = super(IndexView, self).get_context_data(**kwargs)
         self.user = self.request.user
+        self.data = self.load_data()
         return c
 
-    def data(self):
+    def load_data(self):
         categories = GenericView.categories()
         config = GenericView.config
         dat = {"in_archive": False, "page_view_name": "website_index_page", "additional_kwargs": {}, "categories": categories,

@@ -22,14 +22,18 @@ class RecipeView(TemplateView):
     site_name = SITE_NAME
 
     user = None
+    data = None
+    recipe = None
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         c = super(RecipeView, self).get_context_data(**kwargs)
         self.user = self.request.user
+        self.data = self.load_data()
+        self.recipe = self.load_recipe()
         return c
 
-    def data(self):
+    def load_data(self):
         categories = GenericView.categories()
         config = GenericView.config
         dat = {"categories": categories, "config": config, "user": self.user if self.user.is_authenticated else None}
@@ -60,7 +64,7 @@ class RecipeView(TemplateView):
                 return redirect(base_url + "?captcha-error&" + urllib.parse.urlencode(form.data) + "#post-comment")
             return redirect(base_url + "?error#post-comment", args=form.data)
 
-    def recipe(self):
+    def load_recipe(self):
         data = {"authenticated": False}
         if self.request.user.is_authenticated():
             if "text" in self.request.GET.keys():
